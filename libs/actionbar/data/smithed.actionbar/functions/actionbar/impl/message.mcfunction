@@ -1,4 +1,4 @@
-#> @public
+# @public
 
 # smithed.actionbar:input message
 # 	raw or json
