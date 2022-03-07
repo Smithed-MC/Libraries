@@ -1,6 +1,6 @@
 name: Smithed Actionbar
 description: Library to help with actionbar compatibility
-author: rx97
+author: Smithed Council
 version: '0.0.1'
 
 data_pack:
@@ -13,10 +13,6 @@ data_pack:
 
 output: out
 
-require:
-  - ..plugins.versioning
-  - beet.contrib.dundervar
-
 pipeline:
   - mecha
 
@@ -24,5 +20,5 @@ meta:
   mecha:
     keep_comments: true
   versioning:
-    key: '#smithed.actionbar'
-    root: smithed:actionbar
+    scoreholder: '#smithed.actionbar'
+    namespace: smithed:actionbar

@@ -1,4 +1,5 @@
 {
+	"__public__": true,
 	"criteria": {
 		"generic": {
 			"trigger": "minecraft:entity_hurt_player",

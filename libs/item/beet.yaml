@@ -1,30 +1,24 @@
-name: Smithed Damage 
-description: Native Damage Library for Smithed
+name: Smithed Item 
+description: Native Item Library for Smithed
 author: Smithed Council
-version: '0.0.4'
+version: '0.0.1'
 
 data_pack:
-  name: Smithed Damage
+  name: Smithed Item
   load:
     - datapack
   render:
     functions:
-      - smithed.damage:*
+      - smithed.item:*
 
 output: out
 
-require:
-  - plugins.versioning
-  - beet.contrib.dundervar
-  # - beet.contrib.dbg
-
 pipeline:
   - mecha
-  - ../plugins/versioning
 
 meta:
   mecha:
     keep_comments: true
   versioning:
-    key: '#smithed.damage'
-    root: smithed.damage
+    scoreholder: '#smithed.item'
+    namespace: smithed.item

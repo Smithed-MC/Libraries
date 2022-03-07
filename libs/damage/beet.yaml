@@ -14,17 +14,14 @@ data_pack:
 output: out
 
 require:
-  - plugins.versioning
   - beet.contrib.dundervar
-  # - beet.contrib.dbg
 
 pipeline:
   - mecha
-  - ../plugins/versioning
 
 meta:
   mecha:
     keep_comments: true
   versioning:
-    key: '#smithed.damage'
-    root: smithed.damage
+    scoreholder: '#smithed.damage'
+    namespace: smithed.damage

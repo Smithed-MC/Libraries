@@ -1,10 +1,10 @@
 name: Smithed Custom Block 
 description: Native Custom Block Library for Smithed
 author: Smithed Council
-version: '0.0.4'
+version: '0.0.1'
 
 data_pack:
-  name: Smithed Damge
+  name: Smithed Custom Block
   load:
     - datapack
   render:
@@ -13,14 +13,11 @@ data_pack:
 
 output: out
 
-require:
-  - plugins.versioning
-  - beet.contrib.dundervar
-  # - beet.contrib.dbg
+# require:
+#   - beet.contrib.dbg
 
 pipeline:
   - mecha
-  - ../plugins/versioning
 
 meta:
   mecha:

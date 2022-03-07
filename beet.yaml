@@ -1,1 +1,1 @@
-pipeline: [plugins/build]
+pipeline: [build]
