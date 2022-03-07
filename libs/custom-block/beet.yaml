@@ -6,7 +6,7 @@ version: '0.0.1'
 data_pack:
   name: Smithed Custom Block
   load:
-    - datapack
+    - data
   render:
     functions:
       - smithed.custom_block:*
@@ -21,7 +21,7 @@ pipeline:
 
 meta:
   mecha:
-    keep_comments: true
+    formatting: preserve
   versioning:
     scoreholder: '#smithed.custom_block'
     namespace: smithed.custom_block

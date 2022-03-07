@@ -18,12 +18,12 @@ resource_pack:
 
 output: out
 
-require:
+pipeline:
   - mecha
 
 meta:
   mecha:
-    keep_comments: true
+    formatting: preserve
   versioning:
     scoreholder: '#smithed.crafter'
     namespace: smithed:crafter

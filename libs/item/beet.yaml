@@ -6,7 +6,7 @@ version: '0.0.1'
 data_pack:
   name: Smithed Item
   load:
-    - datapack
+    - data
   render:
     functions:
       - smithed.item:*
@@ -18,7 +18,7 @@ pipeline:
 
 meta:
   mecha:
-    keep_comments: true
+    formatting: preserve
   versioning:
     scoreholder: '#smithed.item'
     namespace: smithed.item

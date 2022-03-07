@@ -1,4 +1,5 @@
 {
+    "__public__": true,
     "criteria": {
       "requirement": {
         "trigger": "minecraft:placed_block",
@@ -15,7 +16,7 @@
       }
     },
     "rewards": {
-      "function": "smithed.damage:zint/place_custom_block"
+      "function": "smithed.custom_block:calls/__version__/event/on_place"
     }
   }
   

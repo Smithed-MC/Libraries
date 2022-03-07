@@ -6,22 +6,19 @@ version: '0.0.4'
 data_pack:
   name: Smithed Damage
   load:
-    - datapack
+    - data
   render:
     functions:
       - smithed.damage:*
 
 output: out
 
-require:
-  - beet.contrib.dundervar
-
 pipeline:
   - mecha
 
 meta:
   mecha:
-    keep_comments: true
+    formatting: preserve
   versioning:
     scoreholder: '#smithed.damage'
     namespace: smithed.damage

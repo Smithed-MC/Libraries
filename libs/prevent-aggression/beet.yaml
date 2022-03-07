@@ -6,7 +6,7 @@ version: '0.0.1'
 data_pack:
   name: Smithed Prevent Aggression
   load:
-    - datapack
+    - data
   render:
     functions:
       - smithed:*
@@ -21,7 +21,7 @@ pipeline:
 
 meta:
   mecha:
-    keep_comments: true
+    formatting: preserve
   versioning:
     scoreholder: '#smithed.prevent_aggression'
     namespace: smithed:prevent_aggression
