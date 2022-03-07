@@ -1,0 +1,32 @@
+name: Smithed Crafter
+description: Native Library for Smithed
+author: TheNuclearNexus
+version: '0.0.2'
+
+data_pack:
+  name: Smithed Crafter
+  load:
+    - data
+  render:
+    functions:
+      - smithed:*
+      
+resource_pack:
+  name: Smithed Crafter RP
+  load:
+    - assets
+
+output: out
+
+require:
+  - plugins.versioning
+  - beet.contrib.dundervar
+  - mecha
+
+
+meta:
+  mecha:
+    keep_comments: true
+  versioning:
+    key: '#smithed.crafter'
+    root: smithed:crafter

@@ -1,0 +1,30 @@
+name: Smithed Custom Block 
+description: Native Custom Block Library for Smithed
+author: Smithed Council
+version: '0.0.4'
+
+data_pack:
+  name: Smithed Damge
+  load:
+    - datapack
+  render:
+    functions:
+      - smithed.custom_block:*
+
+output: out
+
+require:
+  - plugins.versioning
+  - beet.contrib.dundervar
+  # - beet.contrib.dbg
+
+pipeline:
+  - mecha
+  - ../plugins/versioning
+
+meta:
+  mecha:
+    keep_comments: true
+  versioning:
+    scoreholder: '#smithed.custom_block'
+    namespace: smithed.custom_block

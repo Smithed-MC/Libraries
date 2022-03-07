@@ -1,0 +1,16 @@
+{
+    "condition": "minecraft:entity_properties",
+    "entity": "this",
+    "predicate": {
+      "equipment": {
+        "mainhand": {
+          "items": [
+            "minecraft:quartz_pillar",
+            "minecraft:quartz_block",
+            "minecraft:chiseled_quartz_block"
+          ]
+        }
+      }
+    }
+  }
+  

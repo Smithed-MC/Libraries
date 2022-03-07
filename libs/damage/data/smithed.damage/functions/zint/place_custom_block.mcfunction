@@ -1,0 +1,1 @@
+function #smithed.damage:pub/block/api/place_block

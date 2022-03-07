@@ -1,0 +1,1 @@
+function #smithed.custom_block:place

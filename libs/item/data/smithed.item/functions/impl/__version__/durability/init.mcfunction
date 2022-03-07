@@ -1,0 +1,2 @@
+data modify storage smithed.damage: item.tag.smithed.durability.dur set from storage smithed.damage: item.tag.smithed.durability.max
+data modify storage smithed.damage: item.tag.smithed.durability.damage set value 0

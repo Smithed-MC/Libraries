@@ -1,0 +1,30 @@
+name: Smithed Prevent Aggression
+description: Stop mobs from targetting your custom mobs
+author: TheNuclearNexus
+version: '0.0.1'
+
+data_pack:
+  name: Smithed Prevent Aggression
+  load:
+    - datapack
+  render:
+    functions:
+      - smithed:*
+
+output: out
+
+require:
+  - ..plugins.versioning
+  - beet.contrib.dundervar
+  - mecha.contrib.bolt
+
+pipeline:
+  - plugins.versioning
+  - mecha
+
+meta:
+  mecha:
+    keep_comments: true
+  versioning:
+    key: '#smithed.prevent_aggression'
+    root: smithed:prevent_aggression

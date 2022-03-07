@@ -1,0 +1,7 @@
+.beet_cache
+.vscode
+out
+__pycache__
+.DS_Store
+pack.mcmeta
+dist/

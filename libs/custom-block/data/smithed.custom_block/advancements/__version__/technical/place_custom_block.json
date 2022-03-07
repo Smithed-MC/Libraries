@@ -1,0 +1,21 @@
+{
+    "criteria": {
+      "requirement": {
+        "trigger": "minecraft:placed_block",
+        "conditions": {
+          "item": {
+            "nbt": "{BlockEntityTag:{Items:[{tag:{smithed:{block:{}}}}]}}"
+          },
+          "location": {
+            "block": {
+              "tag": "smithed.damage:placeable"
+            }
+          }
+        }
+      }
+    },
+    "rewards": {
+      "function": "smithed.damage:zint/place_custom_block"
+    }
+  }
+  

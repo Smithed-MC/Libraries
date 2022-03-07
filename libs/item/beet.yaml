@@ -1,0 +1,30 @@
+name: Smithed Damage 
+description: Native Damage Library for Smithed
+author: Smithed Council
+version: '0.0.4'
+
+data_pack:
+  name: Smithed Damage
+  load:
+    - datapack
+  render:
+    functions:
+      - smithed.damage:*
+
+output: out
+
+require:
+  - plugins.versioning
+  - beet.contrib.dundervar
+  # - beet.contrib.dbg
+
+pipeline:
+  - mecha
+  - ../plugins/versioning
+
+meta:
+  mecha:
+    keep_comments: true
+  versioning:
+    key: '#smithed.damage'
+    root: smithed.damage
