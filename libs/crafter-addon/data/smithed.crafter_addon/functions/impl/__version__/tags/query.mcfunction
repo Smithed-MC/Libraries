@@ -1,0 +1,8 @@
+execute if predicate smithed.crafter_addon:recipes/purpur_decoration run data modify storage smithed.crafter:main root.temp.item_tag append value "#smithed:purpur_decoration"
+execute if predicate smithed.crafter_addon:recipes/quartz_decoration run data modify storage smithed.crafter:main root.temp.item_tag append value "#smithed:quartz_decoration"
+execute if predicate smithed.crafter_addon:recipes/red_sandstone run data modify storage smithed.crafter:main root.temp.item_tag append value "#smithed:red_sandstone"
+execute if predicate smithed.crafter_addon:recipes/red_sandstone_and_cut run data modify storage smithed.crafter:main root.temp.item_tag append value "#smithed:red_sandstone_and_cut"
+execute if predicate smithed.crafter_addon:recipes/sandstone run data modify storage smithed.crafter:main root.temp.item_tag append value "#smithed:sandstone"
+execute if predicate smithed.crafter_addon:recipes/sandstone_and_cut run data modify storage smithed.crafter:main root.temp.item_tag append value "#smithed:sandstone_and_cut"
+execute if predicate smithed.crafter_addon:recipes/coal_charcoal run data modify storage smithed.crafter:main root.temp.item_tag append value "#smithed:coal_charcoal"
+execute if predicate smithed.crafter_addon:recipes/sand_and_red_sand run data modify storage smithed.crafter:main root.temp.item_tag append value "#smithed:sand_and_red_sand"

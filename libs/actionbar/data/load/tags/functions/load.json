@@ -1,5 +1,5 @@
 {
     "values": [
-        "#smithed:actionbar/technical/load"
+        "#smithed.actionbar:technical/load"
     ]
 }

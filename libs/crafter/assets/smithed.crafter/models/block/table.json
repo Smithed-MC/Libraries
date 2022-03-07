@@ -1,0 +1,18 @@
+{
+	"parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "smithed.crafter:block/table_front",
+    "north": "smithed.crafter:block/table_front",
+    "south": "smithed.crafter:block/table_side",
+    "east": "smithed.crafter:block/table_side",
+    "west": "smithed.crafter:block/table_front",
+    "up": "smithed.crafter:block/table_top",
+    "down": "minecraft:block/piston_bottom"
+  },
+	"display": {
+		"head": {
+			"translation": [0, -30.43, 0],
+			"scale": [1.602, 1.602, 1.602]
+		}
+	}
+}

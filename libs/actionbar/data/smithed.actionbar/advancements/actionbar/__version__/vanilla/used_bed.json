@@ -57,6 +57,6 @@
     }
   },
   "rewards": {
-    "function": "smithed:actionbar/impl/__version__/vanilla/used_bed"
+    "function": "smithed.actionbar:impl/__version__/vanilla/used_bed"
   }
 }

@@ -7,10 +7,10 @@
 #  1 #reduction = max(80,  ( 8 × level ) )%
 ##################################
 
-execute store result score #helm smithed.damage run data get storage smithed.damage: temp.Inventory[{Slot:103b}].tag.Enchantments[{id:"minecraft:blast_protection"}].lvl
-execute store result score #chest smithed.damage run data get storage smithed.damage: temp.Inventory[{Slot:102b}].tag.Enchantments[{id:"minecraft:blast_protection"}].lvl
-execute store result score #legs smithed.damage run data get storage smithed.damage: temp.Inventory[{Slot:101b}].tag.Enchantments[{id:"minecraft:blast_protection"}].lvl
-execute store result score #boots smithed.damage run data get storage smithed.damage: temp.Inventory[{Slot:100b}].tag.Enchantments[{id:"minecraft:blast_protection"}].lvl
+execute store result score #helm smithed.damage run data get storage smithed.damage:main temp.Inventory[{Slot:103b}].tag.Enchantments[{id:"minecraft:blast_protection"}].lvl
+execute store result score #chest smithed.damage run data get storage smithed.damage:main temp.Inventory[{Slot:102b}].tag.Enchantments[{id:"minecraft:blast_protection"}].lvl
+execute store result score #legs smithed.damage run data get storage smithed.damage:main temp.Inventory[{Slot:101b}].tag.Enchantments[{id:"minecraft:blast_protection"}].lvl
+execute store result score #boots smithed.damage run data get storage smithed.damage:main temp.Inventory[{Slot:100b}].tag.Enchantments[{id:"minecraft:blast_protection"}].lvl
 
 # 0 (add up level)
 scoreboard players operation #reduction smithed.damage = #helm smithed.damage

@@ -1,6 +1,6 @@
 # @public
 
-execute store result score $temp smithed.data run data get storage smithed.damage: item.tag.Enchantments[{id:"minecraft:unbreaking"}].lvl
+execute store result score $temp smithed.data run data get storage smithed.damage:main item.tag.Enchantments[{id:"minecraft:unbreaking"}].lvl
 
 execute if score $temp smithed.data matches 0 run function smithed.damage:impl/__version__/durability/damage/force/sub
 execute if score $temp smithed.data matches 1 if predicate smithed.damage:chance/50 run function smithed.damage:impl/__version__/durability/damage/force/sub

@@ -80,7 +80,7 @@ tags = [
 ]
 
 functionFile.write(
-    "data modify storage smithed:crafter root.temp.item_tag set value []\n\n"
+    "data modify storage smithed.crafter:main root.temp.item_tag set value []\n\n"
 )
 for f in tags:
     file = open(outputFolder + f + ".json", "w+")
@@ -97,6 +97,6 @@ for f in tags:
     file.close()
 
     functionFile.write(
-        f'execute if predicate smithed.crafter:impl/__version__/block/table/tags/{f} run data modify storage smithed:crafter root.temp.item_tag append value "#minecraft:{f}"\n'
+        f'execute if predicate smithed.crafter:impl/__version__/block/table/tags/{f} run data modify storage smithed.crafter:main root.temp.item_tag append value "#minecraft:{f}"\n'
     )
 functionFile.write(f"\nfunction #smithed.crafter:query_tags")
