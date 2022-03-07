@@ -4,7 +4,7 @@
         "predicate": {
           "custom_model_data": 4250001
         },
-        "model": "smithed:block/crafter/table"
+        "model": "smithed.crafter:block/table"
       }
     ]
   }

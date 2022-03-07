@@ -12,7 +12,7 @@ scoreboard players operation #damage smithed.damage = @s smithed.damage
 #!dbg score "#10toughness", smithed.damage
 #!dbg score "#damage", smithed.damage
 
-data modify storage smithed.damage: temp set from entity @s
+data modify storage smithed.damage:main temp set from entity @s
 
 # first armor and toughness
 function smithed.damage:impl/__version__/entity/damage/armor/toughness

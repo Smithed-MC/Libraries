@@ -22,7 +22,7 @@ data modify storage smithed.actionbar:message input set value {json:'{"text":"Yo
 Once you have the `storage` set how you like, you can run the public api function to process the message.
 
 ```mcfunction
-function #smithed:actionbar/message
+function #smithed.actionbar:message
 ```
 
 Priorities are set via specific strings.
