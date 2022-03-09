@@ -6,10 +6,10 @@ version: '0.0.1'
 data_pack:
   name: Smithed Prevent Aggression
   load:
-    - data
+    - .
   render:
     functions:
-      - smithed:*
+      - smithed.prevent_aggression:*
 
 output: out
 

@@ -6,7 +6,7 @@ version: '0.0.1'
 data_pack:
   name: Smithed Item
   load:
-    - data
+    - .
   render:
     functions:
       - smithed.item:*

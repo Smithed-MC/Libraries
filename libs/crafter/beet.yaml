@@ -6,10 +6,10 @@ version: '0.0.2'
 data_pack:
   name: Smithed Crafter
   load:
-    - data
+    - .
   render:
     functions:
-      - smithed:*
+      - smithed.crafter:*
       
 resource_pack:
   name: Smithed Crafter RP

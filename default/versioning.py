@@ -119,7 +119,12 @@ def replace_version(ctx: Context, namespace, version):
 
 
 def generate_call(
-    ctx: Context, path: str, version: str, version_parts, namespace: str, scoreholder: str
+    ctx: Context,
+    path: str,
+    version: str,
+    version_parts,
+    namespace: str,
+    scoreholder: str,
 ):
     api_path = f"#{namespace}:{path.split(version)[1][1:]}"
     call_path = path.replace("impl", "calls")
@@ -139,6 +144,7 @@ def generate_api_calls(ctx: Context, version, version_parts, namespace, scorehol
         if first_line.startswith("#") and "@public" in first_line:
             generate_call(ctx, path, version, version_parts, namespace, scoreholder)
 
+
 def resolve_advancements(ctx: Context, version, version_parts, namespace, scoreholder):
     for path in ctx.data.advancements.match("impl"):
         if (adv := ctx.data.advancements[path]).get("__public__", False):
@@ -148,6 +154,21 @@ def resolve_advancements(ctx: Context, version, version_parts, namespace, scoreh
 
             generate_call(ctx, path, version, version_parts, namespace, scoreholder)
 
+
+def load_tags(ctx: Context, namespace):
+    ctx.data["load:load"] = FunctionTag({"values": [f"#{namespace}:load"]})
+
+    ctx.data[f"{namespace}:load"] = FunctionTag(
+        {
+            "values": [
+                {"id": "#smithed.damage:load/dependencies", "required": False},
+                "#smithed.damage:load/enumerate",
+                "#smithed.damage:load/resolve",
+            ]
+        }
+    )
+
+
 def beet_default(ctx: Context):
     version = ctx.template.globals["version"] = f"v{ctx.project_version}"
     scoreholder: str = ctx.meta["versioning"]["scoreholder"]
@@ -156,11 +177,13 @@ def beet_default(ctx: Context):
 
     yield
 
+    load_tags(ctx, namespace)
+
     replace_version(ctx, namespace, version)
     generate_api_calls(ctx, version, version_parts, namespace, scoreholder)
     resolve_advancements(ctx, version, version_parts, namespace, scoreholder)
 
-    # TODO: Generate LL completely + other load tags
+    # TODO: other load tags
     resolve(ctx, namespace, version, scoreholder, version_parts)
     enumerate(ctx, scoreholder, namespace, version)
 

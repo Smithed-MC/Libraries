@@ -12,7 +12,7 @@ def beet_default(ctx: Context):
         if file.is_dir():
             try:
                 logger.info("Building Project %s", file)
-                
+
                 ctx.require(
                     subproject(
                         {
@@ -20,8 +20,9 @@ def beet_default(ctx: Context):
                             "extend": ["beet.yaml"],
                             "output": "../../dist",
                             "pipeline": [
+                                "beet.contrib.lantern_load.base_data_pack",
                                 "default.versioning",
-                                "beet.contrib.dundervar"
+                                "beet.contrib.dundervar",
                             ],
                             "data_pack": {"zipped": True},
                             "resource_pack": {"zipped": True},

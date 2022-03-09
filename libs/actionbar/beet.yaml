@@ -6,12 +6,10 @@ version: '0.0.1'
 data_pack:
   name: Smithed Actionbar
   load:
-    - data
+    - .
   render:
     functions:
-      - smithed:*
-
-output: out
+      - smithed.actionbar:*
 
 pipeline:
   - mecha

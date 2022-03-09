@@ -6,12 +6,10 @@ version: '0.0.4'
 data_pack:
   name: Smithed Damage
   load:
-    - data
+    - .
   render:
     functions:
       - smithed.damage:*
-
-output: out
 
 pipeline:
   - mecha

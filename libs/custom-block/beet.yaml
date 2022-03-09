@@ -6,12 +6,10 @@ version: '0.0.1'
 data_pack:
   name: Smithed Custom Block
   load:
-    - data
+    - .
   render:
     functions:
       - smithed.custom_block:*
-
-output: out
 
 # require:
 #   - beet.contrib.dbg
