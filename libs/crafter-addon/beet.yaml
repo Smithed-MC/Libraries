@@ -1,0 +1,24 @@
+name: Smithed Damage 
+description: Native Damage Library for Smithed
+author: Smithed Council
+version: '0.0.4'
+
+data_pack:
+  name: Smithed Damage
+  load:
+    - data
+  render:
+    functions:
+      - smithed.crafter_addon:*
+
+output: out
+
+pipeline:
+  - mecha
+
+meta:
+  mecha:
+    formatting: preserve
+  versioning:
+    scoreholder: '#smithed.crafter_addon'
+    namespace: smithed.crafter_addon
