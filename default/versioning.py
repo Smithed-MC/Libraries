@@ -77,7 +77,7 @@ def enumerate_step(
     set_version_func,
 ):
     step_body = (
-        "execute"
+        "execute "
         f"if score {scoreholder}.{step} load.status matches ..{value} "
         f"unless score {scoreholder}.{step} load.status matches {value} "
         f"run function {set_version_func}"
@@ -86,7 +86,7 @@ def enumerate_step(
     if next_step is not None:
         step_body += (
             "\n"
-            "execute"
+            "execute "
             f"unless score {scoreholder}.set load.status matches 1 "
             f"if score {scoreholder}.{step} load.status matches ..{value} "
             f"if score {scoreholder}.{step} load.status matches {value} "
@@ -114,7 +114,7 @@ def replace_version(ctx: Context, namespace, version):
     # TODO: Potentially ctx.data.values() might implement multiple namespaces
     for container in ctx.data[namespace].values():
         for path in list(container):
-            if "__version__" not in path:
+            if "__version__" in path:
                 container[path.replace(f"__version__", version)] = container.pop(path)
 
 

@@ -11,11 +11,11 @@ data_pack:
     functions:
       - smithed.prevent_aggression:*
 
-require:
-  - mecha.contrib.bolt
+# require:
+#   - mecha.contrib.bolt
 
-pipeline:
-  - mecha
+# pipeline:
+#   - mecha
 
 meta:
   mecha:
