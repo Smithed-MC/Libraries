@@ -101,10 +101,10 @@ def set_version(ctx: Context, namespace, scoreholder, version, version_parts):
 
     ctx.data[name] = Function(
         combine_parts(
-            f"scoreboard players set {scoreholder}.{{name}} load.status {{part}}",
+            f"scoreboard players set {scoreholder}.{{name}} load.status {{part}}\n",
             version_parts,
         )
-        + f"scoreboard players set {scoreholder}.set load.status 1"
+        + f"\nscoreboard players set {scoreholder}.set load.status 1"
     )
 
     return name

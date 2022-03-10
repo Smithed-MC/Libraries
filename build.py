@@ -22,13 +22,15 @@ def beet_default(ctx: Context):
                     subproject(
                         {
                             "directory": str(file),
-                            "extend": ["beet.yaml"],
                             "output": "../../dist",
-                            "require": ["default.dbg"],
-                            "pipeline": [
-                                "beet.contrib.lantern_load.base_data_pack",
+                            "require": [
                                 "default.versioning",
-                                "beet.contrib.dundervar",
+                                "default.dbg",
+                                "beet.contrib.dundervar"
+                            ],
+                            "extend": ["beet.yaml"],
+                            "pipeline": [
+                                "beet.contrib.lantern_load.base_data_pack"
                             ],
                             # "data_pack": {"zipped": True},
                             # "resource_pack": {"zipped": True},

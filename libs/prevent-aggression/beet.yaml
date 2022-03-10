@@ -11,8 +11,8 @@ data_pack:
     functions:
       - smithed.prevent_aggression:*
 
-# require:
-#   - mecha.contrib.bolt
+require:
+  - beet.contrib.dundervar
 
 # pipeline:
 #   - mecha
