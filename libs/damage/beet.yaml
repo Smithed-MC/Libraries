@@ -20,3 +20,5 @@ meta:
   versioning:
     scoreholder: '#smithed.damage'
     namespace: smithed.damage
+  dbg:
+    enabled: false

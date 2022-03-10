@@ -11,9 +11,6 @@ data_pack:
     functions:
       - smithed.custom_block:*
 
-# require:
-#   - beet.contrib.dbg
-
 pipeline:
   - mecha
 

@@ -11,8 +11,6 @@ data_pack:
     functions:
       - smithed.crafter_addon:*
 
-output: out
-
 pipeline:
   - mecha
 

@@ -11,6 +11,9 @@ data_pack:
     functions:
       - smithed.actionbar:*
 
+require:
+  - mecha.contrib.bolt
+
 pipeline:
   - mecha
 

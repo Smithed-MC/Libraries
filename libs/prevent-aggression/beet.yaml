@@ -11,8 +11,6 @@ data_pack:
     functions:
       - smithed.prevent_aggression:*
 
-output: out
-
 require:
   - mecha.contrib.bolt
 
@@ -24,4 +22,4 @@ meta:
     formatting: preserve
   versioning:
     scoreholder: '#smithed.prevent_aggression'
-    namespace: smithed:prevent_aggression
+    namespace: smithed.prevent_aggression

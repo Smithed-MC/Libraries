@@ -8,7 +8,12 @@ logger.setLevel("INFO")
 
 
 def beet_default(ctx: Context):
-    for file in Path("libs").iterdir():
+    libraries = ctx.meta.get('libraries', [])
+    items = Path("libs").iterdir()
+
+    filtered = filter(lambda item: (item.name in libraries) if libraries else True, items)
+
+    for file in filtered:
         if file.is_dir():
             try:
                 logger.info("Building Project %s", file)
@@ -19,13 +24,14 @@ def beet_default(ctx: Context):
                             "directory": str(file),
                             "extend": ["beet.yaml"],
                             "output": "../../dist",
+                            "require": ["default.dbg"],
                             "pipeline": [
                                 "beet.contrib.lantern_load.base_data_pack",
                                 "default.versioning",
                                 "beet.contrib.dundervar",
                             ],
-                            "data_pack": {"zipped": True},
-                            "resource_pack": {"zipped": True},
+                            # "data_pack": {"zipped": True},
+                            # "resource_pack": {"zipped": True},
                         }
                     )
                 )

@@ -16,8 +16,6 @@ resource_pack:
   load:
     - assets
 
-output: out
-
 pipeline:
   - mecha
 

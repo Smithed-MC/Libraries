@@ -11,8 +11,6 @@ data_pack:
     functions:
       - smithed.item:*
 
-output: out
-
 pipeline:
   - mecha
 
