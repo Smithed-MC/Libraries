@@ -1,10 +1,10 @@
 name: Smithed Damage 
-description: Native Damage Library for Smithed
+description: Native Addon for the Crafter Library for Smithed
 author: Smithed Council
-version: '0.0.4'
+version: '1.17.1'
 
 data_pack:
-  name: Smithed Damage
+  name: Smithed Crafter Addon
   load:
     - data
   render:
