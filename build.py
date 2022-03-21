@@ -9,6 +9,7 @@ logger.setLevel("INFO")
 
 def beet_default(ctx: Context):
     libraries = ctx.meta.get('libraries', [])
+    zip = ctx.meta.get('zip', True)
     items = Path("libs").iterdir()
 
     filtered = filter(lambda item: (item.name in libraries) if libraries else True, items)
@@ -32,8 +33,8 @@ def beet_default(ctx: Context):
                             "pipeline": [
                                 "beet.contrib.lantern_load.base_data_pack"
                             ],
-                            "data_pack": {"zipped": False},
-                            "resource_pack": {"zipped": False},
+                            "data_pack": {"zipped": zip},
+                            "resource_pack": {"zipped": zip},
                         }
                     )
                 )
