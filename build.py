@@ -32,8 +32,8 @@ def beet_default(ctx: Context):
                             "pipeline": [
                                 "beet.contrib.lantern_load.base_data_pack"
                             ],
-                            "data_pack": {"zipped": True},
-                            "resource_pack": {"zipped": True},
+                            "data_pack": {"zipped": False},
+                            "resource_pack": {"zipped": False},
                         }
                     )
                 )

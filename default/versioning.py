@@ -5,12 +5,14 @@ from beet.toolchain.context import Context
 
 import logging
 
+from pydantic import conset
+
 logger = logging.getLogger("versioning")
 
 version_part_names: list[str] = ["major", "minor", "patch"]
 next_step_names = [*version_part_names[1:], None]
 step_pairs = zip(version_part_names, next_step_names)
-
+print(version_part_names, next_step_names, list(step_pairs))
 
 def combine_part_names(format: str):
     return "".join(format.format(name=name) for name in version_part_names)
@@ -161,9 +163,9 @@ def load_tags(ctx: Context, namespace):
     ctx.data[f"{namespace}:load"] = FunctionTag(
         {
             "values": [
-                {"id": "#smithed.damage:load/dependencies", "required": False},
-                "#smithed.damage:load/enumerate",
-                "#smithed.damage:load/resolve",
+                {"id": f"#{namespace}:load/dependencies", "required": False},
+                f"#{namespace}:load/enumerate",
+                f"#{namespace}:load/resolve",
             ]
         }
     )
@@ -189,7 +191,12 @@ def beet_default(ctx: Context):
 
     set_version_func = set_version(ctx, namespace, scoreholder, version, version_parts)
 
-    for (step, next_step), part in zip(step_pairs, version_parts):
+    for i in range(len(version_parts)):
+        step = version_part_names[i]
+        next_step = next_step_names[i]
+        part = version_parts[i]
+        
+        print(step, next_step)
         enumerate_step(
             ctx,
             scoreholder,
@@ -198,5 +205,5 @@ def beet_default(ctx: Context):
             step,
             next_step,
             part,
-            set_version_func,
+            set_version_func
         )
