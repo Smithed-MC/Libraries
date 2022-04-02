@@ -1,7 +1,7 @@
 name: Smithed Crafter
 description: Native Library for Smithed
 author: TheNuclearNexus
-version: '0.0.2'
+version: '0.0.3'
 
 data_pack:
   name: Smithed Crafter
@@ -24,4 +24,4 @@ meta:
     formatting: preserve
   versioning:
     scoreholder: '#smithed.crafter'
-    namespace: smithed:crafter
+    namespace: smithed.crafter

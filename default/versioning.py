@@ -12,7 +12,7 @@ logger = logging.getLogger("versioning")
 version_part_names: list[str] = ["major", "minor", "patch"]
 next_step_names = [*version_part_names[1:], None]
 step_pairs = zip(version_part_names, next_step_names)
-print(version_part_names, next_step_names, list(step_pairs))
+# print(version_part_names, next_step_names, list(step_pairs))
 
 def combine_part_names(format: str):
     return "".join(format.format(name=name) for name in version_part_names)
@@ -116,8 +116,7 @@ def replace_version(ctx: Context, namespace, version):
     # TODO: Potentially ctx.data.values() might implement multiple namespaces
     for container in ctx.data[namespace].values():
         for path in list(container):
-            if "__version__" in path:
-                container[path.replace(f"__version__", version)] = container.pop(path)
+            container[path.replace(f"__version__", version)] = container.pop(path)
 
 
 def generate_call(
@@ -177,6 +176,8 @@ def beet_default(ctx: Context):
     namespace: str = ctx.meta["versioning"]["namespace"]
     version_parts: list[str] = ctx.project_version.split(".")
 
+    {}.items()
+
     yield
 
     load_tags(ctx, namespace)
@@ -196,7 +197,7 @@ def beet_default(ctx: Context):
         next_step = next_step_names[i]
         part = version_parts[i]
         
-        print(step, next_step)
+        # print(step, next_step)
         enumerate_step(
             ctx,
             scoreholder,

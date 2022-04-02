@@ -26,7 +26,7 @@ def beet_default(ctx: Context):
                             "output": "../../dist",
                             "require": [
                                 "default.versioning",
-                                "default.dbg",
+                                "beet.contrib.dbg",
                                 "beet.contrib.dundervar"
                             ],
                             "extend": ["beet.yaml"],
