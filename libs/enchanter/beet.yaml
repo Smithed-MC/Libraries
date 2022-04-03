@@ -11,13 +11,9 @@ data_pack:
     functions:
       - smithed.enchanter:*
 
-pipeline:
-  - mecha
-
 require:
   - mecha.contrib.bolt
   - bolt_expressions
-  - beet.contrib.dundervar
 
 meta:
   # mecha:
@@ -28,9 +24,8 @@ meta:
   dbg:
     enabled: false
 
-  generate_namespace: 'smithed.enchanter'
-  generate_objective: 'smithed.enchanter'
-  generate_path: ''
-
+  # generate_namespace: 'smithed.enchanter'
+  # generate_objective: 'smithed.enchanter'
+  # generate_prefix: 'smithed.enchanter:impl/__version__/'
   bolt_expressions:
-    init_path: 'smithed.enchanter:impl/__version__/technical/init_expressions'
+    init_path: 'technical/init_expressions'
