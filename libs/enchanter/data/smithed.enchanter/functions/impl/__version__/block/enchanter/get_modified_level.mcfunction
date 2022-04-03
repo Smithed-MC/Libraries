@@ -4,7 +4,7 @@ data_obj = Scoreboard("smithed.data")
 
 
 
-function smithed.enchanter:impl/__version__/block/enchanter/get_levels
+function generate_path("get_levels")
 
 E = 10
 
