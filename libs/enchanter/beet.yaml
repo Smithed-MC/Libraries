@@ -1,0 +1,36 @@
+name: Smithed Enchanter
+description: Native Enchanter Library for Smithed
+author: Smithed Council
+version: '0.0.1'
+
+data_pack:
+  name: Smithed Enchanter
+  load:
+    - .
+  render:
+    functions:
+      - smithed.enchanter:*
+
+pipeline:
+  - mecha
+
+require:
+  - mecha.contrib.bolt
+  - bolt_expressions
+  - beet.contrib.dundervar
+
+meta:
+  # mecha:
+    # formatting: preserve
+  versioning:
+    scoreholder: '#smithed.enchanter'
+    namespace: smithed.enchanter
+  dbg:
+    enabled: false
+
+  generate_namespace: 'smithed.enchanter'
+  generate_objective: 'smithed.enchanter'
+  generate_path: ''
+
+  bolt_expressions:
+    init_path: 'smithed.enchanter:impl/__version__/technical/init_expressions'

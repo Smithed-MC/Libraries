@@ -26,12 +26,12 @@ def beet_default(ctx: Context):
                         {
                             "directory": str(file),
                             "output": "../../dist",
+                            "extend": ["beet.yaml"],
                             "require": [
                                 "default.versioning",
                                 "beet.contrib.dbg",
                                 "beet.contrib.dundervar",
                             ],
-                            "extend": ["beet.yaml"],
                             "pipeline": [
                                 "mecha",
                                 "beet.contrib.render",

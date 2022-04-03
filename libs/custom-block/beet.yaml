@@ -11,8 +11,14 @@ data_pack:
     functions:
       - smithed.custom_block:*
 
+
 pipeline:
   - mecha
+
+require:
+  - mecha.contrib.bolt
+  - bolt_expressions
+  - beet.contrib.dundervar
 
 meta:
   mecha:
@@ -20,3 +26,5 @@ meta:
   versioning:
     scoreholder: '#smithed.custom_block'
     namespace: smithed.custom_block
+  dbg:
+    enabled: false
