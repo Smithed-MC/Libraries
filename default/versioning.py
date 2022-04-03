@@ -5,14 +5,13 @@ from beet.toolchain.context import Context
 
 import logging
 
-from pydantic import conset
-
-logger = logging.getLogger("versioning")
+logger = logging.getLogger(__name__)
 
 version_part_names: list[str] = ["major", "minor", "patch"]
 next_step_names = [*version_part_names[1:], None]
 step_pairs = zip(version_part_names, next_step_names)
 # print(version_part_names, next_step_names, list(step_pairs))
+
 
 def combine_part_names(format: str):
     return "".join(format.format(name=name) for name in version_part_names)
@@ -127,10 +126,10 @@ def generate_call(
     namespace: str,
     scoreholder: str,
 ):
-    api_path = f"#{namespace}:{path.split(version)[1][1:]}"
+    api_path = f"{namespace}:{path.split(version)[1][1:]}"
     call_path = path.replace("impl", "calls")
 
-    logger.info("api: %s", api_path)
+    logger.debug("api: %s", api_path)
 
     ctx.data[api_path] = FunctionTag({"values": [call_path]})
     ctx.data[call_path] = Function(
@@ -139,7 +138,7 @@ def generate_call(
 
 
 def generate_api_calls(ctx: Context, version, version_parts, namespace, scoreholder):
-    for path in ctx.data.functions.match("impl"):
+    for path in ctx.data.functions.match(f"{namespace}:impl"):
         # TODO: Support @public on any line of the function doc comment: https://github.com/SpyglassMC/Spyglass/wiki/IMP-Doc
         first_line = ctx.data.functions[path].text.split("\n")[0]
         if first_line.startswith("#") and "@public" in first_line:
@@ -147,9 +146,11 @@ def generate_api_calls(ctx: Context, version, version_parts, namespace, scorehol
 
 
 def resolve_advancements(ctx: Context, version, version_parts, namespace, scoreholder):
-    for path in ctx.data.advancements.match("impl"):
-        if (adv := ctx.data.advancements[path]).get("__public__", False):
-            adv["rewards"]["function"] = adv["rewards"]["function"].replace(
+    # breakpoint()
+    for path in ctx.data.advancements.match(f"{namespace}:impl"):
+        adv = ctx.data.advancements[path]
+        if adv.data.get("__public__", False):
+            adv.data["rewards"]["function"] = adv.data["rewards"]["function"].replace(
                 "__version__", version
             )
 
@@ -172,13 +173,20 @@ def load_tags(ctx: Context, namespace):
 
 def beet_default(ctx: Context):
     version = ctx.template.globals["version"] = f"v{ctx.project_version}"
-    scoreholder: str = ctx.meta["versioning"]["scoreholder"]
     namespace: str = ctx.meta["versioning"]["namespace"]
-    version_parts: list[str] = ctx.project_version.split(".")
-
-    {}.items()
+    ctx.meta["generate_namespace"] = namespace
+    ctx.meta["generate_prefix"] = f"impl/{version}"
 
     yield
+
+    ctx.require(run)
+
+
+def run(ctx: Context):
+    version = ctx.template.globals["version"]
+    namespace: str = ctx.meta["versioning"]["namespace"]
+    scoreholder: str = ctx.meta["versioning"]["scoreholder"]
+    version_parts: list[str] = ctx.project_version.split(".")
 
     load_tags(ctx, namespace)
 
@@ -196,7 +204,7 @@ def beet_default(ctx: Context):
         step = version_part_names[i]
         next_step = next_step_names[i]
         part = version_parts[i]
-        
+
         # print(step, next_step)
         enumerate_step(
             ctx,
@@ -206,5 +214,5 @@ def beet_default(ctx: Context):
             step,
             next_step,
             part,
-            set_version_func
+            set_version_func,
         )
