@@ -27,7 +27,7 @@ def beet_default(ctx: Context):
                             "extend": ["beet.yaml"],
                             "require": [
                                 "default.versioning",
-                                "default.dbg",
+                                "beet.contrib.dbg",
                                 "beet.contrib.dundervar"
                             ],
                             "pipeline": [
