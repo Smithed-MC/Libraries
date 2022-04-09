@@ -41,7 +41,7 @@ def beet_default(ctx: Context):
                             "resource_pack": {"zipped": zip},
                             "meta": {
                                 "render": {
-                                    "functions": "smithed.*"
+                                    "data_pack": {"functions": ["smithed.*"]}
                                 }
                             }
                         }

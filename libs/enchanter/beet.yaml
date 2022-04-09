@@ -5,27 +5,19 @@ version: '0.0.1'
 
 data_pack:
   name: Smithed Enchanter
-  load:
-    - .
-  render:
-    functions:
-      - smithed.enchanter:*
+  load: [.]
 
 require:
   - mecha.contrib.bolt
   - bolt_expressions
 
 meta:
-  # mecha:
-    # formatting: preserve
   versioning:
     scoreholder: '#smithed.enchanter'
     namespace: smithed.enchanter
+
   dbg:
     enabled: false
 
-  # generate_namespace: 'smithed.enchanter'
-  # generate_objective: 'smithed.enchanter'
-  # generate_prefix: 'smithed.enchanter:impl/__version__/'
   bolt_expressions:
     init_path: 'technical/init_expressions'

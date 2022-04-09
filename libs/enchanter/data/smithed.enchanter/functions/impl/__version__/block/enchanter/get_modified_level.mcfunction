@@ -4,7 +4,7 @@ data_obj = Scoreboard("smithed.data")
 
 
 
-function generate_path("get_levels")
+function ./get_levels
 
 E = 10
 
