@@ -1,1 +1,1 @@
-function #smithed.damage:pub/player/damage/void
+function #smithed.damage:player/damage/void

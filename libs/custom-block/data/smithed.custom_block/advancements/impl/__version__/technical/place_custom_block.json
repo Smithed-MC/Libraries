@@ -9,14 +9,14 @@
           },
           "location": {
             "block": {
-              "tag": "smithed.damage:placeable"
+              "tag": "smithed.custom_block:placeable"
             }
           }
         }
       }
     },
     "rewards": {
-      "function": "smithed.custom_block:calls/__version__/event/on_place"
+      "function": "smithed.custom_block:calls/__version__/place"
     }
   }
   

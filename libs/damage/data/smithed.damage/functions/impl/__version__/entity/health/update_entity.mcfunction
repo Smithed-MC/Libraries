@@ -1,6 +1,6 @@
 scoreboard players operation $temp smithed.damage = @s smithed.damage
 # data merge storage smithed:log {message:'[{"score":{"name":"$temp","objective":"smithed.damage"}}]',level:1,type:'INFO'}
-# function #smithed.damage:pub/technical/tools/log
+# function #smithed.damage:technical/tools/log
 #!dbg score "$temp", "smithed.damage"
 
 execute store result score $temp smithed.damage run data get entity @s Health 100

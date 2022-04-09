@@ -1,1 +1,1 @@
-function #smithed.crafter:pub/block/table/interact/enter_gui
+function #smithed.crafter:block/table/interact/enter_gui

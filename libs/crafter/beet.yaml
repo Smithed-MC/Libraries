@@ -14,7 +14,7 @@ data_pack:
 resource_pack:
   name: Smithed Crafter RP
   load:
-    - assets
+    - .
 
 pipeline:
   - mecha

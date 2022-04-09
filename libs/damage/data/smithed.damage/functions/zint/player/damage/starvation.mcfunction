@@ -1,1 +1,1 @@
-function #smithed.damage:pub/player/damage/starvation
+function #smithed.damage:player/damage/starvation

@@ -1,1 +1,1 @@
-function #smithed.damage:pub/player/damage/magic
+function #smithed.damage:player/damage/magic

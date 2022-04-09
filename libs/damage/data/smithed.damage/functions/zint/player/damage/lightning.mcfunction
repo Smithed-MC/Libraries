@@ -1,1 +1,1 @@
-function #smithed.damage:pub/player/damage/lightning
+function #smithed.damage:player/damage/lightning

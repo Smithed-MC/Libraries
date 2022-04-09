@@ -1,1 +1,1 @@
-function #smithed.damage:pub/player/damage/generic
+function #smithed.damage:player/damage/generic

@@ -1,1 +1,1 @@
-function #smithed.damage:pub/block/api/place_block
+function #smithed.damage:block/api/place_block

@@ -1,1 +1,1 @@
-function #smithed.damage:pub/player/damage/bypass_armor
+function #smithed.damage:player/damage/bypass_armor

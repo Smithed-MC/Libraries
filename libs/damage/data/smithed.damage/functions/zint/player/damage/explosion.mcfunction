@@ -1,1 +1,1 @@
-function #smithed.damage:pub/player/damage/explosion
+function #smithed.damage:player/damage/explosion
