@@ -11,6 +11,11 @@ data_pack:
     functions:
       - smithed.item:*
 
+require:
+  - mecha.contrib.bolt
+  - bolt_expressions
+
+
 pipeline:
   - mecha
 

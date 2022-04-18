@@ -3,7 +3,7 @@
       "function": "minecraft:copy_nbt",
       "source": {
         "type": "minecraft:storage",
-        "source": "smithed.damage:"
+        "source": "smithed.item:main"
       },
       "ops": [
         {
