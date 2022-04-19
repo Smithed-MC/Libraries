@@ -15,17 +15,17 @@ scoreboard players operation #damage smithed.damage = @s smithed.damage
 data modify storage smithed.damage:main temp set from entity @s
 
 # first armor and toughness
-function smithed.damage:impl/__version__/entity/damage/armor/toughness
+function smithed.damage:impl/__version__/entity/armor/toughness
 
 #!dbg score "#damage", "smithed.damage"
 
 # then protection
-function smithed.damage:impl/__version__/entity/damage/armor/protection
+function smithed.damage:impl/__version__/entity/armor/protection
 
 #!dbg score "#damage", "smithed.damage"
 
 # finally resistance
-function smithed.damage:impl/__version__/entity/damage/armor/resistance
+function smithed.damage:impl/__version__/entity/armor/resistance
 
 #!dbg score "#damage", "smithed.damage"
 
@@ -33,4 +33,4 @@ function smithed.damage:impl/__version__/entity/damage/armor/resistance
 scoreboard players operation @s smithed.damage /= 10 smithed.const
 
 # apply new damage
-execute if score @s smithed.damage matches 1.. run function smithed.damage:impl/__version__/entity/damage/apply
+execute if score @s smithed.damage matches 1.. run function smithed.damage:impl/__version__/entity/apply
