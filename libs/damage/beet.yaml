@@ -15,7 +15,7 @@ pipeline:
   - mecha
 
 require:
-  - mecha.contrib.bolt
+  - bolt
 
 meta:
   mecha:
