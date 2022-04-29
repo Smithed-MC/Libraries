@@ -16,7 +16,7 @@ pipeline:
   - mecha
 
 require:
-  - mecha.contrib.bolt
+  - bolt
   - beet.contrib.dundervar
 
 meta:
