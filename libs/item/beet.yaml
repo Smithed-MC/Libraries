@@ -12,7 +12,7 @@ data_pack:
       - smithed.item:*
 
 require:
-  - mecha.contrib.bolt
+  - bolt
   - bolt_expressions
 
 
