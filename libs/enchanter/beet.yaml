@@ -8,7 +8,7 @@ data_pack:
   load: [.]
 
 require:
-  - mecha.contrib.bolt
+  - bolt
   - bolt_expressions
 
 meta:
