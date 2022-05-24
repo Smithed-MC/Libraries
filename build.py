@@ -13,7 +13,7 @@ def beet_default(ctx: Context):
     items = Path("libs").iterdir()
 
     filtered = filter(
-        lambda item: (item.name in libraries) if libraries else True, items
+        lambda item: ((item.name in libraries) and item.name != 'template') if libraries else (item.name != 'template'), items
     )
 
     for file in filtered:
