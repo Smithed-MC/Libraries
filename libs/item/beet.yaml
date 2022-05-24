@@ -14,7 +14,7 @@ data_pack:
 require:
   - bolt
   - bolt_expressions
-
+  - nbt_literals
 
 pipeline:
   - mecha

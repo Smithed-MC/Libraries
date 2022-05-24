@@ -1,4 +1,6 @@
 from bolt_expressions import Scoreboard, Data
+from ./base_attributes import base_attributes
+
 data_obj = Scoreboard("smithed.data")
 storage = Data.storage("smithed.item:main")
 
@@ -11,10 +13,19 @@ data modify storage smithed.item:main lore.slots set value {
     head: []
 }
 
-data modify storage smithed.item:main lore.temp set from storage smithed.item:main item.tag.AttributeModifiers
-execute store result score $iter smithed.data if data storage smithed.item:main lore.temp[]
 
-execute function ./attributes/collect_non_base:
+unless data storage smithed.item:main item.tag.AttributeModifiers[] function ./attributes/collect_base:
+    for id in base_attributes:
+        if data storage smithed.item:main item{id: id}:
+            storage.lore.temp = base_attributes[id]
+    execute store result score $iter smithed.data if data storage smithed.item:main lore.temp[]
+
+if data storage smithed.item:main item.tag.AttributeModifiers[] function ./attributes/setup_non_base:
+    data modify storage smithed.item:main lore.temp set from storage smithed.item:main item.tag.AttributeModifiers
+    execute store result score $iter smithed.data if data storage smithed.item:main lore.temp[]
+
+
+if data storage smithed.item:main lore.temp[] function ./attributes/collect_non_base:
     data modify storage smithed.item:main lore.attr set from storage smithed.item:main lore.temp[-1] 
     data remove storage smithed.item:main lore.attr.UUID
     data remove storage smithed.item:main lore.attr.Name
@@ -53,6 +64,8 @@ def generateOperations(mode):
     color = 'blue'
     if mode == 'take':
         color = 'red'
+    elif mode == 'equals':
+        color = 'dark_green'
 
 
     for i in range(0, 3):
@@ -101,7 +114,7 @@ execute function ./attributes/add_lore:
                         function generate_path(f"{path}/{slot}/simplify")
 
                 unless score $decimal smithed.data matches 0 function generate_path(f"{path}/{slot}/high_low"):
-                    say high_low
+                    # say high_low
                     storage.lore.attr.AmountJSON = '[{"score":{"objective":"smithed.data","name":"$whole"}},".",{"score":{"objective":"smithed.data","name":"$decimal"}}]'
                 if score $decimal smithed.data matches 0 function generate_path(f"{path}/{slot}/high"):
                     # say high
@@ -110,10 +123,13 @@ execute function ./attributes/add_lore:
                 storage.lore.attr.AmountHigh = data_obj["$whole"]
                 storage.lore.attr.AmountLow = data_obj["$decimal"]
 
-                if score $amount smithed.data matches 0.. function generate_path(f"{path}/{slot}/positive"):
-                    generateOperations('plus')
-                if score $amount smithed.data matches ..-1 function generate_path(f"{path}/{slot}/negative"):
-                    generateOperations('take')
+                if data storage smithed.item:main lore.attr{base:1b} function generate_path(f"{path}/{slot}/equals"):
+                    generateOperations('equals')
+                unless data storage smithed.item:main lore.attr{base:1b} function generate_path(f"{path}/{slot}/not_equals"):
+                    if score $amount smithed.data matches 0.. function generate_path(f"{path}/{slot}/positive"):
+                        generateOperations('plus')
+                    if score $amount smithed.data matches ..-1 function generate_path(f"{path}/{slot}/negative"):
+                        generateOperations('take')
 
                 data modify storage smithed.item:main item.tag.display.Lore append from block -30000000 0 1603 Text1
 
