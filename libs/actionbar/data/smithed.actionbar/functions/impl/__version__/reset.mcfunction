@@ -1,2 +1,2 @@
 scoreboard players reset @s smithed.actionbar.freeze
-scoreboard players reset @s smithed.actionbar.priority
+scoreboard players set @s smithed.actionbar.priority 0

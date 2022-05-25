@@ -18,6 +18,8 @@ resource_pack:
 
 pipeline:
   - mecha
+require:
+  - bolt
 
 meta:
   mecha:

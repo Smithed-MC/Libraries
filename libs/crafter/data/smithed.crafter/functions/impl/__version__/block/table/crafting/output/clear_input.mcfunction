@@ -8,4 +8,4 @@ execute if entity @s[tag=!smithed.no_shift_click] unless entity @a[distance=..12
 
 function smithed.crafter:impl/__version__/block/table/crafting/output/clear_input/test
 
-data modify storage smithed.crafter:main flags set value []
+data modify storage smithed.crafter:input flags set value []

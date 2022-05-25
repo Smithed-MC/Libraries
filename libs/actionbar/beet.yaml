@@ -1,5 +1,5 @@
-name: Smithed Actionbar
-description: Library to help with actionbar compatibility
+name: Smithed Actionbar 
+description: Native Actionbar Library for Smithed
 author: Smithed Council
 version: '0.0.1'
 
@@ -19,7 +19,7 @@ pipeline:
 
 meta:
   mecha:
-    keep_comments: true
+    formatting: preserve
   versioning:
     scoreholder: '#smithed.actionbar'
-    namespace: smithed:actionbar
+    namespace: smithed.actionbar
