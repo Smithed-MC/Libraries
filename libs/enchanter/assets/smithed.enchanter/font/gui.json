@@ -1,0 +1,22 @@
+{
+    "providers": [
+      {
+        "type": "space",
+        "advances": {
+          " ": 4,
+          "\uc000": -12,
+          "\uc001": -166
+        }
+      },
+      {
+        "type": "bitmap",
+        "file": "smithed.enchanter:gui/table.png",
+        "ascent": 14,
+        "height": 176.0,
+        "chars": [
+          "\uc002"
+        ]
+      }
+    ]
+  }
+  

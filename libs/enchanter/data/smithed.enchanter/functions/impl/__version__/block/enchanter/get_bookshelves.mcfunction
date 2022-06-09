@@ -45,4 +45,4 @@ for y in range(2):
 if score b smithed.data matches 15..:
     data_obj["b"] = 15
 
-tellraw @s ["Bks: ",{"score": {"name": "b", "objective": "smithed.data"}}]
+# tellraw @s ["Bks: ",{"score": {"name": "b", "objective": "smithed.data"}}]

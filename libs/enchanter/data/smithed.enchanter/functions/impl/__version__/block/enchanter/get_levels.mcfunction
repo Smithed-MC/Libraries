@@ -19,7 +19,7 @@ mid_enchant_level = data_obj["m_lvl"]
 bot_enchant_level = data_obj["b_lvl"]
 
 
-function smithed.enchanter:impl/__version__/block/enchanter/get_bookshelves  
+function ./get_bookshelves  
 
 base = randomInt(1,8) + (b / 2) + randomInt(0, b)
 
@@ -27,8 +27,8 @@ top_enchant_level = max(base / 3, 1)
 mid_enchant_level = ((base * 2) / 3 + 1)
 bot_enchant_level = max(b * 2, base)
 
-tellraw @a [
-    "Top: ", {"score":{"name":"t_lvl","objective":"smithed.data"}}, "\n",
-    "Mid: ", {"score":{"name":"m_lvl","objective":"smithed.data"}}, "\n",
-    "Bot: ", {"score":{"name":"b_lvl","objective":"smithed.data"}}
-]
+# tellraw @a [
+#     "Top: ", {"score":{"name":"t_lvl","objective":"smithed.data"}}, "\n",
+#     "Mid: ", {"score":{"name":"m_lvl","objective":"smithed.data"}}, "\n",
+#     "Bot: ", {"score":{"name":"b_lvl","objective":"smithed.data"}}
+# ]

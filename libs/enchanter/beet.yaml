@@ -6,6 +6,9 @@ version: '0.0.1'
 data_pack:
   name: Smithed Enchanter
   load: [.]
+resource_pack:
+  name: Smithed Enchanter RP
+  load: [.]
 
 require:
   - bolt
