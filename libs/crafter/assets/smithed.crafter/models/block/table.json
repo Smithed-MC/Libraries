@@ -1,18 +1,58 @@
 {
+	"credit": "Made with Blockbench",
 	"parent": "minecraft:block/cube",
-  "textures": {
-    "particle": "smithed.crafter:block/table_front",
-    "north": "smithed.crafter:block/table_front",
-    "south": "smithed.crafter:block/table_side",
-    "east": "smithed.crafter:block/table_side",
-    "west": "smithed.crafter:block/table_front",
-    "up": "smithed.crafter:block/table_top",
-    "down": "minecraft:block/piston_bottom"
-  },
+	"texture_size": [64, 32],
+	"textures": {
+		"0": "smithed.crafter:block/heavy_workbench",
+		"particle": "smithed.crafter:block/heavy_workbench"
+	},
+	"elements": [
+		{
+			"from": [0, 0, 0],
+			"to": [16, 16, 16],
+			"faces": {
+				"north": {"uv": [4, 8, 8, 16], "texture": "#0"},
+				"east": {"uv": [0, 8, 4, 16], "texture": "#0"},
+				"south": {"uv": [12, 8, 16, 16], "texture": "#0"},
+				"west": {"uv": [8, 8, 12, 16], "texture": "#0"},
+				"up": {"uv": [4, 0, 8, 8], "texture": "#0"},
+				"down": {"uv": [8, 0, 12, 8], "texture": "#0"}
+			}
+		}
+	],
 	"display": {
+		"thirdperson_righthand": {
+			"rotation": [75, 45, 0],
+			"translation": [0, 2.5, 0],
+			"scale": [0.375, 0.375, 0.375]
+		},
+		"thirdperson_lefthand": {
+			"rotation": [75, 45, 0],
+			"translation": [0, 2.5, 0],
+			"scale": [0.375, 0.375, 0.375]
+		},
+		"firstperson_righthand": {
+			"rotation": [0, 45, 0],
+			"scale": [0.4, 0.4, 0.4]
+		},
+		"firstperson_lefthand": {
+			"rotation": [0, 225, 0],
+			"scale": [0.4, 0.4, 0.4]
+		},
+		"ground": {
+			"translation": [0, 3, 0],
+			"scale": [0.25, 0.25, 0.25]
+		},
+		"gui": {
+			"rotation": [30, 225, 0],
+			"scale": [0.625, 0.625, 0.625]
+		},
 		"head": {
 			"translation": [0, -30.43, 0],
-			"scale": [1.602, 1.602, 1.602]
+			"scale": [1.601, 1.601, 1.601]
+		},
+		"fixed": {
+			"scale": [0.5, 0.5, 0.5]
 		}
 	}
 }
