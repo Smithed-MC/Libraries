@@ -11,13 +11,13 @@ data_pack:
     functions:
       - smithed.custom_block:*
 
-
 pipeline:
   - mecha
 
 require:
   - bolt
-  - beet.contrib.dundervar
+  - bolt_expressions
+  - nbt_literals
 
 meta:
   mecha:

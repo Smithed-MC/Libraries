@@ -5,7 +5,7 @@ data_obj = Scoreboard("smithed.data")
 #> input: smithed.item:main item
 #> output: smithed.item:main item
 
-execute unless data storage smithed.item:main item.tag.smithed.hasLore run function ./setup:
+execute unless data storage smithed.item:main item.tag.smithed{hasLore:1b} run function ./setup:
     storage.item.tag.smithed.lore = storage.item.tag.display.Lore
     
     storage.item.tag.smithed.hideFlags = {'0':0,'1':0,'2':0,'3':0,'4':0,'5':0,'6':0}
