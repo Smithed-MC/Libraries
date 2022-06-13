@@ -1,3 +1,4 @@
+import os
 from beet import Context, subproject
 from pathlib import Path
 
@@ -20,8 +21,11 @@ def beet_default(ctx: Context):
         lambda item: ((item.name in libraries)) if libraries else (item.name != 'template'), items
     )
     
-    if(release): latest = {}
-    
+    if(release): 
+        if os.path.isfile("latest.yaml"):
+            latest = yaml.load(open("latest.yaml", "r+"), Loader=yaml.FullLoader)
+        else:
+            latest = {}
 
     for file in filtered:
         if file.is_dir():
@@ -65,5 +69,5 @@ def beet_default(ctx: Context):
                 logger.exception(err)
                 
     if(release):
-        with open("dist/latest.yaml", "w+") as f:
+        with open("latest.yaml", "w+") as f:
             yaml.dump(latest, f)
