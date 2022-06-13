@@ -7,6 +7,9 @@ scoreboard players set @s smithed.data 0
 
 data modify storage smithed.crafter:main root.temp.crafting_input_temp set value [[{id:"minecraft:air"},{id:"minecraft:air"},{id:"minecraft:air"}],[{id:"minecraft:air"},{id:"minecraft:air"},{id:"minecraft:air"}],[{id:"minecraft:air"},{id:"minecraft:air"},{id:"minecraft:air"}]]
 
+## Copy block content into a storage for nbt manipulation
+data modify storage smithed.crafter:main root.Items set from block ~ ~ ~ Items
+
 execute if data storage smithed.crafter:main root.Items[{Slot:2b}] run data modify storage smithed.crafter:main root.temp.crafting_input_temp[0][0] set from storage smithed.crafter:main root.Items[{Slot:2b}]
 execute if data storage smithed.crafter:main root.Items[{Slot:3b}] run data modify storage smithed.crafter:main root.temp.crafting_input_temp[0][1] set from storage smithed.crafter:main root.Items[{Slot:3b}]
 execute if data storage smithed.crafter:main root.Items[{Slot:4b}] run data modify storage smithed.crafter:main root.temp.crafting_input_temp[0][2] set from storage smithed.crafter:main root.Items[{Slot:4b}]
