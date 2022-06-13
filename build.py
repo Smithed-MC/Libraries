@@ -3,6 +3,8 @@ from pathlib import Path
 
 import logging
 
+import yaml
+
 logger = logging.getLogger(__name__)
 logger.setLevel("INFO")
 
@@ -10,22 +12,33 @@ logger.setLevel("INFO")
 def beet_default(ctx: Context):
     libraries = ctx.meta.get("libraries", [])
     zip = ctx.meta.get("zip", True)
+    release = ctx.meta.get("release", False)
+    
     items = Path("libs").iterdir()
 
     filtered = filter(
         lambda item: ((item.name in libraries)) if libraries else (item.name != 'template'), items
     )
+    
+    if(release): latest = {}
+    
 
     for file in filtered:
         if file.is_dir():
             try:
                 logger.info("Building Project %s", file)
+                output = "../../dist"
+                if release:
+                    config = yaml.load(open(str(file) + "/beet.yaml", "r"), Loader=yaml.FullLoader)
+                    output += "/v" + config["version"]
+                    latest[config["name"]] = config["version"]
+
 
                 ctx.require(
                     subproject(
                         {
                             "directory": str(file),
-                            "output": "../../dist",
+                            "output": output,
                             "extend": ["beet.yaml"],
                             "require": [
                                 "default.versioning",
@@ -50,3 +63,7 @@ def beet_default(ctx: Context):
 
             except Exception as err:
                 logger.exception(err)
+                
+    if(release):
+        with open("dist/latest.yaml", "w+") as f:
+            yaml.dump(latest, f)
