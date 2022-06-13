@@ -40,4 +40,6 @@ jobs:
         cd releases
         cp -rf ../libraries/dist/* .
         cp ../libraries/latest.yaml latest.yaml
+        git config --global user.email "team@smithed.dev"
+        git config --global user.name "Smithed Council"
         git add . && git commit -m "Update libraries" && git push origin releases
