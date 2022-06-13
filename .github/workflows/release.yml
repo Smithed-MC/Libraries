@@ -22,10 +22,10 @@ jobs:
     - name: Install mecha and beet
       run: "pip install -U beet mecha bolt 'bolt-expressions>=0.6.1'"
     - name: Checkout 'main'
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       path: 'libraries'
     - name: Checkout 'releases'
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       path: 'releases'
       ref: 'releases'
     - name: Build via Beet
