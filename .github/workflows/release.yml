@@ -31,13 +31,13 @@ jobs:
         path: 'releases'
         ref: 'releases'
     - name: Build via Beet
-      run:
-      - 'cd libraries'
-      - beet -s "meta.release = True" -s "${{ inputs.libraries }}"
-      - 'cd ..'
+      run: |
+      cd libraries
+      beet -s "meta.release = True" -s "${{ inputs.libraries }}"
+      cd ..
     - name: Copy files to releases
-      run:
-      - 'cd releases'
-      - 'cp -rf ../libraries/dist/* .'
-      - 'cp ../libraries/latest.yaml latest.yaml'
-      - 'git add . && git commit -m "Update libraries" && git push origin releases'
+      run: |
+      cd releases
+      cp -rf ../libraries/dist/* .
+      cp ../libraries/latest.yaml latest.yaml
+      git add . && git commit -m "Update libraries" && git push origin releases
