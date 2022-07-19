@@ -1,4 +1,3 @@
-# 
 Death messages happen when a player is killed via the custom [damage](apply.md),
 you can add death messages by adding your function to the tag `#smithed.damage:event/player/on_death_message`
 

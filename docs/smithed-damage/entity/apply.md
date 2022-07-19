@@ -1,4 +1,3 @@
-# 
 | Input Name         | Input Type | Input Source | Input Objective/Path | 
 | ---                | ---        | ---          | ---                  | 
 | "Amount of damage" | score      | @s           | smithed.damage       | 
