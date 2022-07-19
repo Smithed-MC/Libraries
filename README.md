@@ -11,7 +11,7 @@ You can build it from source using the [beet](https://github.com/mcbeet/beet)
 ### Building
 
 ```
-$ pip install beet mecha
+$ pip install beet mecha bolt bolt_expressions
 $ git clone https://github.com/Smithed-MC/Libraries
 $ cd Libraries
 $ python build.py
