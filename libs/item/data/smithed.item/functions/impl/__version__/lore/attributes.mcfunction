@@ -96,7 +96,6 @@ execute function ./attributes/add_lore:
 
                 execute store result score $amount smithed.data run data get storage smithed.item:main lore.attr.Amount 1000000
                 if data storage smithed.item:main lore.attr{base:1b} function ./attributes/get_base:
-                    say get base
                     for m in modifiers:
                         if data storage smithed.item:main lore.attr{AttributeName: m} store result score $base smithed.data attribute @s f"minecraft:{m}" base get 1000000
                     scoreboard players operation $amount smithed.data += $base smithed.data
