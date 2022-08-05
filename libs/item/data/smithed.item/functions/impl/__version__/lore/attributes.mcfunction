@@ -88,19 +88,27 @@ execute function ./attributes/add_lore:
                 data remove storage smithed.item:main lore.temp[-1]
                 scoreboard players remove $iter smithed.data 1
 
-                for m in modifiers:
-                    if data storage smithed.item:main lore.attr{AttributeName: m} data modify storage smithed.item:main lore.attr.AttributeName set value ('{"translate": "attribute.name.' + m + '"}')
-
                 data_obj["$oper"] = storage.lore.attr.Operation
                 data_obj["$scale"] = 100
                 if score $oper smithed.data matches 1.. function generate_path(f"{path}/{slot}/set_scale"):
                     data_obj["$scale"] = 1
 
 
-                execute store result score $whole smithed.data run data get storage smithed.item:main lore.attr.Amount 100
+                execute store result score $amount smithed.data run data get storage smithed.item:main lore.attr.Amount 1000000
+                if data storage smithed.item:main lore.attr{base:1b} function ./attributes/get_base:
+                    say get base
+                    for m in modifiers:
+                        if data storage smithed.item:main lore.attr{AttributeName: m} store result score $base smithed.data attribute @s f"minecraft:{m}" base get 1000000
+                    scoreboard players operation $amount smithed.data += $base smithed.data
+
+                for m in modifiers:
+                    if data storage smithed.item:main lore.attr{AttributeName: m} data modify storage smithed.item:main lore.attr.AttributeName set value ('{"translate": "attribute.name.' + m + '"}')
+
+                data_obj["$whole"] = data_obj["$amount"] / 10000
                 data_obj["$whole"] /= data_obj["$scale"]
                 data_obj["$whole"] *= 10000
-                execute store result score $decimal smithed.data run data get storage smithed.item:main lore.attr.Amount 1000000
+
+                data_obj["$decimal"] = data_obj["$amount"] 
                 data_obj["$decimal"] /= data_obj["$scale"]
                 data_obj["$decimal"] -= data_obj["$whole"]
                 data_obj["$whole"] /= 10000
@@ -115,11 +123,17 @@ execute function ./attributes/add_lore:
 
                 unless score $decimal smithed.data matches 0 function generate_path(f"{path}/{slot}/high_low"):
                     # say high_low
-                    storage.lore.attr.AmountJSON = '[{"score":{"objective":"smithed.data","name":"$whole"}},".",{"score":{"objective":"smithed.data","name":"$decimal"}}]'
+                    if data storage smithed.item:main lore.attr{base:1b}:
+                        storage.lore.attr.AmountJSON = '[" ",{"score":{"objective":"smithed.data","name":"$whole"}},".",{"score":{"objective":"smithed.data","name":"$decimal"}}]'
+                    unless data storage smithed.item:main lore.attr{base:1b}:
+                        storage.lore.attr.AmountJSON = '[{"score":{"objective":"smithed.data","name":"$whole"}},".",{"score":{"objective":"smithed.data","name":"$decimal"}}]'
                 if score $decimal smithed.data matches 0 function generate_path(f"{path}/{slot}/high"):
                     # say high
-                    storage.lore.attr.AmountJSON = '[{"score":{"objective":"smithed.data","name":"$whole"}}]'
-
+                    if data storage smithed.item:main lore.attr{base:1b}:
+                        storage.lore.attr.AmountJSON = '[" ",{"score":{"objective":"smithed.data","name":"$whole"}}]'
+                    unless data storage smithed.item:main lore.attr{base:1b}:
+                        storage.lore.attr.AmountJSON = '[{"score":{"objective":"smithed.data","name":"$whole"}}]'
+                        
                 storage.lore.attr.AmountHigh = data_obj["$whole"]
                 storage.lore.attr.AmountLow = data_obj["$decimal"]
 

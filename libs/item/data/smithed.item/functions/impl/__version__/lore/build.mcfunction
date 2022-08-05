@@ -1,7 +1,7 @@
+# @public
 from bolt_expressions import Scoreboard, Data
 storage = Data.storage("smithed.item:main")
 data_obj = Scoreboard("smithed.data")
-# @public
 #> input: smithed.item:main item
 #> output: smithed.item:main item
 

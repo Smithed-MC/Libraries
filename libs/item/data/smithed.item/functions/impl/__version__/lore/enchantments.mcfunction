@@ -60,7 +60,13 @@ execute function ./enchantments/loop:
         function #smithed.item:event/build_custom
 
     execute function ./enchantments/loop/find_level:
-        for i in range(1,11):
+        if score $lvl smithed.data matches 1 function ./enchantments/loop/special_level:
+            storage.lore.lvl = ('{"translate":"enchantment.level.1","italic": "false","color":"gray"}')
+            only_one_level =['minecraft:aqua_affinity','minecraft:channeling','minecraft:riptide','minecraft:curse_of_binding','minecraft:curse_of_vanishing','minecraft:flame','minecraft:infinity','minecraft:mending','minecraft:multishot']
+            for e in only_one_level:
+                if data storage smithed.item:main temp{id: e}:
+                    storage.lore.lvl = ''
+        for i in range(2,11):
             if score $lvl smithed.data matches (i):
                 storage.lore.lvl = ('{"translate":"enchantment.level.'+str(i)+'","italic": "false","color":"gray"}')
         if score $lvl smithed.data matches 11..:
