@@ -90,6 +90,6 @@
 		}
 	},
 	"rewards": {
-		"function": "smithed.damage:calls/__version__/event/player"
+		"function": "smithed.damage:calls/__version__/player/event"
 	}
 }
