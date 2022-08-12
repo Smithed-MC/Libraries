@@ -1,0 +1,32 @@
+{
+	"values": [
+		"minecraft:blaze",
+		"minecraft:cave_spider",
+		"minecraft:creeper",
+		"minecraft:drowned",
+		"minecraft:elder_guardian",
+		"minecraft:enderman",
+		"minecraft:endermite",
+		"minecraft:evoker",
+		"minecraft:giant",
+		"minecraft:guardian",
+		"minecraft:husk",
+		"minecraft:piglin",
+		"minecraft:piglin_brute",
+		"minecraft:pillager",
+		"minecraft:ravager",
+		"minecraft:silverfish",
+		"minecraft:skeleton",
+		"minecraft:spider",
+		"minecraft:stray",
+		"minecraft:vex",
+		"minecraft:vindicator",
+		"minecraft:warden",
+		"minecraft:witch",
+		"minecraft:wither",
+		"minecraft:wither_skeleton",
+		"minecraft:zoglin",
+		"minecraft:zombie",
+		"minecraft:zombie_villager"
+	]
+}

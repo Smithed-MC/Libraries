@@ -1,0 +1,20 @@
+{
+    "condition": "minecraft:alternative",
+    "terms": [
+        {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+                "type": "#smithed.actionbar:__version__/prevents_sleep"
+            }
+        },
+        {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+                "type": "minecraft:zombified_piglin",
+                "nbt": "{AngerTime:0}"
+            }
+        }
+    ]
+}

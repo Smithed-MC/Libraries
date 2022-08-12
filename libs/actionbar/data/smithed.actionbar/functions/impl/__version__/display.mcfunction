@@ -2,12 +2,12 @@
 #  i left this "bug" in so that folks catch this in testing
 
 execute if data storage smithed.actionbar:input message.raw run title @s actionbar {"storage": "smithed.actionbar:input", "nbt": "message.raw"}
-execute if data storage smithed.actionbar:input message.json run title @s actionbar {"storage": "smithed.actionbar:input", "nbt": "message.json", "resolved": true}
+execute if data storage smithed.actionbar:input message.json run title @s actionbar {"storage": "smithed.actionbar:input", "nbt": "message.json", "interpret": true}
 
 # copy freeze w/ bounds checking
 scoreboard players operation @s smithed.actionbar.freeze = $freeze smithed.actionbar.temp 
-scoreboard players operation @s smithed.actionbar.freeze < $min.freeze smithed.actionbar.const
-scoreboard players operation @s smithed.actionbar.freeze > $max.freeze smithed.actionbar.const
+scoreboard players operation @s smithed.actionbar.freeze > $min.freeze smithed.actionbar.const
+scoreboard players operation @s smithed.actionbar.freeze < $max.freeze smithed.actionbar.const
 
 # unless freeze is explicitly 0, copy priority
 #  allows folks to let their messages disappear

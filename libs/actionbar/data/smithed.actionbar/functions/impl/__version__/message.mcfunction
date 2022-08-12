@@ -5,6 +5,9 @@
 # 	priority
 # 	freeze
 
+# force-give player a priority score
+scoreboard players add @s smithed.actionbar.priority 0
+
 # convert str into int
 #  if we introduce new priorities in future versions
 #  we can renumber our ints w/o issues
@@ -19,14 +22,16 @@ execute store result score $freeze smithed.actionbar.temp run data get storage s
 execute unless data storage smithed.actionbar:input message.freeze run scoreboard players operation $freeze smithed.actionbar.temp = $default.freeze smithed.actionbar.const
 
 # determine if display
-#  if priority is the same, chk if freeze is 1..
+#  if priority is the same, check if freeze is 1..
 #  OR if priority is strictly lower,
+#  OR if player has no shown actionbar
 #    display
 
 tellraw @a [{"score":{"objective":"smithed.actionbar.temp","name":"$priority"}},{"score":{"objective":"smithed.actionbar.priority","name":"@s"}}]
 
 execute if score $priority smithed.actionbar.temp = @s smithed.actionbar.priority unless score @s smithed.actionbar.freeze matches 1.. run function smithed.actionbar:impl/__version__/display
 execute if score $priority smithed.actionbar.temp < @s smithed.actionbar.priority run function smithed.actionbar:impl/__version__/display
+execute if score @s smithed.actionbar.priority matches 0 run function smithed.actionbar:impl/__version__/display
 
 # cleanup
 data remove storage smithed.actionbar:input message

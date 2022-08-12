@@ -1,0 +1,47 @@
+{
+    "condition": "minecraft:alternative",
+    "terms": [
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "tag": "smithed.actionbar:__version__/suffocates"
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "tag": "minecraft:slabs",
+                    "state": {
+                        "type": "double"
+                    }
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "blocks": [
+                        "minecraft:piston",
+                        "minecraft:sticky_piston"
+                    ],
+                    "state": {
+                        "extended": "false"
+                    }
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "block": {
+                    "tag": "minecraft:shulker_boxes"
+                }
+            },
+            "__comment__": "shulker boxes only suffocate when closed, but there's currently no way to directly test that"
+        }
+    ]
+}

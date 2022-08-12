@@ -10,7 +10,7 @@
               "type": "minecraft:score",
               "target": {
                 "type": "minecraft:fixed",
-                "name": "$smithed.actionbar.major"
+                "name": "#smithed.actionbar.major"
               },
               "score": "load.status"
             },
@@ -22,7 +22,7 @@
               "type": "minecraft:score",
               "target": {
                 "type": "minecraft:fixed",
-                "name": "$smithed.actionbar.minor"
+                "name": "#smithed.actionbar.minor"
               },
               "score": "load.status"
             },
@@ -34,7 +34,7 @@
               "type": "minecraft:score",
               "target": {
                 "type": "minecraft:fixed",
-                "name": "$smithed.actionbar.patch"
+                "name": "#smithed.actionbar.patch"
               },
               "score": "load.status"
             },
@@ -45,9 +45,6 @@
           "dimension": "minecraft:overworld"
         }
       }
-    },
-    "log_spam_fixer": {
-        "trigger": "minecraft:location"
     }
   }
 }

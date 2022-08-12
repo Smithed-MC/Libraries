@@ -1,0 +1,6 @@
+# standing
+execute if score $resolved_sleep smithed.actionbar.temp matches 0 store result score $resolved_sleep smithed.actionbar.temp if predicate smithed.actionbar:__version__/vanilla/standing positioned ~-2.7 ~-0.200001 ~-2.7 unless entity @s[dx=4.4,dy=1.21,dz=4.4] run data modify storage smithed.actionbar:input message set value {json:'{"translate":"block.minecraft.bed.too_far_away","color":"yellow"}',priority:'notification',freeze:10}
+# sneaking
+execute if score $resolved_sleep smithed.actionbar.temp matches 0 store result score $resolved_sleep smithed.actionbar.temp if predicate smithed.actionbar:__version__/vanilla/sneaking positioned ~-2.7 ~-0.500001 ~-2.7 unless entity @s[dx=4.4,dy=1.51,dz=4.4] run data modify storage smithed.actionbar:input message set value {json:'{"translate":"block.minecraft.bed.too_far_away","color":"yellow"}',priority:'notification',freeze:10}
+# swimming
+execute if score $resolved_sleep smithed.actionbar.temp matches 0 store result score $resolved_sleep smithed.actionbar.temp if predicate smithed.actionbar:__version__/vanilla/swimming positioned ~-2.7 ~-1.400001 ~-2.7 unless entity @s[dx=4.4,dy=2.41,dz=4.4] run data modify storage smithed.actionbar:input message set value {json:'{"translate":"block.minecraft.bed.too_far_away","color":"yellow"}',priority:'notification',freeze:10}
