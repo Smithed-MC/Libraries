@@ -27,7 +27,7 @@ execute unless data storage smithed.actionbar:input message.freeze run scoreboar
 #  OR if player has no shown actionbar
 #    display
 
-tellraw @a [{"score":{"objective":"smithed.actionbar.temp","name":"$priority"}},{"score":{"objective":"smithed.actionbar.priority","name":"@s"}}]
+#tellraw @a [{"score":{"objective":"smithed.actionbar.temp","name":"$priority"}},{"score":{"objective":"smithed.actionbar.priority","name":"@s"}}]
 
 execute if score $priority smithed.actionbar.temp = @s smithed.actionbar.priority unless score @s smithed.actionbar.freeze matches 1.. run function smithed.actionbar:impl/__version__/display
 execute if score $priority smithed.actionbar.temp < @s smithed.actionbar.priority run function smithed.actionbar:impl/__version__/display
