@@ -1,5 +1,3 @@
-# @public
-
 # @doc player/damage_events
 # Player damage events happen when a player is damaged.
 # You can add damage events by adding your function to the tag `#smithed.damage:event/player/on_damage`.  

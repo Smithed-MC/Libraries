@@ -145,16 +145,119 @@ def generate_api_calls(ctx: Context, version, version_parts, namespace, scorehol
             generate_call(ctx, path, version, version_parts, namespace, scoreholder)
 
 
+def resolve_json(d, version):
+    if isinstance(d, list):
+        i = 0
+        for v in d:
+            if isinstance(v, str) and "__version__" in v:
+                d[i] = v.replace("__version__", version)
+            elif isinstance(v, dict) or isinstance(v, list):
+                resolve_json(v, version)
+            i += 1
+    else:
+        for k, v in d.items():
+            if isinstance(v, str) and "__version__" in v:
+                d[k] = v.replace("__version__", version)
+            elif isinstance(v, dict) or isinstance(v, list):
+                resolve_json(v, version)
+
 def resolve_advancements(ctx: Context, version, version_parts, namespace, scoreholder):
     # breakpoint()
     for path in ctx.data.advancements.match(f"{namespace}:impl"):
         adv = ctx.data.advancements[path]
-        if adv.data.get("__public__", False):
-            adv.data["rewards"]["function"] = adv.data["rewards"]["function"].replace(
-                "__version__", version
-            )
 
-            generate_call(ctx, path, version, version_parts, namespace, scoreholder)
+        resolve_json(adv.data, version)
+        
+        # add version checking to advancement conditions
+        criteria = adv.data["criteria"]
+        for requirement in criteria:
+            try:
+                player_conditions = criteria[requirement]["conditions"]["player"]
+            except:
+                try:
+                    criteria[requirement]["conditions"]["player"] = []
+                    player_conditions = criteria[requirement]["conditions"]["player"]
+                except:
+                    criteria[requirement]["conditions"] = {"player":[]}
+                    player_conditions = criteria[requirement]["conditions"]["player"]
+            
+            i = 0
+            for part in version_part_names:
+                found = False
+                scoreholder_part = f"{scoreholder}.{part}"
+                version_check = {
+                                    "condition": "minecraft:value_check",
+                                    "value": {
+                                        "type": "minecraft:score",
+                                        "target": {
+                                            "type": "minecraft:fixed",
+                                            "name": scoreholder_part
+                                        },
+                                        "score": "load.status"
+                                    },
+                                    "range": int(version_parts[i])
+                                }
+                                
+                for condition in player_conditions:
+                    try:
+                        if condition["condition"] == "minecraft:value_check" and \
+                        condition["value"]["target"]["name"] == scoreholder_part:
+                            condition["range"] = int(version_parts[i])
+                            found = True
+                    except:
+                        pass
+                if not found:
+                    player_conditions.append(version_check)
+                i+=1
+            
+def resolve_other(ctx: Context, version):
+    # predicates
+    for path in ctx.data.predicates:
+        predicate = ctx.data.predicates[path]
+
+        resolve_json(predicate.data, version)
+
+    # loot tables
+    for path in ctx.data.loot_tables:
+        loot_table = ctx.data.loot_tables[path]
+
+        resolve_json(loot_table.data, version)
+
+    # block tags
+    for path in ctx.data.block_tags:
+        tag = ctx.data.block_tags[path]
+
+        resolve_json(tag.data, version)
+
+    # entity type tags
+    for path in ctx.data.entity_type_tags:
+        tag = ctx.data.entity_type_tags[path]
+
+        resolve_json(tag.data, version)
+
+    # item tags
+    for path in ctx.data.item_tags:
+        tag = ctx.data.item_tags[path]
+
+        resolve_json(tag.data, version)
+
+    # function tags
+    for path in ctx.data.function_tags:
+        tag = ctx.data.function_tags[path]
+
+        resolve_json(tag.data, version)
+
+    # item modifiers
+    for path in ctx.data.item_modifiers:
+        modifier = ctx.data.item_modifiers[path]
+
+        resolve_json(modifier.data, version)
+
+    # recipes
+    for path in ctx.data.recipes:
+        recipe = ctx.data.recipes[path]
+
+        resolve_json(recipe.data, version)
 
 
 def load_tags(ctx: Context, namespace):
@@ -193,6 +296,7 @@ def run(ctx: Context):
     replace_version(ctx, namespace, version)
     generate_api_calls(ctx, version, version_parts, namespace, scoreholder)
     resolve_advancements(ctx, version, version_parts, namespace, scoreholder)
+    resolve_other(ctx, version)
 
     # TODO: other load tags
     resolve(ctx, namespace, version, scoreholder, version_parts)
