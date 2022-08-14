@@ -1,5 +1,4 @@
 {
-  "__public__": true,
   "criteria": {
     "unoccupied": {
       "trigger": "minecraft:item_used_on_block",

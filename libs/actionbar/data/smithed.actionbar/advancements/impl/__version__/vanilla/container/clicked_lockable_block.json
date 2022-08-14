@@ -1,5 +1,4 @@
 {
-  "__public__": true,
   "criteria": {
     "click_no_sneak": {
       "trigger": "minecraft:item_used_on_block",
