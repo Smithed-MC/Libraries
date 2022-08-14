@@ -1,3 +1,8 @@
+# raycast to find the (most-likely) block the player clicked
+# @s = player who clicked a lockable block
+# located at @s anchored eyes positioned ^ ^ ^0.X; X = loop count
+# run from vanilla/container/clicked_lockable_block
+
 execute if block ~ ~ ~ #smithed.actionbar:__version__/lockable align xyz positioned ~0.5 ~ ~0.5 run function smithed.actionbar:impl/__version__/vanilla/container/check_lock
 
 # loop until bed is found
