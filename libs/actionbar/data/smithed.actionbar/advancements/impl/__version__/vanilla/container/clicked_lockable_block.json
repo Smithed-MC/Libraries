@@ -5,42 +5,6 @@
       "conditions": {
         "player": [
           {
-            "condition": "minecraft:value_check",
-            "value": {
-              "type": "minecraft:score",
-              "target": {
-                "type": "minecraft:fixed",
-                "name": "#smithed.actionbar.major"
-              },
-              "score": "load.status"
-            },
-            "range": 0
-          },
-          {
-            "condition": "minecraft:value_check",
-            "value": {
-              "type": "minecraft:score",
-              "target": {
-                "type": "minecraft:fixed",
-                "name": "#smithed.actionbar.minor"
-              },
-              "score": "load.status"
-            },
-            "range": 0
-          },
-          {
-            "condition": "minecraft:value_check",
-            "value": {
-              "type": "minecraft:score",
-              "target": {
-                "type": "minecraft:fixed",
-                "name": "#smithed.actionbar.patch"
-              },
-              "score": "load.status"
-            },
-            "range": 1
-          },
-          {
             "condition": "minecraft:inverted",
             "term": {
               "condition": "minecraft:value_check",
@@ -66,42 +30,6 @@
       "trigger": "minecraft:item_used_on_block",
       "conditions": {
         "player": [
-          {
-            "condition": "minecraft:value_check",
-            "value": {
-              "type": "minecraft:score",
-              "target": {
-                "type": "minecraft:fixed",
-                "name": "#smithed.actionbar.major"
-              },
-              "score": "load.status"
-            },
-            "range": 0
-          },
-          {
-            "condition": "minecraft:value_check",
-            "value": {
-              "type": "minecraft:score",
-              "target": {
-                "type": "minecraft:fixed",
-                "name": "#smithed.actionbar.minor"
-              },
-              "score": "load.status"
-            },
-            "range": 0
-          },
-          {
-            "condition": "minecraft:value_check",
-            "value": {
-              "type": "minecraft:score",
-              "target": {
-                "type": "minecraft:fixed",
-                "name": "#smithed.actionbar.patch"
-              },
-              "score": "load.status"
-            },
-            "range": 1
-          }
         ],
         "item": {
           "items": [
