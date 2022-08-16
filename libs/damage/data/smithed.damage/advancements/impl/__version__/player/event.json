@@ -1,5 +1,4 @@
 {
-	"__public__": true,
 	"criteria": {
 		"generic": {
 			"trigger": "minecraft:entity_hurt_player",
@@ -90,6 +89,6 @@
 		}
 	},
 	"rewards": {
-		"function": "smithed.damage:calls/__version__/player/event"
+		"function": "smithed.damage:impl/__version__/player/event"
 	}
 }
