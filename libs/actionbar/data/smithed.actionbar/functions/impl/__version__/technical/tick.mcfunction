@@ -1,9 +1,16 @@
+# loop every tick
+schedule function smithed.actionbar:impl/__version__/technical/tick 1t replace
+
 # reset scores when at 1
 execute as @a[scores={smithed.actionbar.freeze=1}] run function smithed.actionbar:impl/__version__/reset
 
 # decrement everyone's score
-#  store whether we found anyone or not
-execute store success score $loop smithed.actionbar.temp run scoreboard players remove @a[scores={smithed.actionbar.freeze=1..}] smithed.actionbar.freeze 1
+scoreboard players remove @a[scores={smithed.actionbar.freeze=1..}] smithed.actionbar.freeze 1
 
-# only loop if we are removing scores
-execute if score $loop smithed.actionbar.temp matches 1.. run schedule function smithed.actionbar:impl/__version__/technical/tick 1t replace
+# reset sneak_time score
+scoreboard players reset @a smithed.actionbar.sneaking
+
+# reset sleeping tag
+tag @a[tag=smithed.actionbar.sleeping,nbt={SleepTimer:101s}] remove smithed.actionbar.sleeping
+tag @a[tag=smithed.actionbar.sleeping,scores={smithed.actionbar.sleep_t=0},nbt={SleepTimer:0s}] remove smithed.actionbar.sleeping
+scoreboard players remove @a[scores={smithed.actionbar.sleep_t=1..}] smithed.actionbar.sleep_t 1
