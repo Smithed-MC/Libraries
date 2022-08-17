@@ -23,3 +23,5 @@ meta:
   versioning:
     scoreholder: '#smithed.actionbar'
     namespace: smithed.actionbar
+  scheduled:
+    - tick

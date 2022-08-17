@@ -23,6 +23,11 @@ def combine_parts(format: str, version_parts):
         for name, part in zip(version_part_names, version_parts)
     )
 
+def clear_schedule_loops(namespace, version, scheduled):
+    func = ""
+    for function in scheduled:
+        func += f"schedule clear {namespace}:impl/{version}/technical/{function}\n"
+    return func
 
 def call_if_version_match(scoreholder, version_parts, path):
     return (
@@ -35,11 +40,11 @@ def call_if_version_match(scoreholder, version_parts, path):
     )
 
 
-def resolve(ctx: Context, namespace, version, scoreholder, version_parts):
+def resolve(ctx: Context, namespace, version, scoreholder, version_parts, scheduled):
     name = f"{namespace}:calls/{version}/technical/resolve"
 
     ctx.data[name] = Function(
-        f"schedule clear {namespace}:impl/{version}/technical/tick\n"
+        clear_schedule_loops(namespace, version, scheduled)
         + call_if_version_match(
             scoreholder, version_parts, f"{namespace}:impl/{version}/technical/load"
         )
@@ -290,6 +295,10 @@ def run(ctx: Context):
     namespace: str = ctx.meta["versioning"]["namespace"]
     scoreholder: str = ctx.meta["versioning"]["scoreholder"]
     version_parts: list[str] = ctx.project_version.split(".")
+    try:
+        scheduled: list[str] = ctx.meta["scheduled"]
+    except:
+        scheduled = []
 
     load_tags(ctx, namespace)
 
@@ -299,7 +308,7 @@ def run(ctx: Context):
     resolve_other(ctx, version)
 
     # TODO: other load tags
-    resolve(ctx, namespace, version, scoreholder, version_parts)
+    resolve(ctx, namespace, version, scoreholder, version_parts, scheduled)
     enumerate(ctx, scoreholder, namespace, version)
 
     set_version_func = set_version(ctx, namespace, scoreholder, version, version_parts)
