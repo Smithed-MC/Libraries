@@ -14,6 +14,12 @@
 # sets the first (and only) slot of the `Items` to an item with the nbt `smithed:{block:{id:\"INDICATOR\""}}`.
 # Note that the block itself does not need to be the same block, but the item must be one of these container blocks.
 # 
+# # Creating the Item
+# The item can be created with either a give command or loot table. 
+# ## Example `give` command:
+# ```mcfunction
+# give @s minecraft:furnace{display:{Name:'{"text":"Custom Block"}'},BlockEntityTag:{Items:[{Slot:0b,id:"minecraft:stick",Count:1b,tag:{smithed:{block:{id:"my_custom_block"}}}}]}}
+# ```
 # ## Example Loot Table:
 # ```json
 # {
@@ -27,7 +33,7 @@
 #           "functions": [
 #             {
 #               "function": "minecraft:set_nbt",
-#               "tag": "{display:{Name:'"Custom Block"'},BlockEntityTag:{Items:[{Slot:0b,id:\"minecraft:stick\",Count:1b,tag:{smithed:{block:{id:\"my_custom_block\"}}}}]}}"
+#               "tag": "{display:{Name:'{\"text\":\"Custom Block\"}'},BlockEntityTag:{Items:[{Slot:0b,id:\"minecraft:stick\",Count:1b,tag:{smithed:{block:{id:\"my_custom_block\"}}}}]}}"
 #             }
 #           ]
 #         }
@@ -51,6 +57,7 @@
 #     "minecraft:shulker_box"
 #   ]
 # }
+# ```
 
 
 # find the custom block placed by the player
