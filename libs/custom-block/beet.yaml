@@ -1,7 +1,7 @@
 name: Smithed Custom Block 
 description: Native Custom Block Library for Smithed
 author: Smithed Council
-version: '0.0.1'
+version: '0.0.2'
 
 data_pack:
   name: Smithed Custom Block
@@ -16,8 +16,6 @@ pipeline:
 
 require:
   - bolt
-  - bolt_expressions
-  - nbt_literals
 
 meta:
   mecha:

@@ -1,3 +1,8 @@
+# searches this layer for custom blocks
+# @s = player who just placed a custom block item
+# located at @s align xyz positioned ~0.5 ~0.X ~0.5; X = -6 to 6 (i.e. center of every reachable block)
+# run from place
+
 execute positioned ~-6 ~ ~-6 if block ~ ~ ~ #smithed.custom_block:placeable{Items:[{tag:{smithed:{block:{}}}}]} run function smithed.custom_block:impl/__version__/place/found
 execute positioned ~-6 ~ ~-5 if block ~ ~ ~ #smithed.custom_block:placeable{Items:[{tag:{smithed:{block:{}}}}]} run function smithed.custom_block:impl/__version__/place/found
 execute positioned ~-6 ~ ~-4 if block ~ ~ ~ #smithed.custom_block:placeable{Items:[{tag:{smithed:{block:{}}}}]} run function smithed.custom_block:impl/__version__/place/found
