@@ -28,3 +28,6 @@ meta:
   versioning:
     scoreholder: '#smithed.crafter'
     namespace: smithed.crafter
+  scheduled:
+    - tick
+    - slow_tick

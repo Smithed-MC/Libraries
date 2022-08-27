@@ -18,6 +18,9 @@ meta:
   versioning:
     scoreholder: '#smithed.enchanter'
     namespace: smithed.enchanter
+    
+  scheduled:
+    - tick
 
   dbg:
     enabled: false

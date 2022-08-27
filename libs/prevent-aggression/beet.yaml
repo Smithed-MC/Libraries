@@ -23,3 +23,5 @@ meta:
   versioning:
     scoreholder: '#smithed.prevent_aggression'
     namespace: smithed.prevent_aggression
+  scheduled:
+    - 10_tick

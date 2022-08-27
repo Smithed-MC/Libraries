@@ -25,3 +25,5 @@ meta:
   versioning:
     scoreholder: '#smithed.item'
     namespace: smithed.item
+  scheduled:
+    - tick
