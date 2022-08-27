@@ -295,10 +295,7 @@ def run(ctx: Context):
     namespace: str = ctx.meta["versioning"]["namespace"]
     scoreholder: str = ctx.meta["versioning"]["scoreholder"]
     version_parts: list[str] = ctx.project_version.split(".")
-    try:
-        scheduled: list[str] = ctx.meta["scheduled"]
-    except:
-        scheduled = []
+    scheduled: list[str] = ctx.meta.get("scheduled", [])
 
     load_tags(ctx, namespace)
 
