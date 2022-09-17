@@ -72,6 +72,7 @@ execute if data storage smithed.item:main item{id:"minecraft:netherite_boots"} r
 execute if data storage smithed.item:main item{id:"minecraft:fishing_rod"} run scoreboard players set $temp4 smithed.data 64
 execute if data storage smithed.item:main item{id:"minecraft:flint_and_steel"} run scoreboard players set $temp4 smithed.data 64
 execute if data storage smithed.item:main item{id:"minecraft:carrot_on_a_stick"} run scoreboard players set $temp4 smithed.data 25
+execute if data storage smithed.item:main item{id:"minecraft:warped_fungus_on_a_stick"} run scoreboard players set $temp4 smithed.data 100
 execute if data storage smithed.item:main item{id:"minecraft:shears"} run scoreboard players set $temp4 smithed.data 238
 execute if data storage smithed.item:main item{id:"minecraft:shield"} run scoreboard players set $temp4 smithed.data 336
 execute if data storage smithed.item:main item{id:"minecraft:bow"} run scoreboard players set $temp4 smithed.data 384
