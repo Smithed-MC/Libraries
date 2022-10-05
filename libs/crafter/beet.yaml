@@ -1,3 +1,5 @@
+extend: "@smithed/libs/common.yml"
+
 name: Smithed Crafter
 description: Native Library for Smithed
 author: TheNuclearNexus

@@ -1,0 +1,27 @@
+author: Smithed Council
+
+require:
+  - default.versioning
+  - default.documentation
+  - beet.contrib.dundervar
+
+data_pack:
+  zipped: true
+
+resource_pack:
+  zipped: true
+
+pipeline:
+  - mecha
+  - beet.contrib.render   # we must render after `mecha` (?)
+  - beet.contrib.lantern_load.base_data_pack
+  - default.update_files  # only runs on `meta.release == true`
+  - beet.contrib.output
+
+meta:
+  output:
+    directory: ../../dist
+
+  render:
+    data_pack:
+      functions: ["smithed.*"]

@@ -1,6 +1,7 @@
+extend: "@smithed/libs/common.yml"
+
 name: Smithed Actionbar 
 description: Native Actionbar Library for Smithed
-author: Smithed Council
 version: '0.0.1'
 
 data_pack:
@@ -20,8 +21,10 @@ pipeline:
 meta:
   mecha:
     formatting: preserve
+
   versioning:
     scoreholder: '#smithed.actionbar'
     namespace: smithed.actionbar
+
   scheduled:
     - tick

@@ -23,11 +23,13 @@ def combine_parts(format: str, version_parts):
         for name, part in zip(version_part_names, version_parts)
     )
 
+
 def clear_schedule_loops(namespace, version, scheduled):
     func = ""
     for function in scheduled:
         func += f"schedule clear {namespace}:impl/{version}/technical/{function}\n"
     return func
+
 
 def call_if_version_match(scoreholder, version_parts, path):
     return (
@@ -166,13 +168,14 @@ def resolve_json(d, version):
             elif isinstance(v, dict) or isinstance(v, list):
                 resolve_json(v, version)
 
+
 def resolve_advancements(ctx: Context, version, version_parts, namespace, scoreholder):
     # breakpoint()
     for path in ctx.data.advancements.match(f"{namespace}:impl"):
         adv = ctx.data.advancements[path]
 
         resolve_json(adv.data, version)
-        
+
         # add version checking to advancement conditions
         criteria = adv.data["criteria"]
         for requirement in criteria:
@@ -183,38 +186,38 @@ def resolve_advancements(ctx: Context, version, version_parts, namespace, scoreh
                     criteria[requirement]["conditions"]["player"] = []
                     player_conditions = criteria[requirement]["conditions"]["player"]
                 except:
-                    criteria[requirement]["conditions"] = {"player":[]}
+                    criteria[requirement]["conditions"] = {"player": []}
                     player_conditions = criteria[requirement]["conditions"]["player"]
-            
+
             i = 0
             for part in version_part_names:
                 found = False
                 scoreholder_part = f"{scoreholder}.{part}"
                 version_check = {
-                                    "condition": "minecraft:value_check",
-                                    "value": {
-                                        "type": "minecraft:score",
-                                        "target": {
-                                            "type": "minecraft:fixed",
-                                            "name": scoreholder_part
-                                        },
-                                        "score": "load.status"
-                                    },
-                                    "range": int(version_parts[i])
-                                }
-                                
+                    "condition": "minecraft:value_check",
+                    "value": {
+                        "type": "minecraft:score",
+                        "target": {"type": "minecraft:fixed", "name": scoreholder_part},
+                        "score": "load.status",
+                    },
+                    "range": int(version_parts[i]),
+                }
+
                 for condition in player_conditions:
                     try:
-                        if condition["condition"] == "minecraft:value_check" and \
-                        condition["value"]["target"]["name"] == scoreholder_part:
+                        if (
+                            condition["condition"] == "minecraft:value_check"
+                            and condition["value"]["target"]["name"] == scoreholder_part
+                        ):
                             condition["range"] = int(version_parts[i])
                             found = True
                     except:
                         pass
                 if not found:
                     player_conditions.append(version_check)
-                i+=1
-            
+                i += 1
+
+
 def resolve_other(ctx: Context, version):
     # predicates
     for path in ctx.data.predicates:
@@ -279,17 +282,6 @@ def load_tags(ctx: Context, namespace):
     )
 
 
-def beet_default(ctx: Context):
-    version = ctx.template.globals["version"] = f"v{ctx.project_version}"
-    namespace: str = ctx.meta["versioning"]["namespace"]
-    ctx.meta["generate_namespace"] = namespace
-    ctx.meta["generate_prefix"] = f"impl/{version}"
-
-    yield
-
-    ctx.require(run)
-
-
 def run(ctx: Context):
     version = ctx.template.globals["version"]
     namespace: str = ctx.meta["versioning"]["namespace"]
@@ -327,3 +319,13 @@ def run(ctx: Context):
             set_version_func,
         )
 
+
+def beet_default(ctx: Context):
+    version = ctx.template.globals["version"] = f"v{ctx.project_version}"
+    namespace: str = ctx.meta["versioning"]["namespace"]
+    ctx.meta["generate_namespace"] = namespace
+    ctx.meta["generate_prefix"] = f"impl/{version}"
+
+    yield
+
+    ctx.require(run)

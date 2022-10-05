@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "smithed-libraries"
+version = "0.1.0"
+description = "All of the Smithed Libraries"
+authors = ["Smithed Council <team@smithed.dev>"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "libs/*"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+mecha = "^0.57.1"
+bolt = "^0.19.1"
+bolt-expressions = "^0.8.2"
+beet = "^0.76.1"
+pydantic = "^1.10.2"
+
+[tool.poetry.group.dev.dependencies]
+black = "^22.8.0"
+isort = "^5.10.1"
+
+[tool.isort]
+profile = "black"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

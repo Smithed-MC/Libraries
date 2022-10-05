@@ -1,1 +1,2 @@
-pipeline: [build]
+broadcast: libs/*
+extend: beet.yaml

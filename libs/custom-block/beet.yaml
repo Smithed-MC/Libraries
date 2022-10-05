@@ -1,6 +1,7 @@
+extend: "@smithed/libs/common.yml"
+
 name: Smithed Custom Block 
 description: Native Custom Block Library for Smithed
-author: Smithed Council
 version: '0.0.1'
 
 data_pack:
