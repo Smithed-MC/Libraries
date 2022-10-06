@@ -1,35 +1,39 @@
-name: '<NAME>'
-description: '<DESCRIPTION>'
-author: Smithed Council
+#####
+# Smithed Library Template
+# 
+# -> Replace `[...]` with your pack details
+#####
+
+# General Pack Details
+id: 'smithed.[pack_id]'  # smithed.name
+name: '[Pack Name]'
+description: '[Pack Description]'
 version: '0.0.1'
 
+# Data Pack Configuration (if using data pack)
 data_pack:
-  name: '<NAME>'
-  load:
-    - .
+  load: .
   render:
-    functions:
-      - smithed.crafter:*
+    functions: smithed.[pack_id]:*
       
-########### DELETE IF NO RP ##########
+# Resource Pack Configuration (if using resource pack)
 resource_pack:
-  name: '<NAME> RP'
-  load:
-    - .
-#######################################
+  load: .
 
-##### DELETE IF BOLT IS UNWANTED #####
+# Plugins that run before pack is loaded
 require:
-  - bolt
-######################################
+  - bolt   # Optional (omit if not using `bolt`)
 
+# Plugins that run after pack is loaded
 pipeline:
-  - mecha
+  - mecha  # Validates commands (and executes custom commands such as `bolt`) 
 
+# Extra values to configure plugins, etc
 meta:
-  mecha:
-    formatting: preserve
+  # Used to version pack for release
   versioning:
-  # CHANGE THESE TO MATCH PACK ID
-    scoreholder: '#smithed.<ID>'
-    namespace: smithed.<ID>
+    scoreholder: '#smithed.[pack_id]'
+    namespace: smithed.[pack_id]
+
+  # Used to indicate to LL what the main file
+  scheduled: [tick]

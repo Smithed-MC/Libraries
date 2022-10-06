@@ -1,0 +1,31 @@
+extend: "@smithed_libraries/common.yaml"
+
+id: smithed.enchanter
+name: Smithed Enchanter
+description: Native Enchanter Library for Smithed
+version: '0.0.1'
+
+data_pack:
+  name: Smithed Enchanter
+  load: [.]
+resource_pack:
+  name: Smithed Enchanter RP
+  load: [.]
+
+require:
+  - bolt
+  - bolt_expressions
+
+meta:
+  versioning:
+    scoreholder: '#smithed.enchanter'
+    namespace: smithed.enchanter
+    
+  scheduled:
+    - tick
+
+  dbg:
+    enabled: false
+
+  bolt_expressions:
+    init_path: 'technical/init_expressions'

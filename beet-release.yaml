@@ -1,16 +1,12 @@
-broadcast: libs/*
+broadcast: smithed_libraries/packs/*
 extend: beet.yaml
 
-data_pack:
-  zipped: false
-
-resource_pack:
-  zipped: false
-
-# Disabling the "meta.autosave.link" option makes it so
-#  that if we have a "beet link" set up for development
-#  we won't pollute the "datapacks" directory with the
-#  release zips.
 meta:
+  zip: false
+
+  # Disabling the "meta.autosave.link" option makes it so
+  #  that if we have a "$ beet link" set up for development
+  #  we won't pollute the "datapacks" directory with the
+  #  release files.
   autosave:
     link: false

@@ -5,7 +5,6 @@ description = "All of the Smithed Libraries"
 authors = ["Smithed Council <team@smithed.dev>"]
 license = "MIT"
 readme = "README.md"
-packages = [{include = "libs/*"}]
 
 [tool.poetry.dependencies]
 python = "^3.10"

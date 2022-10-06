@@ -1,2 +1,2 @@
-broadcast: libs/*
+broadcast: smithed_libraries/packs/*
 extend: beet.yaml

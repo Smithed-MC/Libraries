@@ -13,20 +13,20 @@ You can build it from source using the [beet](https://github.com/mcbeet/beet) vi
 
 ### Contributing
 
-Contributions are welcome. Make sure to first open an issue discussing the problem or the new feature before creating a pull request. The project uses [poetry](https://python-poetry.org/).
+Contributions are welcome. Make sure to first open an issue discussing the problem or the new feature before creating a pull request. This project uses [poetry](https://python-poetry.org/) and [beet](https://mcbeet.dev) for building and publishing to pypi.
 
 ```bash
 $ git clone https://github.com/Smithed-MC/Libraries
 $ cd Libraries && poetry install
 $ beet  # Builds all libraries by default
 # or
-$ beet -s "broadcast = libs/damage"
+$ beet -s "broadcast = smithed_libraries/packs/damage"
 ```
 
 The code follows the [black](https://github.com/psf/black) code style. Import statements are sorted with [isort](https://pycqa.github.io/isort/).
 
 ```bash
-$ poetry run isort default libs
-$ poetry run black default libs
-$ poetry run black --check default libs
+$ poetry run isort libs
+$ poetry run black libs
+$ poetry run black --check libs
 ```
