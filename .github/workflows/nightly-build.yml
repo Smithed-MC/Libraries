@@ -1,6 +1,8 @@
-name: Python Package using Conda
+name: Build Nightly Libraries
 
-on: [push]
+on: 
+  - push
+  - pull_request
 
 jobs:
   build-linux:
@@ -34,7 +36,7 @@ jobs:
       run: poetry install
 
     - name: Build via beet
-      run: beet -s "meta.release = True" -s "${{ inputs.libraries }}"
+      run: beet -c beet-release.yaml
 
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v3.0.0

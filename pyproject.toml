@@ -8,18 +8,27 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.10"
-mecha = "^0.57.1"
-bolt = "^0.19.1"
+mecha = "^0.57.5"
+bolt = "^0.20.1"
 bolt-expressions = "^0.8.2"
-beet = "^0.76.1"
+beet = "^0.79.1"
 pydantic = "^1.10.2"
 
 [tool.poetry.group.dev.dependencies]
 black = "^22.8.0"
 isort = "^5.10.1"
 
+[tool.poetry.plugins.beet]
+commands = "smithed_libraries.commands"
+
 [tool.isort]
 profile = "black"
+
+[tool.pyright]
+typeCheckingMode = "strict"
+
+[tool.poe.tasks]
+format = {shell = "isort smithed_libraries & black smithed_libraries"}
 
 [build-system]
 requires = ["poetry-core"]

@@ -1,16 +1,14 @@
 author: Smithed Council
 
+output: ../../../dist
+
 require:
+  - smithed_libraries.plugins.relay_config
   - smithed_libraries.plugins.versioning
   - smithed_libraries.plugins.documentation
-  - beet.contrib.dundervar
 
 pipeline:
   - mecha
-  - beet.contrib.render   # we must render after `mecha` (?)
-  - beet.contrib.lantern_load.base_data_pack
-  - beet.contrib.output
-  - smithed_libraries.plugins.misc.update_files  # only runs on `meta.release == true`
 
 meta:
   zip: false  # sets both data_pack and resource_pack zipped
@@ -18,9 +16,5 @@ meta:
   mecha:
     formatting: preserve
 
-  output:
-    directory: ../../../dist
-
-  render:
-    data_pack:
-      functions: ["smithed.*"]
+  replace_version:  
+    - "{{ ctx.project_id }}:impl/": "{{ ctx.project_id }}:impl/{{ version }}"

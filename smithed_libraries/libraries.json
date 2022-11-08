@@ -1,7 +1,7 @@
 [
     {
         "id": "crafter", 
-        "version": "0.0.2",
+        "version": "0.0.3",
         "description": "`Crafter` makes NBT crafting easy as ever! It supports tags, shaped and shapeless, custom nbt, shift-clicking, and nbt-transferring (think smithing table). `Crafter` also has an addon that adds all vanilla recipes to it."
     },
     {
@@ -32,7 +32,7 @@
     },
     {
         "id": "damage", 
-        "version": "0.0.1",
+        "version": "0.0.5",
         "description": "`Damage` allows you to deal variable damage based on a score!",
         "badges": [
             "core"

@@ -1,29 +1,27 @@
-from importlib import resources
+# pyright: reportUnsupportedDunderAll=false
 
 from beet import Plugin, subproject
 
 from . import plugins
 
 __all__ = [
-    *(
-        lib.name
-        for lib in (resources.files(__package__) / "packs").iterdir()
-        if lib.is_dir()
-    ),
+    "actionbar",
+    "crafter",
+    "crafter-addon",
+    "custom-block",
+    "damage",
+    "enchanter",
+    "item",
+    "prevent-aggression",
     "plugins",
 ]
-
-WRAPPER_PLUGIN = lambda name: {
-    "directory": f"@smithed/libs/{name}",
-    "extend": "beet.yml",
-}
 
 
 def __getattr__(name: str) -> Plugin:
     """Dynamically generates a plugin that creates a subproject for a library"""
 
     if name in __all__:
-        return lambda ctx: ctx.require(subproject(WRAPPER_PLUGIN(name)))
+        return subproject({"extend": f"@{__package__}/packs/{name}/beet.yaml"})
 
     raise AttributeError(f"module {__package__!r} has no plugin {name!r}")
 

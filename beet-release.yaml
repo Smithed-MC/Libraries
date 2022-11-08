@@ -2,7 +2,7 @@ broadcast: smithed_libraries/packs/*
 extend: beet.yaml
 
 meta:
-  zip: false
+  zip: true
 
   # Disabling the "meta.autosave.link" option makes it so
   #  that if we have a "$ beet link" set up for development

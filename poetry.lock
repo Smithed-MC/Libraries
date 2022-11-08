@@ -1,6 +1,6 @@
 [[package]]
 name = "beet"
-version = "0.76.1"
+version = "0.79.1"
 description = "The Minecraft pack development kit"
 category = "main"
 optional = false
@@ -43,15 +43,15 @@ uvloop = ["uvloop (>=0.15.2)"]
 
 [[package]]
 name = "bolt"
-version = "0.19.1"
+version = "0.20.1"
 description = "Supercharge Minecraft commands with Python"
 category = "main"
 optional = false
 python-versions = ">=3.8,<4.0"
 
 [package.dependencies]
-beet = ">=0.71.2"
-mecha = ">=0.55.1"
+beet = ">=0.79.0"
+mecha = ">=0.57.4"
 
 [[package]]
 name = "bolt-expressions"
@@ -138,14 +138,14 @@ python-versions = ">=3.7"
 
 [[package]]
 name = "mecha"
-version = "0.57.1"
+version = "0.57.5"
 description = "A powerful Minecraft command library"
 category = "main"
 optional = false
 python-versions = ">=3.8,<4.0"
 
 [package.dependencies]
-beet = ">=0.73.3"
+beet = ">=0.79.0"
 tokenstream = ">=1.4.2,<2.0.0"
 
 [[package]]
@@ -253,12 +253,12 @@ python-versions = ">=3.7"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "f61b450e235a0ec15141fbaf38cb2773371b760b1c77af761233daa36990e1ec"
+content-hash = "81a15c42ce11e31b120cad5325fbd776b61903987b4266f61592ff4a2a80676b"
 
 [metadata.files]
 beet = [
-    {file = "beet-0.76.1-py3-none-any.whl", hash = "sha256:8755aaab0d790216cdbe1955ee05d7c84c6379371370556273a38c10cb65aaf6"},
-    {file = "beet-0.76.1.tar.gz", hash = "sha256:0969efc6e895b3d7df77a77bc3851734be2ed8aae18ce70d07bbcb1149f00ff5"},
+    {file = "beet-0.79.1-py3-none-any.whl", hash = "sha256:2b792eb8de092f3a25d73ce6fb16b9d7262918b8144045ca4a4ea2d735aee50f"},
+    {file = "beet-0.79.1.tar.gz", hash = "sha256:3198c4603fa60b357ae68a2a2cb75abc2e8b839f7c940980f6deeea18c0a41b8"},
 ]
 black = [
     {file = "black-22.8.0-cp310-cp310-macosx_10_9_universal2.whl", hash = "sha256:ce957f1d6b78a8a231b18e0dd2d94a33d2ba738cd88a7fe64f53f659eea49fdd"},
@@ -286,8 +286,8 @@ black = [
     {file = "black-22.8.0.tar.gz", hash = "sha256:792f7eb540ba9a17e8656538701d3eb1afcb134e3b45b71f20b25c77a8db7e6e"},
 ]
 bolt = [
-    {file = "bolt-0.19.1-py3-none-any.whl", hash = "sha256:96868ee3c0999de209897a3976fb0561fa93b5eb15c8e3550c251b561bea80a2"},
-    {file = "bolt-0.19.1.tar.gz", hash = "sha256:216373a70038f88361809e4ff1054c32680164b295bae224a4099ff001bb3f78"},
+    {file = "bolt-0.20.1-py3-none-any.whl", hash = "sha256:6965b1184710c3e711b9e6e486bba0f498d160692c294870ec5840306a0571b4"},
+    {file = "bolt-0.20.1.tar.gz", hash = "sha256:4a466f963ac9e4743a1d4b1c2a13416e9b31dcdbdcfd91dc3f9d7965fb5a951c"},
 ]
 bolt-expressions = [
     {file = "bolt-expressions-0.8.2.tar.gz", hash = "sha256:9f3ab5198a6e1c143adee03f42be006207d97ef66bb36418bc3a0683e13fa1b3"},
@@ -356,8 +356,8 @@ MarkupSafe = [
     {file = "MarkupSafe-2.1.1.tar.gz", hash = "sha256:7f91197cc9e48f989d12e4e6fbc46495c446636dfc81b9ccf50bb0ec74b91d4b"},
 ]
 mecha = [
-    {file = "mecha-0.57.1-py3-none-any.whl", hash = "sha256:2adb178be7317140c790c49c248b6ae52b8f0a0888a4b1f3c220e6b15afe2fc1"},
-    {file = "mecha-0.57.1.tar.gz", hash = "sha256:36d42d798e7627ef4d466b6c6b20153d0d96f99c9ba2154eb472b0dfffe29951"},
+    {file = "mecha-0.57.5-py3-none-any.whl", hash = "sha256:ee33565baf2ea8186f18a070b34533e320f80e33dce123ac2b140e30f32ba181"},
+    {file = "mecha-0.57.5.tar.gz", hash = "sha256:312793c7a31cb11173b55dc039d5787cd9bc1647ea1225cc9a6d405672e4136b"},
 ]
 mypy-extensions = [
     {file = "mypy_extensions-0.4.3-py2.py3-none-any.whl", hash = "sha256:090fedd75945a69ae91ce1303b5824f428daf5a028d2f6ab8a299250a846f15d"},
