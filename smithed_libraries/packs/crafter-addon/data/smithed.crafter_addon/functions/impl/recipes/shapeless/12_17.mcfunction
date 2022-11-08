@@ -1,0 +1,2 @@
+execute if score @s smithed.data matches 0 run function smithed.crafter_addon:impl/recipes/shapeless/12_14
+execute if score @s smithed.data matches 0 run function smithed.crafter_addon:impl/recipes/shapeless/15_17

@@ -1,0 +1,2 @@
+execute if score @s smithed.data matches 0 run function smithed.crafter_addon:impl/recipes/shaped/260_261
+execute if score @s smithed.data matches 0 run function smithed.crafter_addon:impl/recipes/shaped/262_263
