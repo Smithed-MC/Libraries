@@ -14,7 +14,10 @@ $ poetry install
 $ beet
 
 # To build just one library
-$ cd smithed_libraries/packs/damage & beet
+$ beet -s "broadcast: smithed_libraries/packs/actionbar"
+# or
+$ cd smithed_libraries/packs/actionbar
+$ beet
 ```
 
 ## Code Style
