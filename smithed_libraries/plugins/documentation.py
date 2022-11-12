@@ -23,7 +23,9 @@ class Input(NamedTuple):
 Item = TypeVar("Item")
 
 
-def partition(pred: Callable[[Item], bool], iterable: Iterable[Item]):
+def partition(
+    pred: Callable[[Item], bool], iterable: Iterable[Item]
+) -> tuple[Iterable[Item], Iterable[Item]]:
     """Use a predicate to partition entries into false entries and true entries
 
     >>> partition(is_odd, range(10))

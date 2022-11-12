@@ -26,26 +26,15 @@ pipeline:
   - mecha  # Validates commands (and executes custom commands such as `bolt`) 
 
 
-meta:             # Extra values to configure plugins, etc
+meta:  # Extra values to configure plugins, etc
   smithed:
-    versioning:   # Used to version pack for release
-      # Namespace used, defaults to `ctx.project_id`
-      namespace: "smithed.id"
+    versioning:
+      # smithed.versioning is a plugin to help implement lantern_load (LL) for release
+      # note: fields with path indiciates it will be used in `ctx.generate`
+      #  this means there's no need to indiciate namespace (auto from `id` from earlier)
 
-      # Variable used in LL, defaults to '#{{ ctx.project_id }}'
-      scoreholder: "#smithed.id"
+      # Either a list or single item of paths to schedule clocks
+      #  Used to kill library ticking if a newer library exists in-world
+      scheduled_paths: impl/technical/tick  # (this is default)
 
-      # Used to indicate to LL what the main file
-      # If single item, you can omit list (e.g. `schedule: tick`)
-      scheduled:
-        - tick
-        - slow_tick
-
-      refactor:
-        match: "{{ namespace }}:*"                     # which files to match for version refactoring
-        find: "{{ namespace }}:impl/"                  # which path to match
-        replace: "{{ namespace }}:impl/{{ version }}"  # the path to replace w/
-
-      api:                      # Defines what @public produces
-        implementation: "impl"  # Implementation code folder
-        check: "calls"          # Version check code folder
+      # check out @smithed_libraries.common.yaml for more details

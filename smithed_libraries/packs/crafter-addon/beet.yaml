@@ -1,22 +1,13 @@
 extend: "@smithed_libraries/common.yaml"
 
 id: smithed.crafter_addon
-name: Smithed Crafter Addon 
+name: Smithed Crafter Addon
+version: "0.1.0"
 description: Native Addon for the Crafter Library for Smithed
 
 data_pack:
   name: Smithed Crafter Addon
   load: .
-  render:
-    functions:
-      - smithed.crafter_addon:*
 
 pipeline:
   - mecha
-
-meta:
-  mecha:
-    formatting: preserve
-  versioning:
-    scoreholder: '#smithed.crafter_addon'
-    namespace: smithed.crafter_addon

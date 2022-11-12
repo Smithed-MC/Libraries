@@ -2,34 +2,28 @@ extend: "@smithed_libraries/common.yaml"
 
 id: smithed.crafter
 name: Smithed Crafter
+version: "0.1.0"
 description: Native Library for Smithed
 author: TheNuclearNexus
 
 data_pack:
   name: Smithed Crafter
-  load:
-    - .
-  render:
-    functions:
-      - smithed.crafter:*
+  load: .
       
 resource_pack:
   name: Smithed Crafter RP
-  load:
-    - .
+  load: .
 
 require:
   - smithed_libraries.plugins.item_groups
   - bolt
+
 pipeline:
   - mecha
 
 meta:
-  mecha:
-    formatting: preserve
-  versioning:
-    scoreholder: '#smithed.crafter'
-    namespace: smithed.crafter
-  scheduled:
-    - tick
-    - slow_tick
+  smithed:
+    versioning:
+      scheduled_paths:
+        - tick
+        - slow_tick
