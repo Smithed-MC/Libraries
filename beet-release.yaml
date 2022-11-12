@@ -1,6 +1,8 @@
 broadcast: smithed_libraries/packs/*
 extend: beet.yaml
 
+output: ../../../dist
+
 meta:
   zip: true
 
