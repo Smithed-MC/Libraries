@@ -1,5 +1,4 @@
 # Contributing
-
 Contributions are welcome! Make sure to first open an issue discussing the problem or the new feature before creating a pull request. This project uses [poetry](https://python-poetry.org/) and [beet](https://mcbeet.dev) for building and publishing to pypi.
 
 ## Setup
@@ -122,6 +121,7 @@ Here are the types and scopes we'll be using (adapted from [here](https://github
 
 ## Versioning
 Each library pack has their own version as well as the entire repo itself. Using the `Release` Github Action will bump the cooresponding versions in each file.
+> Coming Soon
 
 These can be found in the following files:
 - `packs/<pack-name>/beet.yaml` -> `version` field
