@@ -14,10 +14,24 @@ $ poetry install
 $ beet
 
 # To build just one library
-$ beet -s "broadcast: smithed_libraries/packs/actionbar"
+$ beet --set "broadcast: smithed_libraries/packs/actionbar"
 # or
 $ cd smithed_libraries/packs/actionbar
 $ beet
+```
+
+## Developing
+Since we leverage the beet toolchain, there are a couple of useful commands you can use while developing the libraries!
+
+```bash
+# Links to your .minecraft folder directly into your world
+$ beet link "Minecraft World Name"
+
+# Watches all data packs for changes
+# Builds then reloads world
+$ beet watch --reload
+$ beet -s "broadcast: smithed_libraries/packs/actionbar" watch --reload
+$ cd smithed_libraries/packs/actionbar && beet watch --reload
 ```
 
 ## Code Style
