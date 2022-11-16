@@ -58,7 +58,7 @@ jobs:
     - name: Build via Beet
       run: |
         cd libraries
-        beet -p beet-release.yaml
+        poetry run beet -p beet-release.yaml
         cd ..
 
     - name: Copy files to releases
