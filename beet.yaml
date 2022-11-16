@@ -2,3 +2,9 @@ broadcast: smithed_libraries/packs/*
 extend: beet.yaml
 
 output: ../../../dist
+
+data_pack:
+  zipped: false
+
+resource_pack:
+  zipped: false

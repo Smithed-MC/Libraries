@@ -1,8 +1,10 @@
 from typing import Any, ClassVar, Literal
 
-from beet import Context, ListOption
+from beet import Context, ListOption, PathSpecOption
 from beet.contrib.rename_files import RenderRenameOption, TextRenameOption
-from pydantic import BaseModel, Field, root_validator, validator
+from pydantic import BaseModel, Field, validator
+
+from .types import JsonDict, JsonType
 
 
 class ContextualModel(BaseModel):
@@ -38,7 +40,7 @@ class Version(ContextualModel):
         return list(self.__root__.items())
 
     def __str__(self):
-        return "v" + ".".join(str(value) for value in self.__root__.values())
+        return ".".join(str(value) for value in self.__root__.values())
 
 
 class VersioningOptions(ContextualModel, extra="forbid"):
@@ -50,19 +52,19 @@ class VersioningOptions(ContextualModel, extra="forbid"):
         function_path: str = "impl/load"
 
     class ApiOptions(ContextualModel):
-        match: str = "*"  # type: ignore
-        implementation_prefix: str = "{{ ctx.project_id }}:impl/"
-        version_check_path: str = "calls"
-        tag_path: str = "load"
+        match: PathSpecOption = "{{ project_id }}:v{{ version }}/*"  # type: ignore
+        implementation_prefix: str = "{{ project_id }}:v{{ version }}/"
+        version_check_path: str = "v{{ version }}/calls"
+        tag_path: str = ""
 
-    scoreholder: str = "#{{ ctx.project_id }}"
+    scoreholder: str = "#{{ project_id }}"
     schema_: list[str] = Field(["major", "minor", "patch"], alias="schema")
     scheduled_paths: ListOption[str] = ListOption(__root__=["impl/tick"])
     version: Version = None  # type: ignore
     refactor: TextRenameOption | RenderRenameOption = {
-        "match": "{{ ctx.project_id }}:*",
-        "find": "{{ ctx.project_id }}:impl/",
-        "replace": "{{ ctx.project_id }}:impl/v{{ version }}/",
+        "match": "{{ project_id }}:*",
+        "find": "{{ project_id }}:impl/",
+        "replace": "{{ project_id }}:impl/v{{ version }}/",
     }  # type: ignore
     lantern_load: LanternLoadOptions = LanternLoadOptions()
     api: ApiOptions = ApiOptions()
@@ -73,7 +75,7 @@ class VersioningOptions(ContextualModel, extra="forbid"):
 
     @classmethod
     def render(cls, value: str, values: dict[str, Any]):
-        return cls.ctx.template.render_string(value, ctx=cls.ctx, **values)
+        return cls.ctx.template.render_string(value, **values)
 
     @validator("version", pre=True, always=True)
     def init_version(cls, value: Any, values: dict[str, Any]):
@@ -83,64 +85,30 @@ class VersioningOptions(ContextualModel, extra="forbid"):
             case _:
                 return value
 
-    @validator("refactor", pre=True)
-    def render_refactor(cls, value: dict[str, str], values: dict[str, Any]):
-        match value:
-            case {"match": str(match), "find": str(find), "render": str(render)}:
+    @classmethod
+    def render_value(cls, val: JsonType, all_values: JsonDict) -> JsonType:
+        match val:
+            case str(value):
+                return cls.render(value, all_values)
+
+            case list(vals):
+                return [cls.render_value(val, all_values) for val in vals]
+
+            case dict(vals):
                 return {
-                    "match": cls.render(match, values),
-                    "find": cls.render(find, values),
-                    "render": cls.render(render, values),
+                    key: cls.render_value(val, all_values) for key, val in vals.items()
                 }
 
-            case {"match": str(match), "find": str(find), "replace": str(replace)}:
-                return {
-                    "match": cls.render(match, values),
-                    "find": cls.render(find, values),
-                    "replace": cls.render(replace, values),
-                }
+            case _ as val:
+                return val
 
-            case dict():
-                raise ValueError(f"Invalid refactor configuration: {value!r}")
-
-    @root_validator
-    def render_strings(cls, values: dict[str, Any]):
-        """This root validator handles the rendering of all structures inside
+    @validator("*", pre=True, always=True)
+    def render_all(cls, value: JsonType, values: JsonDict):
+        """This validator handles the rendering of all structures inside
 
         In Pydantic V2, we would likely try to generalize this behavior in `beet`.
         For now, we have to match every key-value in our values dict to figure out
          if the string or string within needs to be rendered.
-        This was a bit difficult to generalize atm, so it's basically hardcoded.
         """
 
-        for key in values:
-            match values[key]:
-                case str(value):
-                    values[key] = cls.render(value, values)
-
-                case ListOption() as opt:  # type: ignore
-                    values[key] = ListOption(
-                        __root__=[
-                            cls.render(entry, values)  # type: ignore
-                            for entry in opt.entries()  # type: ignore
-                        ]
-                    )
-
-                case VersioningOptions.LanternLoadOptions() as opts:
-                    opts.tag_path = cls.render(opts.tag_path, values)
-                    opts.function_path = cls.render(opts.function_path, values)
-
-                case VersioningOptions.ApiOptions() as opts:
-                    opts.version_check_path = cls.render(
-                        opts.version_check_path, values
-                    )
-                    opts.match = cls.render(opts.match, values)
-                    opts.implementation_prefix = cls.render(
-                        opts.implementation_prefix, values
-                    )
-                    opts.tag_path = cls.render(opts.tag_path, values)
-
-                case _:
-                    pass
-
-        return values
+        return cls.render_value(value, all_values=values)

@@ -13,7 +13,7 @@ def item_groups(ctx: Context):
 
 
 def beet_default(ctx: Context):
-    """This plugin enables behavior which benefits the companion mod
+    """This plugin enables behaviors which are implemented in the companion mod
 
     Enables the following:
       - Item Groups

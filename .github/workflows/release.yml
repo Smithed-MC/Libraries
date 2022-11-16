@@ -1,45 +1,99 @@
 name: Release Packages
 
 on:
-  workflow_dispatch:
-    inputs:
-      libraries:
-        description: 'List of libraries to release'
-        default: 'meta.libraries = []'
-        type: string
-        required: false
+  - workflow_dispatch
 
+env:
+  MC_VERSION: '1.19'
+  COMMIT_MSG: ${{github.event.head_commit.message}}
 
 jobs:
   build-linux:
     runs-on: ubuntu-latest
     
     steps:
-    - name: Set up Python 3.10
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.10'
-    - name: Install mecha and beet
-      run: "pip install -U beet mecha bolt 'bolt-expressions>=0.6.1'"
+
+    #----------------------------------------------
+    #            Setup Build Environment
+    #----------------------------------------------
+
     - name: Checkout 'main'
       uses: actions/checkout@v3
       with:
         path: 'libraries'
+        fetch-depth: 0
+    
     - name: Checkout 'releases'
       uses: actions/checkout@v3
       with:
         path: 'releases'
         ref: 'releases'
+
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.10'
+
+    - name: Install Poetry
+      uses: snok/install-poetry@v1
+      with:
+        version: '1.2.2'
+        virtualenvs-in-project: true
+
+    - name: Setup cache
+      id: cached-poetry-dependencies
+      uses: actions/cache@v2
+      with:
+        path: .venv
+        key: venv-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
+
+    - name: Install dependencies (skip if cached)
+      if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
+      run: poetry install
+
+    #----------------------------------------------
+    #       Build packs and copy to branch
+    #----------------------------------------------
+    
     - name: Build via Beet
       run: |
         cd libraries
-        beet -s "meta.release = True" -s "${{ inputs.libraries }}"
+        beet -p beet-release.yaml
         cd ..
+
+    - name: Copy files to releases
+      run: |
+        mkdir releases/$MC_VERSION
+        cp -rf ../libraries/dist/* releases/$MC_VERSION
+
+    #----------------------------------------------
+    #                 Push to PYPI
+    #----------------------------------------------
+
+    - name: Release for PYPI
+      if: |
+        github.repository == 'SmithedMC/smithed_libraries'
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
+      run: |
+        cd libraries
+        VERSION=$(semantic-release print-version)
+        poetry run semantic-release publish -v DEBUG -D commit_author="github-actions <action@github.com>"
+        cd ..
+    
+    #----------------------------------------------
+    #        Commit built packs to branch
+    #----------------------------------------------
+    #  We use `&&` to ensure git steps are atomic
+    #----------------------------------------------
+
     - name: Copy files to releases
       run: |
         cd releases
-        cp -rf ../libraries/dist/* .
-        cp ../libraries/latest.yaml latest.yaml
         git config --global user.name "github-actions"
-        git config --global user.email "actions@github.com"
-        git add . && git commit -m "Update libraries" && git push origin releases
+        git config --global user.email "action@github.com"
+        git add . \
+          && git commit -m "🚀 {{ github.event.after }} (v$VERSION): $COMMIT_MSG" \
+          && git push --force origin releases
+        cd ..

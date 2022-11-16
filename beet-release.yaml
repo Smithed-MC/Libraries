@@ -3,9 +3,15 @@ extend: beet.yaml
 
 output: ../../../dist
 
-meta:
-  zip: true
+data_pack:
+  name: "{{ project_id.partition('.')[-1] }}/{{ project_id.replace('.', '_') }}_dp"
+  zipped: true
 
+resource_pack:
+  name: "{{ project_id.partition('.')[-1] }}/{{ project_id.replace('.', '_') }}_rp"
+  zipped: true
+
+meta:
   # Disabling the "meta.autosave.link" option makes it so
   #  that if we have a "$ beet link" set up for development
   #  we won't pollute the "datapacks" directory with the

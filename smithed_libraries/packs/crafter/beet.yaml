@@ -15,15 +15,14 @@ resource_pack:
   load: .
 
 require:
-  - smithed_libraries.plugins.item_groups
+  - smithed_libraries.plugins.companion_mod
   - bolt
 
 pipeline:
   - mecha
 
-meta:
-  smithed:
-    versioning:
-      scheduled_paths:
-        - tick
-        - slow_tick
+# overrides:
+#   - > 
+#     meta.smithed.versioning = {"scheduled_paths": [
+#       "impl/technical/tick", "impl/technical/slow_tick"
+#     ]}

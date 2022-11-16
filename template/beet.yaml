@@ -4,6 +4,8 @@
 # -> Replace `[...]` with your pack details
 #####
 
+extend: "@smithed_libraries/common.yaml"
+
 # General Pack Details
 id: '[smithed.id]'  # smithed.name e.g. smithed.actionbar
 name: '[Pack Name]'
@@ -24,17 +26,3 @@ require:
 # Plugins that run after pack is loaded
 pipeline:
   - mecha  # Validates commands (and executes custom commands such as `bolt`) 
-
-
-meta:  # Extra values to configure plugins, etc
-  smithed:
-    versioning:
-      # smithed.versioning is a plugin to help implement lantern_load (LL) for release
-      # note: fields with path indiciates it will be used in `ctx.generate`
-      #  this means there's no need to indiciate namespace (auto from `id` from earlier)
-
-      # Either a list or single item of paths to schedule clocks
-      #  Used to kill library ticking if a newer library exists in-world
-      scheduled_paths: impl/technical/tick  # (this is default)
-
-      # check out @smithed_libraries.common.yaml for more details

@@ -21,7 +21,7 @@
         ],
         "location": {
           "block": {
-            "tag": "smithed.actionbar:__version__/lockable"
+            "tag": "smithed.actionbar:impl/lockable"
           }
         }
       }
@@ -38,7 +38,7 @@
         },
         "location": {
           "block": {
-            "tag": "smithed.actionbar:__version__/lockable"
+            "tag": "smithed.actionbar:impl/lockable"
           }
         }
       }

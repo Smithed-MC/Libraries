@@ -4,7 +4,7 @@
 # run from vanilla/bed/send_sleep_status
 
 # get current number of players in dimension and count how many are sleeping
-execute if predicate smithed.actionbar:__version__/is_day run scoreboard players set $sleep_count_expected smithed.actionbar.temp 0
+execute if predicate smithed.actionbar:impl/is_day run scoreboard players set $sleep_count_expected smithed.actionbar.temp 0
 execute store result score $sleeping_players smithed.actionbar.temp if entity @a[x=0,tag=smithed.actionbar.sleeping]
 execute store result score $players_in_dimension smithed.actionbar.temp if entity @a[x=0]
 

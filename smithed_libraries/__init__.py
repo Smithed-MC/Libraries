@@ -4,6 +4,8 @@ from beet import Plugin, subproject
 
 from . import plugins
 
+__version__ = "0.1.0"
+
 __all__ = [
     "actionbar",
     "crafter",

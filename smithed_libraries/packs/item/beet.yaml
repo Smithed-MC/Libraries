@@ -1,5 +1,6 @@
 extend: "@smithed_libraries/common.yaml"
 
+id: smithed.item
 name: Smithed Item 
 description: Native Item Library for Smithed
 version: '0.1.0'

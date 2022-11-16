@@ -32,8 +32,6 @@ def generate_api(ctx: Context, opts: VersioningOptions):
             https://github.com/SpyglassMC/Spyglass/wiki/IMP-Doc
     """
 
-    for path in ctx.data.functions.match(opts.api.match):
-        function = ctx.data.functions[path]
-
-        if PUBLIC_PAT.match(function.lines[0]):
+    for func, (_, path) in ctx.select(match=opts.api.match, extend=Function).items():
+        if func.lines and path is not None and PUBLIC_PAT.match(func.lines[0]):
             generate_call(ctx, opts, path)

@@ -28,12 +28,12 @@ def beet_default(ctx: Context):
     It will generate call function for any api route as defined in the config.
     """
 
-    ContextualModel.ctx = ctx  # TODO: use `configurable` in pydantic v2
-
     yield
 
+    ContextualModel.ctx = ctx  # TODO: use `configurable` in pydantic v2
     opts = ctx.validate("smithed.versioning", VersioningOptions)
 
+    # all things for lantern load impl
     ctx.require(lambda ctx: generate_load(ctx, opts))
 
     # refactors file names and paths to inject version
