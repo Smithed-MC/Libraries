@@ -107,7 +107,7 @@ Here are the types and scopes we'll be using (adapted from [here](https://github
 - **\*** (*special*): bumps every library
 - **actionbar** (*lib*)
 - **crafter** (*lib*)
-- **crafter**-addon (*lib*)
+- **crafter-addon** (*lib*)
 - **damage** (*lib*)
 - **enchanter** (*lib*)
 - **item** (*lib*)
