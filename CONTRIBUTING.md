@@ -120,8 +120,9 @@ Here are the types and scopes we'll be using (adapted from [here](https://github
 
 
 ## Versioning
-Each library pack has their own version as well as the entire repo itself. Using the `Release` Github Action will bump the cooresponding versions in each file.
-> Coming Soon
+Each library pack has their own version as well as the entire repo itself. Using the `Release` Github Action will produce a new release in the `releases` branch.
+
+Make sure you bump the version before running this action!
 
 These can be found in the following files:
 - `packs/<pack-name>/beet.yaml` -> `version` field
