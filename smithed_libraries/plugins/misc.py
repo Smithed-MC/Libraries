@@ -1,17 +1,21 @@
 from beet import Context
 
+import logging
+
+logger = logging.getLogger(__name__)
+
 
 def display_broadcasted_pack(ctx: Context):
     """Simply outputs pack details"""
 
-    print("Building", ctx.project_name, ctx.project_version)
+    logger.info("Building %s %s", ctx.project_name, ctx.project_version)
 
 
 def output_dist(ctx: Context):
     """Dynamically constructs the output directories for Github CI"""
 
     if not ctx.meta.get("output_release", True):
-        print("> Skipped Output")
+        logger.info("> Skipped Output")
         return
 
     _, _, pack_name = ctx.project_id.partition(".")

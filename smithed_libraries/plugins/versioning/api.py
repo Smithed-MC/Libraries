@@ -1,9 +1,13 @@
+import logging
 import re
 
 from beet import Context, Function, FunctionTag
 
 from .models import Versioning, VersioningOptions
 from .utils import call_if_version_match
+
+
+logger = logging.getLogger(__name__)
 
 PUBLIC_PAT = re.compile("^#>? @public")
 
@@ -20,7 +24,7 @@ def generate_call(ctx: Context, opts: VersioningOptions, path: str):
         base_path, FunctionTag({"values": [version_check]})
     )
 
-    print("api:", api_path)
+    logger.info(api_path)
 
 
 def generate_api(ctx: Context):
