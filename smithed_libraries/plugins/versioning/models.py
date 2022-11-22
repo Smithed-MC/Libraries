@@ -79,11 +79,7 @@ class VersioningOptions(ContextualModel, extra="forbid"):
 
     @validator("version", pre=True, always=True)
     def init_version(cls, value: Any, values: dict[str, Any]):
-        match value:
-            case None:
-                return Version.from_parts(values["schema_"])
-            case _:
-                return value
+        return value or Version.from_parts(values["schema_"])
 
     @classmethod
     def render_value(cls, val: JsonType, all_values: JsonDict) -> JsonType:
@@ -112,3 +108,10 @@ class VersioningOptions(ContextualModel, extra="forbid"):
         """
 
         return cls.render_value(value, all_values=values)
+
+
+class Versioning:
+    opts: VersioningOptions
+
+    def __init__(self, ctx: Context):
+        self.opts = ctx.validate("smithed.versioning", VersioningOptions)

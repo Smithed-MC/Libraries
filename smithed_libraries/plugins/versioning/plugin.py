@@ -4,10 +4,13 @@ from beet.contrib.rename_files import rename_files
 
 from .api import generate_api
 from .load import generate_load
-from .models import ContextualModel, VersioningOptions
+from .models import ContextualModel, Versioning
 
 
-def inject_version(ctx: Context, opts: VersioningOptions):
+
+def inject_version(ctx: Context):
+    opts = ctx.inject(Versioning).opts
+
     substitution = opts.refactor.dict()
     del substitution["match"]
 
@@ -28,19 +31,16 @@ def beet_default(ctx: Context):
     It will generate call function for any api route as defined in the config.
     """
 
-    yield
-
     ContextualModel.ctx = ctx  # TODO: use `configurable` in pydantic v2
-    opts = ctx.validate("smithed.versioning", VersioningOptions)
 
     # all things for lantern load impl
-    ctx.require(lambda ctx: generate_load(ctx, opts))
+    ctx.require(generate_load)
 
     # refactors file names and paths to inject version
-    ctx.require(lambda ctx: inject_version(ctx, opts))
+    ctx.require(inject_version)
 
     # we generate api bindings **after** refactoring
-    ctx.require(lambda ctx: generate_api(ctx, opts))
+    ctx.require(generate_api)
 
     # we load this afterwards so that dynamic renames don't "touch" it
     ctx.require("beet.contrib.lantern_load.base_data_pack")

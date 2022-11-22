@@ -2,7 +2,7 @@ import re
 
 from beet import Context, Function, FunctionTag
 
-from .models import VersioningOptions
+from .models import Versioning, VersioningOptions
 from .utils import call_if_version_match
 
 PUBLIC_PAT = re.compile("^#>? @public")
@@ -23,7 +23,7 @@ def generate_call(ctx: Context, opts: VersioningOptions, path: str):
     print("api:", api_path)
 
 
-def generate_api(ctx: Context, opts: VersioningOptions):
+def generate_api(ctx: Context):
     """Generates API calls based on `@public` listed inside of function files
 
     Note: Must be the very first line of the file
@@ -31,6 +31,8 @@ def generate_api(ctx: Context, opts: VersioningOptions):
     TODO: Support @public on any line of the function doc comment
             https://github.com/SpyglassMC/Spyglass/wiki/IMP-Doc
     """
+
+    opts = ctx.inject(Versioning).opts
 
     for func, (_, path) in ctx.select(match=opts.api.match, extend=Function).items():
         if func.lines and path is not None and PUBLIC_PAT.match(func.lines[0]):

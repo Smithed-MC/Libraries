@@ -13,10 +13,9 @@ $ poetry install
 $ beet
 
 # To build just one library
-$ beet --set "broadcast: smithed_libraries/packs/actionbar"
+$ beet -p smithed_libraries/packs/actionbar
 # or
-$ cd smithed_libraries/packs/actionbar
-$ beet
+$ cd smithed_libraries/packs/actionbar && beet
 ```
 
 ## Developing
@@ -29,7 +28,7 @@ $ beet link "Minecraft World Name"
 # Watches all data packs for changes
 # Builds then reloads world
 $ beet watch --reload
-$ beet -s "broadcast: smithed_libraries/packs/actionbar" watch --reload
+$ beet -p smithed_libraries/packs/actionbar watch --reload
 $ cd smithed_libraries/packs/actionbar && beet watch --reload
 ```
 

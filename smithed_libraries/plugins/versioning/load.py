@@ -2,7 +2,7 @@ from contextlib import suppress
 
 from beet import Advancement, Context, Function, FunctionTag, Generator
 
-from .models import VersioningOptions
+from .models import Versioning, VersioningOptions
 from .utils import call_if_version_match
 
 
@@ -28,7 +28,7 @@ def load_tags(
         ),
     )
 
-    with ctx.override(generate_namespace="load"):
+    with ctx.override(generate_namespace="load", generate_prefix=""):
         ctx.generate(
             opts.lantern_load.step, merge=FunctionTag({"values": [f"#{load_tag}"]})
         )
@@ -207,7 +207,7 @@ def enumerate_step(
     return generate(step, Function(step_body))
 
 
-def generate_load(ctx: Context, opts: VersioningOptions):
+def generate_load(ctx: Context):
     """This is the main versioning plugin
 
     There are 3 parts to integrating lantern load for library support:
@@ -220,6 +220,8 @@ def generate_load(ctx: Context, opts: VersioningOptions):
         - Uses highest version to run the correct load file
         - Disables the rest
     """
+
+    opts = ctx.inject(Versioning).opts
 
     with ctx.override(generate_namespace=opts.namespace, generate_prefix=""):
         dependencies = ctx.generate[opts.lantern_load.tag_path].path("dependencies")

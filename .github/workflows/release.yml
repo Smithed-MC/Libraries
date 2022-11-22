@@ -5,7 +5,7 @@ on:
 
 env:
   MC_VERSION: '1.19'
-  COMMIT_MSG: ${{github.event.head_commit.message}}
+  COMMIT_MSG: ${{ github.event.head_commit.message }}
 
 jobs:
   build-linux:
@@ -21,16 +21,16 @@ jobs:
       uses: actions/checkout@v3
       with:
         path: 'libraries'
-        fetch-depth: 0
-    
+
     - name: Checkout 'releases'
       uses: actions/checkout@v3
       with:
         path: 'releases'
         ref: 'releases'
+        fetch-depth: 0
 
     - name: Set up Python 3.10
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
         python-version: '3.10'
 
@@ -42,7 +42,7 @@ jobs:
 
     - name: Setup cache
       id: cached-poetry-dependencies
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       with:
         path: .venv
         key: venv-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
@@ -57,9 +57,7 @@ jobs:
     
     - name: Build via Beet
       run: |
-        cd libraries
-        poetry run beet -p beet-release.yaml
-        cd ..
+        poetry run beet -p libraries/beet-release.yaml
 
     - name: Copy files to releases
       run: |
@@ -80,7 +78,6 @@ jobs:
         cd libraries
         VERSION=$(semantic-release print-version)
         poetry run semantic-release publish -v DEBUG -D commit_author="github-actions <action@github.com>"
-        cd ..
     
     #----------------------------------------------
     #        Commit built packs to branch
@@ -90,10 +87,10 @@ jobs:
 
     - name: Copy files to releases
       run: |
+        set -e
         cd releases
         git config --global user.name "github-actions"
         git config --global user.email "action@github.com"
-        git add . \
-          && git commit -m "🚀 {{ github.event.after }} (v$VERSION): $COMMIT_MSG" \
-          && git push --force origin releases
-        cd ..
+        git add .
+        git commit -m "🚀 {{ github.event.after }} (v$VERSION): $COMMIT_MSG"
+        git push --force origin releases

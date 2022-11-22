@@ -14,7 +14,7 @@ test = ["astroid (<=2.5.3)", "pytest"]
 
 [[package]]
 name = "beet"
-version = "0.79.1"
+version = "0.80.1"
 description = "The Minecraft pack development kit"
 category = "main"
 optional = false
@@ -775,7 +775,7 @@ testing = ["flake8 (<5)", "func-timeout", "jaraco.functools", "jaraco.itertools"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "d599838026c4fce0e7318d439841666f95cf32b5d2debedc4497a57293666b1f"
+content-hash = "b89535dc38a320c37dfa527d5dc06138720de8d8ac8afc1cf4d63442a4388bec"
 
 [metadata.files]
 asttokens = [
@@ -783,8 +783,8 @@ asttokens = [
     {file = "asttokens-2.1.0.tar.gz", hash = "sha256:4aa76401a151c8cc572d906aad7aea2a841780834a19d780f4321c0fe1b54635"},
 ]
 beet = [
-    {file = "beet-0.79.1-py3-none-any.whl", hash = "sha256:2b792eb8de092f3a25d73ce6fb16b9d7262918b8144045ca4a4ea2d735aee50f"},
-    {file = "beet-0.79.1.tar.gz", hash = "sha256:3198c4603fa60b357ae68a2a2cb75abc2e8b839f7c940980f6deeea18c0a41b8"},
+    {file = "beet-0.80.1-py3-none-any.whl", hash = "sha256:499ffc70888afd0a81a41ba432dcbd5a7c08c016b9476b0e587624476fd0e17f"},
+    {file = "beet-0.80.1.tar.gz", hash = "sha256:4ccda72bef9ccfffc34dbefe8ec479852f1ed6e3da459feadaf71d0ddfefb530"},
 ]
 black = [
     {file = "black-22.8.0-cp310-cp310-macosx_10_9_universal2.whl", hash = "sha256:ce957f1d6b78a8a231b18e0dd2d94a33d2ba738cd88a7fe64f53f659eea49fdd"},

@@ -20,3 +20,5 @@ require:
 meta:
   bolt_expressions:
     init_path: 'technical/init_expressions'
+
+  output_release: false  # avoids producing zip for Releases CI

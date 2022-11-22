@@ -1,6 +1,6 @@
 # pyright: reportUnsupportedDunderAll=false
 
-from beet import Plugin, subproject
+from beet import subproject
 
 from . import plugins
 
@@ -15,20 +15,11 @@ __all__ = [
     "enchanter",
     "item",
     "prevent-aggression",
-    "plugins",
 ]
 
+# We dynamically generate plugins for all of our inner packs
+# Each pack requires a subproject that extends the inner config
+for pack in __all__:
+    globals()[pack] = subproject({"extend": f"@{__package__}/packs/{pack}/beet.yaml"})
 
-def __getattr__(name: str) -> Plugin:
-    """Dynamically generates a plugin that creates a subproject for a library"""
-
-    if name in __all__:
-        return subproject({"extend": f"@{__package__}/packs/{name}/beet.yaml"})
-
-    raise AttributeError(f"module {__package__!r} has no plugin {name!r}")
-
-
-def __dir__() -> list[str]:
-    """Implements https://peps.python.org/pep-0562/"""
-
-    return sorted(__all__)
+__all__.append("plugins")  # internal / normal beet plugins

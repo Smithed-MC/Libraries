@@ -1,15 +1,17 @@
 broadcast: smithed_libraries/packs/*
 extend: beet.yaml
 
-output: ../../../dist
-
 data_pack:
-  name: "{{ project_id.partition('.')[-1] }}/{{ project_id.replace('.', '_') }}_dp"
+  name: "{{ project_id.replace('.', '_') }}_dp"
   zipped: true
 
 resource_pack:
-  name: "{{ project_id.partition('.')[-1] }}/{{ project_id.replace('.', '_') }}_rp"
+  name: "{{ project_id.replace('.', '_') }}_rp"
   zipped: true
+
+pipeline:
+  - smithed_libraries.plugins.misc.output_dist
+  - smithed_libraries.plugins.manifest.output_version_manifest
 
 meta:
   # Disabling the "meta.autosave.link" option makes it so

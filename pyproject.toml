@@ -11,7 +11,7 @@ python = "^3.10"
 mecha = "^0.57.5"
 bolt = "^0.20.1"
 bolt-expressions = "^0.8.2"
-beet = "^0.79.1"
+beet = "^0.80.1"
 pydantic = "^1.10.2"
 
 [tool.poetry.group.dev.dependencies]
