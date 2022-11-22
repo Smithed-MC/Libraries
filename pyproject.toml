@@ -20,9 +20,6 @@ isort = "^5.10.1"
 devtools = "^0.9.0"
 python-semantic-release = "^7.32.2"
 
-[tool.poetry.plugins.beet]
-commands = "smithed_libraries.commands"
-
 [tool.semantic_release]
 branch = "main"
 version_variable = ["smithed_libraries/__init__.py:__version__"]
