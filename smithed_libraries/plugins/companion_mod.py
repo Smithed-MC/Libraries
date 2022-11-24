@@ -1,15 +1,16 @@
+from typing import ClassVar
 from beet import Context, JsonFile
 
 
-class ItemGroups(JsonFile):
-    scope = ("item_groups",)
-    extension = ".json"
+class ItemGroup(JsonFile):
+    scope: ClassVar[tuple[str, ...]] = ("item_groups",)
+    extension: ClassVar[str] = ".json"
 
 
 def item_groups(ctx: Context):
     """Item Groups allow the companion mod to display items in the creative menu"""
 
-    ctx.data.extend_namespace.append(ItemGroups)
+    ctx.data.extend_namespace.append(ItemGroup)
 
 
 def beet_default(ctx: Context):
