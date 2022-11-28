@@ -28,7 +28,10 @@ $ beet link "Minecraft World Name"
 # Watches all data packs for changes
 # Builds then reloads world
 $ beet watch --reload
+
+# Watch only on library
 $ beet -p smithed_libraries/packs/actionbar watch --reload
+# or
 $ cd smithed_libraries/packs/actionbar && beet watch --reload
 ```
 
@@ -84,6 +87,7 @@ When committing code, follow the [Conventional Commit](https://www.conventionalc
 - fix(*): versioning hiccup in rare situations
 - feat(plugins): add new `nbt-literals` plugin for packs to use
 
+> Note 
 
 Here are the types and scopes we'll be using (adapted from [here](https://github.com/angular/angular/blob/22b96b9/CONTRIBUTING.md#-commit-message-guidelines)):
 
@@ -119,13 +123,21 @@ Here are the types and scopes we'll be using (adapted from [here](https://github
 
 
 ## Versioning
-Each library pack has their own version as well as the entire repo itself. Using the `Release` Github Action will produce a new release in the `releases` branch.
-
-Make sure you bump the version before running this action!
+Each library pack has their own version as well as the entire repo itself. When producing new releases, you'll need to ensure you properly bump the versions for the libraries you've edited.
 
 These can be found in the following files:
 - `packs/<pack-name>/beet.yaml` -> `version` field
+    - bump only for specific library
 - `pyproject.toml` -> `tool.poetry.version` field
+    - bumped for any change including libraries
+
+We follow the [semantic versioning](https://semver.org/) format for versioning:
+- `major` reserved for breaking changes (needs maintainer approval)
+- `minor` for new features and larger tweaks (usually changing user experience like updating crafter recipe)
+- `patch` for bug fixes and smaller tweaks (usually doesn't affect user experience)
+
+> The commit guide provides a table of contents to indicate whether a bump should be `patch` or `minor`.
+
 
 ## Releasing
-To make a new release, run the Github Action `Release` flow. This will produce a new set of `zips` for `Smithed` alongside pushing the library to `pypi`.
+To make a new release, run the Github Action `Release Packages` flow. This will produce a new set of `zips` for `Smithed` alongside pushing the library to `pypi`.
