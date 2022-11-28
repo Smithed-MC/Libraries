@@ -1,0 +1,45 @@
+author: Smithed Council
+
+require:
+  - smithed_libraries.plugins.misc.display_broadcasted_pack
+  - smithed_libraries.plugins.manifest.collect_version
+  # - smithed_libraries.plugins.documentation  # TODO: later
+
+pipeline:
+  - mecha
+  - smithed_libraries.plugins.versioning
+
+meta:
+  mecha:
+    formatting: preserve
+
+  smithed:
+    versioning:
+      # Either a list or single item of paths to schedule clocks
+      #  Used to kill library ticking if a newer library exists in-world
+      scheduled_paths: impl/technical/tick
+
+      # configures how the pack leverages LL to implement enumeration and resolution
+      lantern_load:
+        step: load                          # which LL step to start pack discovery
+        tag_path: load                      # base path for tags needed for LL impl
+        function_path: impl/technical/load  # base path for functions needed for LL impl
+
+      # configures how versions get injected into paths and folders
+      #  ex: smithed.actionbar/impl/reset -> smithed.actionbar/impl/v1.2.3/reset
+      # here, we need to specify `{{ ctx.project_id }}`
+      refactor:
+        match: "{{ project_id }}:*"                  # which files to look at
+        find: "{{ project_id }}:impl/"               # which paths to look for
+        replace: "{{ project_id }}:v{{ version }}/"  # what to replace path w/
+
+      # configures how APIs get generated and version checked
+      # this occurs **after** refactoring!
+      #  any API with `# @public` on the first line generates the following:
+      #   - function tag: "{{ namespace }}:{{ tag_path }}/{{ path_to_file }}"
+      #   - version check: "{{ namespace }}:{{ version_check_path }}/{{ path_to_file}}"
+      api:
+        match: "{{ project_id }}:v{{ version }}"                   # match only implemented apis
+        implementation_prefix: "{{ project_id }}:v{{ version }}/"  # which files match the internal path
+        version_check_path: "v{{ version }}/_version_check"        # base path for version_checks
+        tag_path: ""                                               # base path for API tags

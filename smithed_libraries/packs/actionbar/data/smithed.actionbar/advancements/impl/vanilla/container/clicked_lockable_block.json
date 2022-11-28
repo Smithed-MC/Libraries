@@ -1,0 +1,56 @@
+{
+  "criteria": {
+    "click_no_sneak": {
+      "trigger": "minecraft:item_used_on_block",
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:inverted",
+            "term": {
+              "condition": "minecraft:value_check",
+              "value": {
+                "type": "minecraft:score",
+                "target": "this",
+                "score": "smithed.actionbar.sneaking"
+              },
+              "range": {
+                "min": 1
+              }
+            }
+          }
+        ],
+        "location": {
+          "block": {
+            "tag": "smithed.actionbar:impl/lockable"
+          }
+        }
+      }
+    },
+    "click_empty": {
+      "trigger": "minecraft:item_used_on_block",
+      "conditions": {
+        "player": [
+        ],
+        "item": {
+          "items": [
+            "minecraft:air"
+          ]
+        },
+        "location": {
+          "block": {
+            "tag": "smithed.actionbar:impl/lockable"
+          }
+        }
+      }
+    }
+  },
+  "requirements": [
+    [
+      "click_no_sneak",
+      "click_empty"
+    ]
+  ],
+  "rewards": {
+    "function": "smithed.actionbar:impl/vanilla/container/clicked_lockable_block"
+  }
+}

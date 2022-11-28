@@ -1,0 +1,18 @@
+{
+    "criteria": {
+      "requirement": {
+        "trigger": "minecraft:inventory_changed",
+        "conditions": {
+          "items": [
+            {
+              "nbt": "{smithed:{hasLore:1b}}"
+            }
+          ]
+        }
+      }
+    },
+    "rewards": {
+        "function": "smithed.item:impl/lore/update_inventory"
+    }
+  }
+  

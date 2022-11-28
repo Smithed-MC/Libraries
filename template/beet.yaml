@@ -1,0 +1,28 @@
+#####
+# Smithed Library Template
+# 
+# -> Replace `[...]` with your pack details
+#####
+
+extend: "@smithed_libraries/common.yaml"
+
+# General Pack Details
+id: '[smithed.id]'  # smithed.name e.g. smithed.actionbar
+name: '[Pack Name]'
+description: '[Pack Description]'
+
+# Data Pack Configuration (if using data pack)
+data_pack:
+  load: .
+
+# Resource Pack Configuration (if using resource pack)
+resource_pack:
+  load: .
+
+# Plugins that run before pack is loaded
+require:
+  - bolt   # Optional (omit if not using `bolt`)
+
+# Plugins that run after pack is loaded
+pipeline:
+  - mecha  # Validates commands (and executes custom commands such as `bolt`) 

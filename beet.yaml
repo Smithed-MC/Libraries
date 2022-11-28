@@ -1,1 +1,4 @@
-pipeline: [build]
+broadcast: smithed_libraries/packs/*
+extend: beet.yaml
+
+output: ../../../dist

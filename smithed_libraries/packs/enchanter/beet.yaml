@@ -1,0 +1,24 @@
+extend: "@smithed_libraries/common.yaml"
+
+id: smithed.enchanter
+name: Smithed Enchanter
+version: '0.1.0'
+description: Native Enchanter Library for Smithed
+
+data_pack:
+  name: Smithed Enchanter
+  load: .
+
+resource_pack:
+  name: Smithed Enchanter RP
+  load: .
+
+require:
+  - bolt
+  - bolt_expressions
+
+meta:
+  bolt_expressions:
+    init_path: 'technical/init_expressions'
+
+  output_release: false  # avoids producing zip for Releases CI

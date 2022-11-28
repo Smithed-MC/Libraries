@@ -1,0 +1,16 @@
+extend: "@smithed_libraries/common.yaml"
+
+id: smithed.damage
+name: Smithed Damage 
+version: "0.1.0"
+description: Native Damage Library for Smithed
+
+data_pack:
+  name: Smithed Damage
+  load: .
+
+require:
+  - bolt
+
+pipeline:
+  - mecha

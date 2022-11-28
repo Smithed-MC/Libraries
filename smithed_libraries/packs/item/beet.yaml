@@ -1,0 +1,18 @@
+extend: "@smithed_libraries/common.yaml"
+
+id: smithed.item
+name: Smithed Item 
+description: Native Item Library for Smithed
+version: '0.1.0'
+
+data_pack:
+  name: Smithed Item
+  load: .
+
+require:
+  - bolt
+  - bolt_expressions
+  - smithed_libraries.plugins.nbt_literals
+
+pipeline:
+  - mecha

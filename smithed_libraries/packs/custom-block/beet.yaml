@@ -1,0 +1,18 @@
+extend: "@smithed_libraries/common.yaml"
+
+id: smithed.custom_block
+name: Smithed Custom Block
+version: "0.1.0"
+description: Native Custom Block Library for Smithed
+
+data_pack:
+  name: Smithed Custom Block
+  load: .
+
+require:
+  - bolt
+  - bolt_expressions
+  - smithed_libraries.plugins.nbt_literals
+
+pipeline:
+  - mecha

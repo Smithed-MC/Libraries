@@ -1,0 +1,28 @@
+extend: "@smithed_libraries/common.yaml"
+
+id: smithed.crafter
+name: Smithed Crafter
+version: "0.1.0"
+description: Native Library for Smithed
+author: TheNuclearNexus
+
+data_pack:
+  name: Smithed Crafter
+  load: .
+      
+resource_pack:
+  name: Smithed Crafter RP
+  load: .
+
+require:
+  - smithed_libraries.plugins.companion_mod
+  - bolt
+
+pipeline:
+  - mecha
+
+# overrides:
+#   - > 
+#     meta.smithed.versioning = {"scheduled_paths": [
+#       "impl/technical/tick", "impl/technical/slow_tick"
+#     ]}

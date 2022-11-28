@@ -1,0 +1,57 @@
+[
+    {
+        "id": "crafter", 
+        "version": "0.0.3",
+        "description": "`Crafter` makes NBT crafting easy as ever! It supports tags, shaped and shapeless, custom nbt, shift-clicking, and nbt-transferring (think smithing table). `Crafter` also has an addon that adds all vanilla recipes to it."
+    },
+    {
+        "id": "crafter-addon", 
+        "version": "1.17.1",
+        "description": "Adds the vanilla recipes to the Smithed Crafter"
+    },
+    {
+        "id": "core",
+        "version": "0.0.4",
+        "description": "One library containing all the ones below!"
+    },
+    {
+        "id": "actionbar",
+        "version": "0.0.1",
+        "description": "This library helps manage usage of the actionbar by aggregating usage by priority. This allows persistent messages to display without interrupting more urgent notification type messages.",
+        "badges": [
+            "core"
+        ]
+    },
+    {
+        "id": "custom-block", 
+        "version": "0.0.1",
+        "description": "Handle the placing of custom blocks in one command!",
+        "badges": [
+            "core"
+        ]
+    },
+    {
+        "id": "damage", 
+        "version": "0.0.5",
+        "description": "`Damage` allows you to deal variable damage based on a score!",
+        "badges": [
+            "core"
+        ]
+    },
+    {
+        "id": "item", 
+        "version": "0.0.1",
+        "description": "Custom durability made simple, just add some nbt and you're done.",
+        "badges": [
+            "core"
+        ]
+    },
+    {
+        "id": "prevent-aggression", 
+        "version": "0.0.1",
+        "description": "Stop Raiders and the Undead from attacking your custom mobs!",
+        "badges": [
+            "core"
+        ]
+    }
+]
