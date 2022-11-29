@@ -48,7 +48,7 @@ jobs:
         key: venv-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
 
     - name: Install dependencies (skip if cached)
-      if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
+      # if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
       run: |
         cd libraries
         poetry install
