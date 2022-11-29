@@ -52,7 +52,7 @@
 # force-give player a priority score
 scoreboard players add @s smithed.actionbar.priority 0
 
-# convert str into int
+# convert string priority into number
 #  if we introduce new priorities in future versions
 #  we can renumber our ints w/o issues
 execute if data storage smithed.actionbar:input message{priority:'override'} run scoreboard players set $priority smithed.actionbar.temp 1

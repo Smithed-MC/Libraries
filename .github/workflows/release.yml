@@ -72,6 +72,7 @@ jobs:
     #----------------------------------------------
 
     - name: Release for PYPI
+      id: pypi_release
       if: |
         github.repository == 'SmithedMC/smithed_libraries'
       env:
@@ -80,6 +81,7 @@ jobs:
       run: |
         cd libraries
         VERSION=$(semantic-release print-version)
+        LAST_COMMIT_HASH=$(git rev-parse --short HEAD)
         poetry run semantic-release publish -v DEBUG -D commit_author="github-actions <action@github.com>"
     
     #----------------------------------------------
@@ -95,5 +97,5 @@ jobs:
         git config --global user.name "github-actions"
         git config --global user.email "action@github.com"
         git add .
-        git commit -m "🚀 {{ github.event.after }} (v$VERSION): $COMMIT_MSG"
+        git commit -m "🚀 ${{ steps.pypi_release.outputs.LAST_COMMIT_HASH }} (v${{ steps.pypi_release.outputs.VERSION }}): $COMMIT_MSG"
         git push --force origin releases
