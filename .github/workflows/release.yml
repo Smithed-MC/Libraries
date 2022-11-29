@@ -64,7 +64,7 @@ jobs:
 
     - name: Copy files to releases
       run: |
-        mkdir releases/$MC_VERSION
+        mkdir -p releases/$MC_VERSION
         cp -rf libraries/dist/* releases/$MC_VERSION
 
     #----------------------------------------------
