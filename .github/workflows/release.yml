@@ -80,9 +80,7 @@ jobs:
         PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
       run: |
         cd libraries
-        VERSION=$(semantic-release print-version)
-        LAST_COMMIT_HASH=$(git rev-parse --short HEAD)
-        poetry run semantic-release publish -v DEBUG -D commit_author="github-actions <action@github.com>"
+        poetry run semantic-release publish --minor -v DEBUG -D commit_author="github-actions <action@github.com>"
     
     #----------------------------------------------
     #        Commit built packs to branch
@@ -94,8 +92,10 @@ jobs:
       run: |
         set -e
         cd releases
+        SHORT_HASH=$(git rev-parse --short HEAD)
+        VERSION=$(semantic-release print-version)
         git config --global user.name "github-actions"
         git config --global user.email "action@github.com"
         git add .
-        git commit -m "🚀 ${{ steps.pypi_release.outputs.LAST_COMMIT_HASH }} (v${{ steps.pypi_release.outputs.VERSION }}): $COMMIT_MSG"
+        git commit -m "🚀 $SHORT_HASH (v$VERSION): $COMMIT_MSG"
         git push --force origin releases
