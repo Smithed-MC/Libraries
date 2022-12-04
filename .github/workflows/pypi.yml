@@ -1,9 +1,7 @@
-name: Release Packages
+name: Release PYPI
 
-on: 
-  push:
-    branches:
-      - main
+on:
+  - workflow_dispatch
 
 env:
   MC_VERSION: '1.19'
@@ -21,15 +19,6 @@ jobs:
 
     - name: Checkout 'main'
       uses: actions/checkout@v3
-      with:
-        path: 'libraries'
-
-    - name: Checkout 'releases'
-      uses: actions/checkout@v3
-      with:
-        path: 'releases'
-        ref: 'releases'
-        fetch-depth: 0
 
     - name: Set up Python 3.10
       uses: actions/setup-python@v4
@@ -53,33 +42,20 @@ jobs:
         version: '1.2.2'
         virtualenvs-in-project: true
 
-    - name: Setup cache
+    - name: Cache dependencies
       id: cached-poetry-dependencies
       uses: actions/cache@v3
       with:
         path: .venv
         key: venv-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
         restore-keys: |
-            venv-${{ runner.os }}-
+          venv-${{ runner.os }}-
 
     - name: Install dependencies (skip if cached)
       if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
       run: |
         cd libraries
         poetry install
-
-    #----------------------------------------------
-    #       Build packs and copy to branch
-    #----------------------------------------------
-    
-    - id: beet-build
-      name: Build via Beet
-      run: bash .github/workflows/build-changes.sh
-
-    - name: Copy files to releases
-      run: |
-        mkdir -p releases/$MC_VERSION
-        cp -rf libraries/dist/* releases/$MC_VERSION
 
     #----------------------------------------------
     #                 Push to PYPI
@@ -95,21 +71,3 @@ jobs:
       run: |
         cd libraries
         poetry run semantic-release publish -v DEBUG -D commit_author="github-actions <action@github.com>"
-    
-    #----------------------------------------------
-    #        Commit built packs to branch
-    #----------------------------------------------
-    #  We use `&&` to ensure git steps are atomic
-    #----------------------------------------------
-
-    - name: Copy files to releases
-      run: |
-        set -e
-        cd releases
-        SHORT_HASH=$(git rev-parse --short HEAD)
-        VERSION=$(semantic-release print-version)
-        git config --global user.name "github-actions"
-        git config --global user.email "action@github.com"
-        git add .
-        git commit -m "🚀 $SHORT_HASH (v$VERSION): $COMMIT_MSG"
-        git push --force origin releases
