@@ -74,7 +74,9 @@ jobs:
     
     - id: beet-build
       name: Build via Beet
-      run: bash .github/workflows/build-changes.sh
+      run: | 
+        cd libraries
+        bash .github/workflows/build-changes.sh
 
     - name: Copy files to releases
       run: |
