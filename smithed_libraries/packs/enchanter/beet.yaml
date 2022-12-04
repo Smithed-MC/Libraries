@@ -2,7 +2,7 @@ extend: "@smithed_libraries/common.yaml"
 
 id: smithed.enchanter
 name: Smithed Enchanter
-version: '0.1.0'
+version: "0.1.0"
 description: Native Enchanter Library for Smithed
 
 data_pack:

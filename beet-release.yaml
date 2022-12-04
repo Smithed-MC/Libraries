@@ -1,13 +1,5 @@
-broadcast: smithed_libraries/packs/*
+# NOTE: this only runs from github-CI
 extend: beet.yaml
-
-data_pack:
-  name: "{{ project_id.replace('.', '_') }}_dp"
-  zipped: true
-
-resource_pack:
-  name: "{{ project_id.replace('.', '_') }}_rp"
-  zipped: true
 
 pipeline:
   - smithed_libraries.plugins.misc.output_dist

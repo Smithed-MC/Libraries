@@ -1,0 +1,73 @@
+name: Release PYPI
+
+on:
+  - workflow_dispatch
+
+env:
+  MC_VERSION: '1.19'
+  COMMIT_MSG: ${{ github.event.head_commit.message }}
+
+jobs:
+  build-linux:
+    runs-on: ubuntu-latest
+    
+    steps:
+
+    #----------------------------------------------
+    #            Setup Build Environment
+    #----------------------------------------------
+
+    - name: Checkout 'main'
+      uses: actions/checkout@v3
+
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    #----------------------------------------------
+    #  -----  install & configure poetry  -----
+    #----------------------------------------------
+    - name: Cache poetry
+      id: cache-poetry
+      uses: actions/cache@v3
+      with:
+        path: ~/.local
+        key: poetry-${{ runner.os }}
+
+    - name: Install Poetry
+      if: steps.cache-poetry.outputs.cache-hit != 'true'
+      uses: snok/install-poetry@v1
+      with:
+        version: '1.2.2'
+        virtualenvs-in-project: true
+
+    - name: Cache dependencies
+      id: cached-poetry-dependencies
+      uses: actions/cache@v3
+      with:
+        path: .venv
+        key: venv-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
+        restore-keys: |
+          venv-${{ runner.os }}-
+
+    - name: Install dependencies (skip if cached)
+      if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
+      run: |
+        cd libraries
+        poetry install
+
+    #----------------------------------------------
+    #                 Push to PYPI
+    #----------------------------------------------
+
+    - name: Release for PYPI
+      id: pypi_release
+      if: |
+        github.repository == 'SmithedMC/smithed_libraries'
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
+      run: |
+        cd libraries
+        poetry run semantic-release publish -v DEBUG -D commit_author="github-actions <action@github.com>"

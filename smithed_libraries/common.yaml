@@ -1,5 +1,13 @@
 author: Smithed Council
 
+data_pack:
+  name: "{{ project_id.replace('.', '_') }}_dp"
+  zipped: true
+
+resource_pack:
+  name: "{{ project_id.replace('.', '_') }}_rp"
+  zipped: true
+
 require:
   - smithed_libraries.plugins.misc.display_broadcasted_pack
   - smithed_libraries.plugins.manifest.collect_version

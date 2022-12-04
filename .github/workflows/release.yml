@@ -34,7 +34,18 @@ jobs:
       with:
         python-version: '3.10'
 
+    #----------------------------------------------
+    #  -----  install & configure poetry  -----
+    #----------------------------------------------
+    - name: Cache poetry
+      id: cache-poetry
+      uses: actions/cache@v3
+      with:
+        path: ~/.local
+        key: poetry-${{ runner.os }}
+
     - name: Install Poetry
+      if: steps.cache-poetry.outputs.cache-hit != 'true'
       uses: snok/install-poetry@v1
       with:
         version: '1.2.2'
@@ -46,9 +57,11 @@ jobs:
       with:
         path: .venv
         key: venv-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
+        restore-keys: |
+            venv-${{ runner.os }}-
 
     - name: Install dependencies (skip if cached)
-      # if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
+      if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
       run: |
         cd libraries
         poetry install
@@ -57,10 +70,31 @@ jobs:
     #       Build packs and copy to branch
     #----------------------------------------------
     
-    - name: Build via Beet
+    - id: beet-build
+      name: Build via Beet
       run: |
-        cd libraries
-        poetry run beet -p beet-release.yaml
+        BROADCAST=()
+        for PACK in $(ls smithed_libraries/packs); do
+          # Get the pack's version number
+          PACK_VERSION=$(cat smithed_libraries/packs/${PACK}/beet.yaml | grep "version:" | cut -d ":" -f 2)
+          PACK_VERSION=$(sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//' <<< "$PACK_VERSION")  # strip whitespace
+
+          OLD_PACK_VERSION=$(git show HEAD~1:smithed_libraries/packs/${PACK}/beet.yaml | grep "version:" | cut -d ":" -f 2)
+          OLD_PACK_VERSION=$(sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//' <<< "$OLD_PACK_VERSION")   # strip whitespace
+
+          # Check if the pack's version number has changed
+          if [ "$PACK_VERSION" != $OLD_PACK_VERSION ]; then
+            BROADCAST+=("-s broadcast[] = smithed_libraries/packs/$PACK")
+          fi
+        done
+
+        # Build the packs (if there are any to build)
+        if [ -n "$BROADCAST" ]; then
+          beet --log INFO -p beet-release.yaml "${BROADCAST[@]}"
+        else
+          exit 1  # error to kill the rest of the steps
+        fi
+
 
     - name: Copy files to releases
       run: |
@@ -80,7 +114,7 @@ jobs:
         PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
       run: |
         cd libraries
-        poetry run semantic-release publish --minor -v DEBUG -D commit_author="github-actions <action@github.com>"
+        poetry run semantic-release publish -v DEBUG -D commit_author="github-actions <action@github.com>"
     
     #----------------------------------------------
     #        Commit built packs to branch
