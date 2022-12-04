@@ -67,7 +67,7 @@ jobs:
       if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
       run: |
         cd libraries
-        poetry install
+        poetry install --with dev
 
     #----------------------------------------------
     #       Build packs and copy to branch
@@ -105,7 +105,7 @@ jobs:
     #  We use `&&` to ensure git steps are atomic
     #----------------------------------------------
 
-    - name: Copy files to releases
+    - name: Push release files to branch
       run: |
         set -e
         cd releases
