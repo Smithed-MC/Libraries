@@ -23,6 +23,7 @@ jobs:
       uses: actions/checkout@v3
       with:
         path: 'libraries'
+        fetch-depth: 2
 
     - name: Checkout 'releases'
       uses: actions/checkout@v3
@@ -76,7 +77,7 @@ jobs:
       name: Build via Beet
       run: | 
         cd libraries
-        bash .github/workflows/build-changes.sh
+        poetry run python .github/workflows/build-changes.py
 
     - name: Copy files to releases
       run: |
