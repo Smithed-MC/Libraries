@@ -1,7 +1,9 @@
 name: Release Packages
 
-on:
-  - workflow_dispatch
+on: 
+  push:
+    branches:
+      - main
 
 env:
   MC_VERSION: '1.19'
