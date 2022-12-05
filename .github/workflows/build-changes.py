@@ -47,6 +47,6 @@ if broadcast:
             *broadcast,
         ]
     )
+    print(f"::set-output name=packs::{', '.join(broadcast)}")
 else:
-    # Raise an error to stop the rest of the steps
-    raise SystemExit("No packs to build")
+    print(f"::set-output name=packs::")
