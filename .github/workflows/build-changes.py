@@ -1,3 +1,4 @@
+import os
 import subprocess
 from pathlib import Path
 
@@ -34,6 +35,7 @@ for pack in Path("smithed_libraries/packs").glob("*"):
         broadcast.append(f"-s broadcast[] = {pack}")
 
 # Build the packs (if there are any to build)
+os.environ["GITHUB_OUTPUT"] = f"packs="
 if broadcast:
     subprocess.run(
         [
@@ -47,6 +49,4 @@ if broadcast:
             *broadcast,
         ]
     )
-    print(f"::set-output name=packs::{', '.join(broadcast)}")
-else:
-    print(f"::set-output name=packs::")
+    os.environ["GITHUB_OUTPUT"] += ", ".join(broadcast)
