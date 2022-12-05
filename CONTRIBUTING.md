@@ -140,4 +140,4 @@ We follow the [semantic versioning](https://semver.org/) format for versioning:
 
 
 ## Releasing
-To make a new release, run the Github Action `Release Packages` flow. This will produce a new set of `zips` for `Smithed` alongside pushing the library to `pypi`.
+Making a new release happens automatically once you've bumped the version number of a specific library (or multiple).

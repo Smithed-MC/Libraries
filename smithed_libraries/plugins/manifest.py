@@ -1,4 +1,5 @@
 import json
+import subprocess
 from pathlib import Path
 
 from beet import Context
@@ -9,7 +10,7 @@ def collect_version(ctx: Context):
 
 
 def output_version_manifest(ctx: Context):
-    manifest: Path = ctx.meta["broadcast_directory"] / "dist" / "manifest.json"
+    manifest: Path = ctx.directory / "dist" / "manifest.json"
     manifest.parent.mkdir(exist_ok=True, parents=True)
 
     versions = json.loads(manifest.read_text()) if manifest.exists() else {}
@@ -17,5 +18,8 @@ def output_version_manifest(ctx: Context):
 
     if not manifest.exists():
         manifest.touch()
+
+    hash = subprocess.check_output(["git", "rev-parse", "--verify", "HEAD"]).decode()
+    versions["last_commit"] = hash
 
     manifest.write_text(json.dumps(versions, indent=2))

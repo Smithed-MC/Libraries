@@ -1,8 +1,6 @@
-# NOTE: this only runs from github-CI
-extend: beet.yaml
-
 pipeline:
-  - smithed_libraries.plugins.misc.output_dist
+  - extend: beet.yaml
+    pipeline: [smithed_libraries.plugins.misc.output_dist]
   - smithed_libraries.plugins.manifest.output_version_manifest
 
 meta:
