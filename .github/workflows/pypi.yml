@@ -53,9 +53,7 @@ jobs:
 
     - name: Install dependencies (skip if cached)
       if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
-      run: |
-        cd libraries
-        poetry install
+      run: poetry install --with dev
 
     #----------------------------------------------
     #                 Push to PYPI
@@ -69,5 +67,6 @@ jobs:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
       run: |
-        cd libraries
+        git config --global user.name "github-actions"
+        git config --global user.email "action@github.com"
         poetry run semantic-release publish -v DEBUG -D commit_author="github-actions <action@github.com>"

@@ -4,6 +4,11 @@ on:
   push:
     branches:
       - main
+    paths-ignore:
+      - CHANGELOG.md
+      - README.md
+      - CONTRIBUTING.md
+      - "docs/**"
 
 env:
   MC_VERSION: '1.19'
@@ -102,6 +107,8 @@ jobs:
         PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
       run: |
         cd libraries
+        git config --global user.name "github-actions"
+        git config --global user.email "action@github.com"
         poetry run semantic-release publish -v DEBUG -D commit_author="github-actions <action@github.com>"
     
     #----------------------------------------------
@@ -118,8 +125,8 @@ jobs:
         cd releases
         SHORT_HASH=$(git rev-parse --short HEAD)
         VERSION=$(semantic-release print-version)
+        git add .
         git config --global user.name "github-actions"
         git config --global user.email "action@github.com"
-        git add .
         git commit -m "🚀 $SHORT_HASH (v$VERSION): $COMMIT_MSG"
         git push --force origin releases

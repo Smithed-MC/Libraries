@@ -4,8 +4,19 @@ on:
   push:
     branches:
       - main
+    paths-ignore:
+      - CHANGELOG.md
+      - README.md
+      - CONTRIBUTING.md
+      - "docs/**"
+
   pull_request:
     types: [opened, synchronize, reopened]
+    paths-ignore:
+      - CHANGELOG.md
+      - README.md
+      - CONTRIBUTING.md
+      - "docs/**"
 
 jobs:
   build-linux:
@@ -48,6 +59,8 @@ jobs:
       with:
         path: .venv
         key: venv-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
+        restore-keys: |
+          venv-${{ runner.os }}-
 
     #----------------------------------------------
     # install dependencies if cache does not exist
