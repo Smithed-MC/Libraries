@@ -77,6 +77,7 @@ jobs:
       name: Build via Beet
       run: | 
         cd libraries
+        mkdir -p dist
         cp ../releases/$MC_VERSION/manifest.json dist/manifest.json
         poetry run python .github/workflows/build-changes.py
 
