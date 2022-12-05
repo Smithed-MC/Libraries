@@ -82,7 +82,7 @@ jobs:
 
     - name: Copy files to releases
       if: |
-        !empty(steps.beet-build.outputs.packs)
+        steps.beet-build.outputs.packs != ''
       run: |
         mkdir -p releases/$MC_VERSION
         cp -rf libraries/dist/* releases/$MC_VERSION
@@ -95,7 +95,7 @@ jobs:
       id: pypi_release
       if: |
         github.repository == 'SmithedMC/smithed_libraries'
-        && !empty(steps.beet-build.outputs.packs)
+        && steps.beet-build.outputs.packs != ''
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
@@ -111,7 +111,7 @@ jobs:
 
     - name: Push release files to branch
       if: |
-        !empty(steps.beet-build.outputs.packs)
+        steps.beet-build.outputs.packs != ''
       run: |
         set -e
         cd releases
