@@ -1,3 +1,4 @@
+import logging
 import re
 from collections.abc import Iterable
 from itertools import filterfalse, tee
@@ -5,6 +6,8 @@ from pathlib import Path
 from typing import Callable, List, Match, NamedTuple, TypeVar
 
 from beet import Context
+
+logger = logging.getLogger(__name__)
 
 DIRECTIVE_REGEX = "#>? *@{} (.+)"
 COMMENT_REGEX = re.compile("#")
@@ -42,8 +45,8 @@ def get_doc_path(parent: Path, match: Match[str]):
     Creates folder w/ parent folders if it doesn't exist.
     """
 
-    path = parent / match[1]
-    path.mkdir(parents=True, exist_ok=True)
+    path: Path = parent / match[1]
+    path.parent.mkdir(parents=True, exist_ok=True)
 
     return path
 
@@ -58,7 +61,7 @@ def parse_function(parent: Path, lines: list[str]):
             path = get_doc_path(parent, match)
             doc_iter = collect_doc(lines_iter)
             doc, inputs = partition(lambda x: type(x) is Input, doc_iter)
-            write_doc(path, "".join(doc), list(inputs))
+            write_doc(path, "\n".join(doc), list(inputs))
 
 
 def write_doc(path: Path, doc: str, inputs: list[Input]):
@@ -79,6 +82,7 @@ def write_doc(path: Path, doc: str, inputs: list[Input]):
                 + inputs
             )
             file.write(table)
+        logger.info("New Doc: %s.md", str(path).partition("docs/")[-1])
         file.write(doc)
 
 
@@ -129,7 +133,6 @@ def beet_default(ctx: Context):
     >>> # This function applies damage to an entity, ...
     """
 
-    yield
-
+    output_path: Path = ctx.output_directory
     for function in ctx.data.functions.values():
-        parse_function(ctx.directory, function.lines)
+        parse_function(output_path.resolve(), function.lines)
