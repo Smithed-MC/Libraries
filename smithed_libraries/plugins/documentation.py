@@ -133,6 +133,10 @@ def beet_default(ctx: Context):
     >>> # This function applies damage to an entity, ...
     """
 
-    output_path: Path = ctx.output_directory
+    if ctx.output_directory is None:
+        return
+
+    id = ctx.project_id.replace("smithed.", "").strip()
+    output_path = ctx.output_directory.resolve()
     for function in ctx.data.functions.values():
-        parse_function(output_path.resolve(), function.lines)
+        parse_function(output_path / id, function.lines)

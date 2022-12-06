@@ -127,9 +127,9 @@ Each library pack has their own version as well as the entire repo itself. When 
 
 These can be found in the following files:
 - `packs/<pack-name>/beet.yaml` -> `version` field
-    - bump only for specific library
+    - only bump this only for specific library
 - `pyproject.toml` -> `tool.poetry.version` field
-    - bumped for any change including libraries
+    - automatically bumped when release is made or "Release PYPI" workflow is ran
 
 We follow the [semantic versioning](https://semver.org/) format for versioning:
 - `major` reserved for breaking changes (needs maintainer approval)
