@@ -2,6 +2,9 @@
 
 <!--next-version-placeholder-->
 
+## v0.1.1 (2022-12-06)
+
+
 ## v0.1.0 (2022-12-06)
 ### Feature
 * Update documentation to use with Docs ([`1248023`](https://github.com/Smithed-MC/Libraries//commit/1248023c4cfeda400a887735f6596b0caef4f2ea))
