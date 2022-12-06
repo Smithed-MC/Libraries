@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.1.2 (2022-12-06)
+### Fix
+* Documentation foldering ([`ae5ea71`](https://github.com/Smithed-MC/Libraries//commit/ae5ea7113c622a5dd233d98947a30516a5f80445))
+
 ## v0.1.1 (2022-12-06)
 
 
