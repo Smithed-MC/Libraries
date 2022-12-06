@@ -100,7 +100,7 @@ jobs:
     - name: Release for PYPI
       id: pypi_release
       if: |
-        github.repository == 'SmithedMC/smithed_libraries'
+        github.repository == 'SmithedMC/Libraries'
         && steps.beet-build.outputs.packs != ''
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
