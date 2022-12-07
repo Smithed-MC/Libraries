@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.1.3 (2022-12-06)
+### Fix
+* **plugin:** Documentation ([`c9f54c1`](https://github.com/Smithed-MC/Libraries//commit/c9f54c133e0e0aa5c940815a5d9234d447abc85c))
+
 ## v0.1.2 (2022-12-06)
 ### Fix
 * Documentation foldering ([`ae5ea71`](https://github.com/Smithed-MC/Libraries//commit/ae5ea7113c622a5dd233d98947a30516a5f80445))
