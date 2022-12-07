@@ -4,11 +4,9 @@ on:
   push:
     branches:
       - main
-    paths-ignore:
-      - CHANGELOG.md
-      - README.md
-      - CONTRIBUTING.md
-      - "docs/**"
+    paths:
+      - smithed_libraries/packs
+      - pyproject.toml
 
 env:
   MC_VERSION: '1.19'
@@ -101,7 +99,6 @@ jobs:
       id: pypi_release
       if: |
         github.repository == 'Smithed-MC/Libraries'
-        && steps.beet-build.outputs.packs != ''
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}

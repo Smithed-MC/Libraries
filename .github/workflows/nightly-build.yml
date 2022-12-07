@@ -4,19 +4,13 @@ on:
   push:
     branches:
       - main
-    paths-ignore:
-      - CHANGELOG.md
-      - README.md
-      - CONTRIBUTING.md
-      - "docs/**"
+    paths:
+      - smithed_libraries/packs
 
   pull_request:
     types: [opened, synchronize, reopened]
-    paths-ignore:
-      - CHANGELOG.md
-      - README.md
-      - CONTRIBUTING.md
-      - "docs/**"
+    paths:
+      - smithed_libraries/packs
 
 jobs:
   build-linux:
