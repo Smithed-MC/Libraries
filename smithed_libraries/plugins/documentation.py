@@ -51,7 +51,7 @@ def get_doc_path(parent: Path, match: Match[str]):
     return path
 
 
-def parse_function(parent: Path, lines: list[str]):
+def parse_function(ctx: Context, parent: Path, lines: list[str]):
     """Parses function comments for @directives to producing docs"""
 
     lines_iter = iter(lines)
@@ -61,10 +61,10 @@ def parse_function(parent: Path, lines: list[str]):
             path = get_doc_path(parent, match)
             doc_iter = collect_doc(lines_iter)
             doc, inputs = partition(lambda x: type(x) is Input, doc_iter)
-            write_doc(path, "\n".join(doc), list(inputs))
+            write_doc(ctx, path, "\n".join(doc), list(inputs))
 
 
-def write_doc(path: Path, doc: str, inputs: list[Input]):
+def write_doc(ctx: Context, path: Path, doc: str, inputs: list[Input]):
     """Write doc"""
 
     with path.with_suffix(".md").open("w+") as file:
@@ -82,7 +82,9 @@ def write_doc(path: Path, doc: str, inputs: list[Input]):
                 + inputs
             )
             file.write(table)
-        logger.info("New Doc: %s.md", str(path).partition("docs/")[-1])
+        logger.info(
+            "New Doc: %s", str(path).partition(str(ctx.output_directory) + "/")[-1]
+        )
         file.write(doc)
 
 
@@ -136,7 +138,7 @@ def beet_default(ctx: Context):
     if ctx.output_directory is None:
         return
 
-    id = ctx.project_id.replace("smithed.", "").strip()
     output_path = ctx.output_directory.resolve()
-    for function in ctx.data.functions.values():
-        parse_function(output_path / id, function.lines)
+    for path, function in ctx.data.functions.items():
+        id = path.partition(":")[0].replace("smithed.", "")
+        parse_function(ctx, output_path / id, function.lines)
