@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.1.4 (2022-12-06)
+### Fix
+* Change documentation output ([`6589095`](https://github.com/Smithed-MC/Libraries//commit/6589095f637fe00f1546d260ff5d75d0e8f666d6))
+
 ## v0.1.3 (2022-12-06)
 ### Fix
 * **plugin:** Documentation ([`c9f54c1`](https://github.com/Smithed-MC/Libraries//commit/c9f54c133e0e0aa5c940815a5d9234d447abc85c))
