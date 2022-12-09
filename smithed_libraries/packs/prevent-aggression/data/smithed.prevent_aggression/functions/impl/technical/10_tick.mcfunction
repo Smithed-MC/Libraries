@@ -17,23 +17,31 @@
 # This library is made specifically so technical villagers are not attacked by mobs.
 # Other mobs can be added to the team, but there is no guarantee that it won't be attacked by hostile mobs.
 # Adding the team can be done upon summoning the mob or afterwards.
-# # Example Usage
+# ### Example Usage
 # `function: example:summon_mobs`
 # ```mcfunction
 # # summon custom villager that isn't tracked by hostiles
-# summon villager ~ ~ ~ {Team:"smithed.prevent_aggression",Tags:["my_custom_mob"]}
+# summon villager ~ ~ ~ {
+#   Team: "smithed.prevent_aggression", 
+#   Tags: ["my_custom_mob"]
+# }
 # # summon custom zombie that respects the aggression rule
 # # by default, a mob with the smithed.entity tag doesn't get added to the team, but it can be done manually
-# summon zombie ~ ~ ~ {Tags:["smithed.entity","my_custom_zombie"],Team:"smithed.prevent_aggression"}
+# summon zombie ~ ~ ~ {
+#   Tags: ["smithed.entity", "my_custom_zombie"],
+#   Team: "smithed.prevent_aggression"
+# }
 # ```
 # This is the recommended way to create a villager that isn't tracked by hostiles.
 # 
-# --  
+# ---  
 # `function: example:protect_village`
 # ```mcfunction
 # # make villagers safe while nearby a guardian player
 # tag @e[type=villager] remove protected
-# execute at @a[tag=guardian] run tag @e[type=villager,tag=!smithed.entity,distance=..32] add protected
+# execute
+#   at @a[tag=guardian]
+#   run tag @e[type=villager,tag=!smithed.entity,distance=..32] add protected
 # team join smithed.prevent_aggression @e[type=villager,tag=protected,team=!smithed.prevent_aggression]
 # team leave smithed.prevent_aggression @e[type=villager,tag=!protected,team=smithed.prevent_aggression]
 # 

@@ -16,7 +16,10 @@
 # `function: example:damage_event`
 # ```mcfunction
 # # give players with the fireproof tag fire resistance if they took damage by fire
-# execute if entity @s[tag=fireproof] if data storage smithed.damage:main {io.damage.type:'is_fire'} run effect give @s fire_resistance 10 0 true
+# execute
+#   if entity @s[tag=fireproof]
+#   if data storage smithed.damage:main {io.damage.type: 'is_fire'}
+#   run effect give @s fire_resistance 10 0 true
 # ```
 # `tag: #smithed.damage:event/player/on_damage`
 # ```json

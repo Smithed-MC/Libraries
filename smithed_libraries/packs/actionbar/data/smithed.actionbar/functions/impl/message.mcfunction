@@ -16,11 +16,17 @@
 # If both fields are set, the json object is shown.  
 # ### **Example of Raw Message** 
 # ```mcfunction
-# data modify storage smithed.actionbar:input message set value {raw:'hello world', priority: 'persistent'}
+# data modify storage smithed.actionbar:input message set value {
+#    raw: 'hello world',
+#    priority: 'persistent'
+# }
 # ```
 # ### **Example of JSON Message**
 # ```mcfunction
-# data modify storage smithed.actionbar:input message set value {json:'{"text":"You cannot complete this action!", "color": "red"}', priority: 'notification'}
+# data modify storage smithed.actionbar:input message set value {
+#   json: '{"text": "You cannot complete this action!", "color": "red"}',
+#   priority: 'notification'
+# }
 # ```
 # ## Priority
 # Priorities are set via specific strings. The list below shows the priority in descending order, 
@@ -39,7 +45,11 @@
 # This will deteremine how many ticks your message should be protected against other messages with the same priority. 
 # By default, this field is set to 20, which corresponds to 1 second.
 # ```mcfunction
-# data modify storage smithed.actionbar:message input set value {raw:'Random Event!', priority: 'notification', freeze: 30}
+# data modify storage smithed.actionbar:message input set value {
+#   raw: 'Random Event!',
+#   priority: 'notification',
+#   freeze: 30
+# }
 # ```
 # The freeze value has a minimum value of 0 and a maximum value of 50.
 

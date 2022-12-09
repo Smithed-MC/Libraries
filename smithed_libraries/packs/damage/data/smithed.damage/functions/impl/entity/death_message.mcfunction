@@ -2,7 +2,7 @@
 # Death messages happen when a player is killed via the custom [damage](apply.md),
 # you can add death messages by adding your function to the tag `#smithed.damage:event/player/on_death_message`
 # 
-# # Example Implementation
+# ### Example Implementation
 # `function: example:damage_player`
 # ```mcfunction
 # tag @s add my_attack                          # Add a tag so that we can tell that it was
@@ -14,7 +14,9 @@
 # `function: example:death_message`
 # ```mcfunction
 # # Check to make sure the entity has our tag
-# execute if entity @s[tag=my_attack] run tellraw @a [{"selector":"@s"}," got bloingo'ed"]
+# execute
+#   if entity @s[tag=my_attack]
+#   run tellraw @a [{"selector":"@s"}, {"text": " got bloingo'ed"}]
 # ```
 # `tag: #smithed.damage:event/player/on_death_message`
 # ```json
