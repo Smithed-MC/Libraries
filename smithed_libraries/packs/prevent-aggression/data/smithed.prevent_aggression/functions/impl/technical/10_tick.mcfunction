@@ -36,7 +36,8 @@
 # 
 # ---  
 # `function: example:protect_village`
-# ```mcfunction
+# ```{code-block} mcfunction
+# :force:
 # # make villagers safe while nearby a guardian player
 # tag @e[type=villager] remove protected
 # execute

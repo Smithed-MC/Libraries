@@ -12,7 +12,7 @@
 # * `'is_lightning'`
 # * `'is_magic'`
 # 
-# # Example Implementation
+# ### Example Implementation
 # `function: example:damage_event`
 # ```mcfunction
 # # give players with the fireproof tag fire resistance if they took damage by fire
