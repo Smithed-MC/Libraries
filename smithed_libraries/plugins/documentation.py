@@ -99,7 +99,7 @@ def collect_doc(lines: Iterable[str]) -> Iterable[str | Input]:
             input_title, *args = match[1].strip().split(",")
             yield Input(repr(input_title), *(arg.strip() for arg in args))
         else:
-            yield line[1:].strip()
+            yield line[2:]
 
 
 def make_table(inputs: List[Input]):
