@@ -10,6 +10,6 @@ execute unless score $is_server smithed.actionbar.temp matches 1.. run function 
 execute store result score $sleeping_percent smithed.actionbar.temp run gamerule playersSleepingPercentage
 
 # if over 100, send can't pass night message for all worlds
-execute if score $sleeping_percent smithed.actionbar.temp matches 101.. run function smithed.actionbar:impl/vanilla/send_message
+execute if score $sleeping_percent smithed.actionbar.temp matches 101.. run function #smithed.actionbar:message
 # else, send sleep message if this is a server
 execute if score $is_server smithed.actionbar.temp matches 1 if score $sleeping_percent smithed.actionbar.temp matches ..100 run function smithed.actionbar:impl/vanilla/bed/send_sleep_status
