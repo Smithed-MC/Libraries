@@ -1,0 +1,16 @@
+on: [workflow_dispatch]
+
+jobs:
+  test_push:
+    runs-on: ubuntu-latest
+    name: Test a push to item to see if it works 
+    steps:
+      - name: Hello world action step
+        id: hello
+        uses: smithed-mc/postnewversion@0.1
+        with:
+          pack: item
+          version: 0.1.0
+          datapack: 'https://github.com/Smithed-MC/Libraries/blob/releases/1.19/item/smithed_item_dp.zip'
+          supports: |
+            '1.19'
