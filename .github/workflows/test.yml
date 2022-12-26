@@ -7,7 +7,7 @@ jobs:
     steps:
       - name: Hello world action step
         id: hello
-        uses: smithed-mc/postnewversion@v0.2.5
+        uses: smithed-mc/postnewversion@v0.2.6
         with:
           uid: ${{secrets.SMITHED_UID}}
           token: ${{secrets.SMITHED_TOKEN}}
