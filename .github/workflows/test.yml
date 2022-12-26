@@ -9,8 +9,8 @@ jobs:
         id: hello
         uses: smithed-mc/postnewversion@0.1
         with:
-          uid: ''
-          token: ''
+          uid: ${{secrets.SMITHED_UID}}
+          token: ${{secrets.SMITHED_TOKEN}}
           pack: item
           version: 0.1.0
           datapack: 'https://github.com/Smithed-MC/Libraries/blob/releases/1.19/item/smithed_item_dp.zip'
