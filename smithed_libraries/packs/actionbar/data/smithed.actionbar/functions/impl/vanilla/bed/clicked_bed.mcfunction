@@ -10,9 +10,10 @@ tag @s[advancements={smithed.actionbar:impl/vanilla/bed/slept_in_bed={requiremen
 
 advancement revoke @s only smithed.actionbar:impl/vanilla/bed/clicked_bed
 advancement revoke @s only smithed.actionbar:impl/vanilla/bed/slept_in_bed
+data modify storage smithed.actionbar:input message set value {priority:'notification',freeze:20}
 
 # if the player isn't in the bed, send message for it
-execute if entity @s[tag=!smithed.actionbar.sleeping] run function smithed.actionbar:impl/vanilla/send_message
+execute if entity @s[tag=!smithed.actionbar.sleeping] run function #smithed.actionbar:message
 
 # else send sleeping message
 execute if entity @s[tag=smithed.actionbar.sleeping] run function smithed.actionbar:impl/vanilla/bed/check_sleep_status

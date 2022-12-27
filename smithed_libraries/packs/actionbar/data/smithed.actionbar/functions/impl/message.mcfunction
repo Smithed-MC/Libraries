@@ -69,6 +69,7 @@ execute if data storage smithed.actionbar:input message{priority:'override'} run
 execute if data storage smithed.actionbar:input message{priority:'notification'} run scoreboard players set $priority smithed.actionbar.temp 2
 execute if data storage smithed.actionbar:input message{priority:'conditional'} run scoreboard players set $priority smithed.actionbar.temp 3
 execute if data storage smithed.actionbar:input message{priority:'persistent'} run scoreboard players set $priority smithed.actionbar.temp 4
+execute unless data storage smithed.actionbar:input message.priority run scoreboard players set $priority smithed.actionbar.temp 99
 
 # grab freeze
 #  load default freeze if not defined
