@@ -44,6 +44,8 @@ if packs:
             *[f"-s pipeline[0].broadcast[] = {pack}" for pack, _ in packs],
         ]
     )
-    print("packs=", ",".join(f"{pack}:{version}" for pack, version in packs), end="")
+    output = "packs=" + ",".join(f"{pack}:{version}" for pack, version in packs)
 else:
-    print("packs=")
+    output = "packs="
+
+os.environ["$GITHUB_OUTPUT"] += "\n" + output
