@@ -2,6 +2,18 @@
 
 <!--next-version-placeholder-->
 
+## v0.2.0 (2023-01-03)
+### Feature
+* **actionbar:** Bump version ([`c950552`](https://github.com/Smithed-MC/Libraries/commit/c9505523f28915b2de816cfcfe27f7508cab8b8b))
+* **actionbar:** Add API call for locked containers ([#19](https://github.com/Smithed-MC/Libraries/issues/19)) ([`2dfa1c5`](https://github.com/Smithed-MC/Libraries/commit/2dfa1c53e7485338482dd22502203e3fc4901d39))
+
+### Fix
+* Bug in stripping whitespace to be too eager ([`349c716`](https://github.com/Smithed-MC/Libraries/commit/349c7167302633e49c6b83b118c65c26ce8b72e4))
+
+### Documentation
+* Adjust more formatting ([`7bf0237`](https://github.com/Smithed-MC/Libraries/commit/7bf02377ac2bb57bbe9dd4c5ad8bf93d0e5e3e1c))
+* Improve wording and formatting for new docs ([`127226c`](https://github.com/Smithed-MC/Libraries/commit/127226c4683b8ae00b4a1b24f4818d689c932fa4))
+
 ## v0.1.4 (2022-12-06)
 ### Fix
 * Change documentation output ([`6589095`](https://github.com/Smithed-MC/Libraries//commit/6589095f637fe00f1546d260ff5d75d0e8f666d6))
