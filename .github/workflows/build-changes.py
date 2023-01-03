@@ -48,4 +48,5 @@ if packs:
 else:
     output = "packs="
 
+os.environ.setdefault("$GITHUB_OUTPUT", "")
 os.environ["$GITHUB_OUTPUT"] += "\n" + output
