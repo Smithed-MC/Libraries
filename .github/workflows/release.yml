@@ -27,7 +27,6 @@ jobs:
     - name: Checkout 'main'
       uses: actions/checkout@v3
       with:
-        path: 'libraries'
         fetch-depth: 0
 
     - name: Checkout 'releases'
@@ -62,9 +61,8 @@ jobs:
     - id: beet-build
       name: Build via Beet
       run: | 
-        cd libraries
         mkdir -p dist
-        cp ../releases/$MC_VERSION/manifest.json dist/manifest.json
+        cp releases/$MC_VERSION/manifest.json dist/manifest.json
         poetry run python .github/workflows/build-changes.py
 
     #----------------------------------------------
@@ -78,11 +76,10 @@ jobs:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
       run: |
-        cd libraries
         git config --global user.name "github-actions"
         git config --global user.email "action@github.com"
         poetry run semantic-release publish -v DEBUG -D commit_author="github-actions <action@github.com>"
-        echo version=$(poetry run semantic-release print-version) >> $GITHUB_OUTPUT
+        echo "version=$(poetry run semantic-release print-version)" >> $GITHUB_OUTPUT
     
     #----------------------------------------------
     #        Commit built packs to branch
@@ -96,10 +93,10 @@ jobs:
       run: |
         set -e
         mkdir -p releases/$MC_VERSION
-        cp -rf libraries/dist/* releases/$MC_VERSION
+        cp -rf dist/* releases/$MC_VERSION
         cd releases
         SHORT_HASH=$(git rev-parse --short HEAD)
-        VERSION=${{ steps.pypi-release.outputs.version }}
+        VERSION="${{ steps.pypi-release.outputs.version }}"
         git add .
         git config --global user.name "github-actions"
         git config --global user.email "action@github.com"
