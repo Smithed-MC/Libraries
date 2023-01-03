@@ -5,12 +5,14 @@ on:
     branches:
       - main
     paths:
-      - smithed_libraries/packs
+      - smithed_libraries/packs/*
 
   pull_request:
     types: [opened, synchronize, reopened]
     paths:
-      - smithed_libraries/packs
+      - smithed_libraries/packs/*
+  
+  workflow_dispatch:
 
 jobs:
   build-linux:

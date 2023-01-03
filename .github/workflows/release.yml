@@ -5,8 +5,10 @@ on:
     branches:
       - main
     paths:
-      - smithed_libraries/packs
+      - smithed_libraries/packs/*
       - pyproject.toml
+
+  workflow_dispatch:
 
 env:
   MC_VERSION: '1.19'
