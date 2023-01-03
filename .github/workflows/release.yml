@@ -86,13 +86,6 @@ jobs:
         cp ../releases/$MC_VERSION/manifest.json dist/manifest.json
         poetry run python .github/workflows/build-changes.py
 
-    - name: Copy files to releases
-      if: |
-        steps.beet-build.outputs.packs != ''
-      run: |
-        mkdir -p releases/$MC_VERSION
-        cp -rf libraries/dist/* releases/$MC_VERSION
-
     #----------------------------------------------
     #                 Push to PYPI
     #----------------------------------------------
@@ -116,11 +109,13 @@ jobs:
     #  We use `&&` to ensure git steps are atomic
     #----------------------------------------------
 
-    - name: Push release files to branch
+    - name: Copy and push release files to branch
       if: |
         steps.beet-build.outputs.packs != ''
       run: |
         set -e
+        mkdir -p releases/$MC_VERSION
+        cp -rf libraries/dist/* releases/$MC_VERSION
         cd releases
         SHORT_HASH=$(git rev-parse --short HEAD)
         VERSION=$(semantic-release print-version)
