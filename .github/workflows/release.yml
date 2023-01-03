@@ -38,7 +38,7 @@ jobs:
         fetch-depth: 0
     
     - name: Install poetry
-      run: pipx install poetry
+      run: pipx install poetry=1.2.2
 
     - name: Set up Python 3.10
       uses: actions/setup-python@v4
@@ -73,7 +73,7 @@ jobs:
     #                 Push to PYPI
     #----------------------------------------------
 
-    - id: pypi_release
+    - id: pypi-release
       name: Release for PYPI
       if: github.repository == 'Smithed-MC/Libraries'
       env:
@@ -84,6 +84,7 @@ jobs:
         git config --global user.name "github-actions"
         git config --global user.email "action@github.com"
         poetry run semantic-release publish -v DEBUG -D commit_author="github-actions <action@github.com>"
+        echo version=$(poetry run semantic-release print-version) >> $GITHUB_OUTPUT
     
     #----------------------------------------------
     #        Commit built packs to branch
@@ -100,7 +101,7 @@ jobs:
         cp -rf libraries/dist/* releases/$MC_VERSION
         cd releases
         SHORT_HASH=$(git rev-parse --short HEAD)
-        VERSION=$(poetry run semantic-release print-version)
+        VERSION=${{ steps.pypi-release.outputs.version }}
         git add .
         git config --global user.name "github-actions"
         git config --global user.email "action@github.com"
