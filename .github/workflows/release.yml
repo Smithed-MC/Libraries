@@ -50,9 +50,7 @@ jobs:
     #----------------------------------------------
 
     - name: Install dependencies
-      run: |
-        cd libraries
-        poetry install --with dev
+      run: poetry install --with dev
 
     #----------------------------------------------
     #       Build packs and copy to branch
