@@ -43,10 +43,7 @@ if packs:
             *[f"-s pipeline[0].broadcast[] = {pack}" for pack, _ in packs],
         ]
     )
-    output = "packs=" + "".join(f"{pack.stem}:{version}," for pack, version in packs)
-else:
-    output = "packs="
 
-os.environ.setdefault("$GITHUB_OUTPUT", "")
-os.environ["$GITHUB_OUTPUT"] += f"\n{output}"
-os.environ["$GITHUB_OUTPUT"] += f"\nbuild_changes={str(bool(packs)).lower()}"
+with open(os.environ["GITHUB_OUTPUT"], "a") as fh:
+    build_changes = str(bool(packs)).lower()
+    print(f"{build_changes=}", file=fh)
