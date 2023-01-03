@@ -36,40 +36,23 @@ jobs:
         path: 'releases'
         ref: 'releases'
         fetch-depth: 0
+    
+    - name: Install poetry
+      run: pipx install poetry
 
     - name: Set up Python 3.10
       uses: actions/setup-python@v4
       with:
         python-version: '3.10'
+        cache: 'poetry'
+        cache-dependency-path: |
+          libraries/poetry.lock
 
     #----------------------------------------------
     #  -----  install & configure poetry  -----
     #----------------------------------------------
-    - name: Cache poetry
-      id: cache-poetry
-      uses: actions/cache@v3
-      with:
-        path: ~/.local
-        key: poetry-${{ runner.os }}
 
-    - name: Install Poetry
-      if: steps.cache-poetry.outputs.cache-hit != 'true'
-      uses: snok/install-poetry@v1
-      with:
-        version: '1.2.2'
-        virtualenvs-in-project: true
-
-    - name: Setup cache
-      id: cached-poetry-dependencies
-      uses: actions/cache@v3
-      with:
-        path: libraries/.venv
-        key: venv-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
-        restore-keys: |
-          venv-${{ runner.os }}-
-
-    - name: Install dependencies (skip if cached)
-      if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
+    - name: Install dependencies
       run: |
         cd libraries
         poetry install --with dev
@@ -117,7 +100,7 @@ jobs:
         cp -rf libraries/dist/* releases/$MC_VERSION
         cd releases
         SHORT_HASH=$(git rev-parse --short HEAD)
-        VERSION=$(semantic-release print-version)
+        VERSION=$(poetry run semantic-release print-version)
         git add .
         git config --global user.name "github-actions"
         git config --global user.email "action@github.com"
