@@ -63,7 +63,7 @@ jobs:
       id: cached-poetry-dependencies
       uses: actions/cache@v3
       with:
-        path: .venv
+        path: libraries/.venv
         key: venv-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
         restore-keys: |
           venv-${{ runner.os }}-
@@ -90,8 +90,8 @@ jobs:
     #                 Push to PYPI
     #----------------------------------------------
 
-    - name: Release for PYPI
-      id: pypi_release
+    - id: pypi_release
+      name: Release for PYPI
       if: github.repository == 'Smithed-MC/Libraries'
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -106,10 +106,11 @@ jobs:
     #        Commit built packs to branch
     #----------------------------------------------
     #  We use `&&` to ensure git steps are atomic
+    #  TODO: Fix `git commit` message line
     #----------------------------------------------
 
     - name: Copy and push release files to branch
-      if: steps.beet-build.outputs.packs != ''
+      if: steps.beet-build.outputs.build_changes
       run: |
         set -e
         mkdir -p releases/$MC_VERSION

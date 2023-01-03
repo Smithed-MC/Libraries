@@ -10,7 +10,7 @@ manifest = json.loads(Path("dist/manifest.json").read_text())
 last_commit = manifest["last_commit"]
 
 # Initialize the list of packs to build
-packs: list[tuple[str, str]] = []
+packs: list[tuple[Path, str]] = []
 
 # Get a list of all the packs in the "smithed_libraries/packs" directory
 for pack in Path("smithed_libraries/packs").glob("*"):
@@ -27,8 +27,7 @@ for pack in Path("smithed_libraries/packs").glob("*"):
 
     # Check if the pack's version number has changed and add pack to list of builds
     if beet_yaml["version"] != old_beet_yaml["version"]:
-        packs.append((str(pack), beet_yaml["version"]))
-
+        packs.append((pack, beet_yaml["version"]))
 
 # Build the packs (if there are any to build)
 if packs:
@@ -44,9 +43,10 @@ if packs:
             *[f"-s pipeline[0].broadcast[] = {pack}" for pack, _ in packs],
         ]
     )
-    output = "packs=" + ",".join(f"{pack}:{version}" for pack, version in packs)
+    output = "packs=" + "".join(f"{pack.stem}:{version}," for pack, version in packs)
 else:
     output = "packs="
 
 os.environ.setdefault("$GITHUB_OUTPUT", "")
-os.environ["$GITHUB_OUTPUT"] += "\n" + output
+os.environ["$GITHUB_OUTPUT"] += f"\n{output}"
+os.environ["$GITHUB_OUTPUT"] += f"\nbuild_changes={str(bool(packs)).lower()}"
