@@ -84,7 +84,7 @@ jobs:
         cd libraries
         mkdir -p dist
         cp ../releases/$MC_VERSION/manifest.json dist/manifest.json
-        poetry run python .github/workflows/build-changes.py
+        poetry run python .github/workflows/build-changes.py >> $GITHUB_OUTPUT
 
     #----------------------------------------------
     #                 Push to PYPI
@@ -92,8 +92,7 @@ jobs:
 
     - name: Release for PYPI
       id: pypi_release
-      if: |
-        github.repository == 'Smithed-MC/Libraries'
+      if: github.repository == 'Smithed-MC/Libraries'
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
@@ -110,8 +109,7 @@ jobs:
     #----------------------------------------------
 
     - name: Copy and push release files to branch
-      if: |
-        steps.beet-build.outputs.packs != ''
+      if: steps.beet-build.outputs.packs != ''
       run: |
         set -e
         mkdir -p releases/$MC_VERSION

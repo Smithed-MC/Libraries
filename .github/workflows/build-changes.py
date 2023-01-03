@@ -10,7 +10,7 @@ manifest = json.loads(Path("dist/manifest.json").read_text())
 last_commit = manifest["last_commit"]
 
 # Initialize the list of packs to build
-broadcast = []
+packs: list[tuple[str, str]] = []
 
 # Get a list of all the packs in the "smithed_libraries/packs" directory
 for pack in Path("smithed_libraries/packs").glob("*"):
@@ -27,12 +27,11 @@ for pack in Path("smithed_libraries/packs").glob("*"):
 
     # Check if the pack's version number has changed and add pack to list of builds
     if beet_yaml["version"] != old_beet_yaml["version"]:
-        broadcast.append(f"-s pipeline[0].broadcast[] = {pack}")
+        packs.append((str(pack), beet_yaml["version"]))
 
 
 # Build the packs (if there are any to build)
-os.environ["GITHUB_OUTPUT"] = f"packs="
-if broadcast:
+if packs:
     subprocess.run(
         [
             "poetry",
@@ -42,7 +41,9 @@ if broadcast:
             "INFO",
             "-p",
             "beet-release.yaml",
-            *broadcast,
+            *[f"-s pipeline[0].broadcast[] = {pack}" for pack, _ in packs],
         ]
     )
-    os.environ["GITHUB_OUTPUT"] += ", ".join(broadcast)
+    print("packs=", ",".join(f"{pack}:{version}" for pack, version in packs), end="")
+else:
+    print("packs=")
