@@ -20,6 +20,6 @@ def output_version_manifest(ctx: Context):
         manifest.touch()
 
     hash = subprocess.check_output(["git", "rev-parse", "--verify", "HEAD"]).decode()
-    versions["last_commit"] = hash
+    versions["last_commit"] = hash.strip()
 
     manifest.write_text(json.dumps(versions, indent=2))
