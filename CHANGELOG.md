@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.2.1 (2023-01-05)
+### Fix
+* **prevent-aggression:** Add zombified piglin 0.1.1 ([`bb47411`](https://github.com/Smithed-MC/Libraries/commit/bb47411b0f029ed5a3c09e8d06f73915d6e020ca))
+
 ## v0.2.0 (2023-01-03)
 ### Feature
 * **actionbar:** Bump version ([`c950552`](https://github.com/Smithed-MC/Libraries/commit/c9505523f28915b2de816cfcfe27f7508cab8b8b))
