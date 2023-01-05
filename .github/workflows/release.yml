@@ -65,8 +65,6 @@ jobs:
       with:
         path: .venv
         key: venv-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
-        restore-keys: |
-          venv-${{ runner.os }}-
 
     - name: Install dependencies
       if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
@@ -108,7 +106,7 @@ jobs:
 
     - id: push-to-branch
       name: Copy and push release files to branch
-      if: steps.beet-build.outputs.build_changes == true
+      if: steps.beet-build.outputs.build_changes == 'true'
       run: |
         set -e
         mkdir -p releases/$MC_VERSION
@@ -130,7 +128,7 @@ jobs:
     #----------------------------------------------
 
     - name: Push built packs to Smithed
-      if: steps.beet-build.outputs.build_changes == true
+      if: steps.beet-build.outputs.build_changes == 'true'
       run: poetry run python .github/workflows/push-to-smithed.py 
       env:
         COMMIT_HASH: ${{ steps.push-to-branch.outputs.commit_hash}}
