@@ -3,7 +3,7 @@ extend: "@smithed_libraries/common.yaml"
 id: smithed.prevent_aggression
 name: Smithed Prevent Aggression
 description: Stop mobs from targetting your custom mobs
-version: "0.1.0"
+version: "0.1.1"
 
 data_pack:
   name: Smithed Prevent Aggression
