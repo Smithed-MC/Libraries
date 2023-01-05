@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - smithed_libraries/packs/*
+      - smithed_libraries/packs/**
       - pyproject.toml
 
   workflow_dispatch:
@@ -35,21 +35,41 @@ jobs:
         path: 'releases'
         ref: 'releases'
         fetch-depth: 0
-    
-    - name: Install poetry
-      run: pipx install poetry==1.2.2
 
     - name: Set up Python 3.10
       uses: actions/setup-python@v4
       with:
         python-version: '3.10'
-        cache: 'poetry'
 
     #----------------------------------------------
     #  -----  install & configure poetry  -----
     #----------------------------------------------
 
+    - name: Cache poetry
+      id: cache-poetry
+      uses: actions/cache@v3
+      with:
+        path: ~/.local
+        key: poetry-${{ runner.os }}
+
+    - name: Install Poetry
+      if: steps.cache-poetry.outputs.cache-hit != 'true'
+      uses: snok/install-poetry@v1
+      with:
+        version: '1.2.2'  # pinned to avoid CI bugs
+        virtualenvs-in-project: true
+
+    - name: Setup cache
+      id: cached-poetry-dependencies
+      uses: actions/cache@v3
+      with:
+        path: .venv
+        key: venv-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
+        restore-keys: |
+          venv-${{ runner.os }}-
+
     - name: Install dependencies
+      if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
       run: poetry install --with dev
 
     #----------------------------------------------
