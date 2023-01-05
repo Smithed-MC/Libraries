@@ -21,4 +21,5 @@ meta:
   bolt_expressions:
     init_path: 'technical/init_expressions'
 
-  output_release: false  # avoids producing zip for Releases CI
+  depends_on:
+    custom-block: "0.1.0"

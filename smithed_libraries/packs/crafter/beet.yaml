@@ -26,3 +26,7 @@ pipeline:
 #     meta.smithed.versioning = {"scheduled_paths": [
 #       "impl/technical/tick", "impl/technical/slow_tick"
 #     ]}
+
+meta:
+  depends_on:  # used for metadata
+    custom-block: "0.1.0"

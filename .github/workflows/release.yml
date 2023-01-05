@@ -106,8 +106,9 @@ jobs:
     #  TODO: Fix `git commit` message line
     #----------------------------------------------
 
-    - name: Copy and push release files to branch
-      if: steps.beet-build.outputs.build_changes
+    - id: push-to-branch
+      name: Copy and push release files to branch
+      if: steps.beet-build.outputs.build_changes == true
       run: |
         set -e
         mkdir -p releases/$MC_VERSION
@@ -120,3 +121,19 @@ jobs:
         git config --global user.email "action@github.com"
         git commit -m "🚀 $SHORT_HASH (v$VERSION): $COMMIT_MSG"
         git push --force origin releases
+        echo "commit_hash=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
+
+    #----------------------------------------------
+    #        Push packs to Smithed via API
+    #----------------------------------------------
+    #    We load in a ton of data into env vars
+    #----------------------------------------------
+
+    - name: Push built packs to Smithed
+      if: steps.beet-build.outputs.build_changes == true
+      run: poetry run python .github/workflows/push-to-smithed.py 
+      env:
+        COMMIT_HASH: ${{ steps.push-to-branch.outputs.commit_hash}}
+        BUILT_PACKS: ${{ steps.beet-build.outputs.built_packs }}
+        SMITHED_UID: ${{ secrets.SMITHED_UID }}
+        SMITHED_TOKEN: ${{ secrets.SMITHED_TOKEN }}

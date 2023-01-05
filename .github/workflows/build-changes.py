@@ -46,4 +46,6 @@ if packs:
 
 with open(os.environ["GITHUB_OUTPUT"], "a") as fh:
     build_changes = str(bool(packs)).lower()
+    built_packs = ",".join(f"{pack}:{version}" for pack, version in packs)
     print(f"{build_changes=}", file=fh)
+    print(f"{built_packs=}", file=fh)
