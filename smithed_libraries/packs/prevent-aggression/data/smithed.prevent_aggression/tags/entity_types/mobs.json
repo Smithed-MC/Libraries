@@ -9,6 +9,7 @@
         "minecraft:vindicator",
         "minecraft:evoker",
         "minecraft:vex",
-        "minecraft:illusioner"
+        "minecraft:illusioner",
+        "minecraft:zombified_piglin"
     ]
 }
