@@ -51,16 +51,16 @@ for pack, version in packs:
 
     payload["name"] = version
 
-    payload["data"]["downloads"]["datapack"] = download_url.format(
+    payload["downloads"]["datapack"] = download_url.format(
         commit_hash=os.environ["COMMIT_HASH"],
-        version=version,
+        version=os.environ["MC_VERSION"],
         pack=pack,
         type="dp",
     )
     if "resource_pack" in beet:
-        payload["data"]["downloads"]["resourcepack"] = download_url.format(
+        payload["downloads"]["resourcepack"] = download_url.format(
             commit_hash=os.environ["COMMIT_HASH"],
-            version=version,
+            version=os.environ["MC_VERSION"],
             pack=pack,
             type="rp",
         )
@@ -77,10 +77,11 @@ for pack, version in packs:
     resp = requests.post(
         url=post_url.format(pack=pack, version=version),
         headers={"Content-Type": "application/json"},
-        data=json.dumps(payload),
+        data=json.dumps({"data": payload}),
     )
 
     print(resp.text)
     if resp.status_code != 200:
         print(f"{resp.status_code=} ⚠️ UPLOAD ERROR ⚠️")
         print(f"{pack=} {version=}")
+        print(f"{payload=}")
