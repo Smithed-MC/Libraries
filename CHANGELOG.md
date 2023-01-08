@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.3.0 (2023-01-08)
+### Feature
+* **actionbar:** Implement container locking event ([`c172080`](https://github.com/Smithed-MC/Libraries/commit/c172080bb6d763f128f8dd42caea7ecfad1207e2))
+
 ## v0.2.1 (2023-01-05)
 ### Fix
 * **prevent-aggression:** Add zombified piglin 0.1.1 ([`bb47411`](https://github.com/Smithed-MC/Libraries/commit/bb47411b0f029ed5a3c09e8d06f73915d6e020ca))
