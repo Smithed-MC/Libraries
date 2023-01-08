@@ -40,7 +40,7 @@ if packs:
             "INFO",
             "-p",
             "beet-release.yaml",
-            *[f"-s pipeline[0].broadcast[] = {pack}" for pack, _ in packs],
+            *[f'-s "pipeline[0].broadcast[] = {pack}"' for pack, _ in packs],
         ]
     )
 
