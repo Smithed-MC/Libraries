@@ -29,13 +29,11 @@ download_url = (
 headers = {"Content-Type": "application/json"}
 
 payload_template: Any = {
-    "data": {
-        "name": "",
-        "breaking": True,
-        "downloads": {"datapack": ""},
-        "supports": [],
-        "dependencies": [],
-    }
+    "name": "",
+    "breaking": True,
+    "downloads": {"datapack": ""},
+    "supports": [],
+    "dependencies": [],
 }
 
 packs = [
