@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.4.0 (2023-01-13)
+### Feature
+* **prevent-aggression:** Fix load issue, bump version ([`51a1a05`](https://github.com/Smithed-MC/Libraries/commit/51a1a053cf7f06bcffdde43193e1587d84515d2e))
+
 ## v0.3.0 (2023-01-08)
 ### Feature
 * **actionbar:** Implement container locking event ([`c172080`](https://github.com/Smithed-MC/Libraries/commit/c172080bb6d763f128f8dd42caea7ecfad1207e2))
