@@ -1,4 +1,4 @@
-if block ~ ~ ~ furnace[facing=north] summon armor_stand ~ ~-0.5 ~ {
+if block ~ ~ ~ furnace[facing=north] run summon armor_stand ~ ~-0.5 ~ {
     Rotation:[180.0f,0.0f],
     Tags:[
         "smithed.crafter",
@@ -7,7 +7,7 @@ if block ~ ~ ~ furnace[facing=north] summon armor_stand ~ ~-0.5 ~ {
     ],
     Invisible:1b,Marker:1b,NoGravity:1b,
     ArmorItems:[{},{},{},{id:"minecraft:furnace",Count:1b,tag:{CustomModelData:4250001}}]}
-if block ~ ~ ~ furnace[facing=south] summon armor_stand ~ ~-0.5 ~ {
+if block ~ ~ ~ furnace[facing=south] run summon armor_stand ~ ~-0.5 ~ {
     Rotation:[0.0f,0.0f],
     Tags:[
         "smithed.crafter",
@@ -16,7 +16,7 @@ if block ~ ~ ~ furnace[facing=south] summon armor_stand ~ ~-0.5 ~ {
     ],
     Invisible:1b,Marker:1b,NoGravity:1b,
     ArmorItems:[{},{},{},{id:"minecraft:furnace",Count:1b,tag:{CustomModelData:4250001}}]}
-if block ~ ~ ~ furnace[facing=east] summon armor_stand ~ ~-0.5 ~ {
+if block ~ ~ ~ furnace[facing=east] run summon armor_stand ~ ~-0.5 ~ {
     Rotation:[-90.0f,0.0f],
     Tags:[
         "smithed.crafter",
@@ -25,7 +25,7 @@ if block ~ ~ ~ furnace[facing=east] summon armor_stand ~ ~-0.5 ~ {
     ],
     Invisible:1b,Marker:1b,NoGravity:1b,
     ArmorItems:[{},{},{},{id:"minecraft:furnace",Count:1b,tag:{CustomModelData:4250001}}]}
-if block ~ ~ ~ furnace[facing=west] summon armor_stand ~ ~-0.5 ~ {
+if block ~ ~ ~ furnace[facing=west] run summon armor_stand ~ ~-0.5 ~ {
     Rotation:[90.0f,0.0f],
     Tags:[
         "smithed.crafter",

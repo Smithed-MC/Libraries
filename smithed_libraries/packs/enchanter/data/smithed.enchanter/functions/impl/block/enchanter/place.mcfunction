@@ -2,7 +2,7 @@ from bolt_expressions import Scoreboard, Data
 enchSeed = Scoreboard("smithed.enchanter.seed")
 entity = Data.entity("@s")
 
-align xyz summon armor_stand ~.5 ~ ~.5 {
+align xyz run summon armor_stand ~.5 ~ ~.5 {
     Tags: ["smithed.entity", "smithed.block", "smithed.enchanter"],
     ArmorItems:[{},{},{},{
         id: "minecraft:enchanting_table",
@@ -15,8 +15,8 @@ align xyz summon armor_stand ~.5 ~ ~.5 {
     }]
 }
 
-align xyz positioned ~.5 ~ ~.5 as @e[tag=smithed.enchanter,dx=0] at @s function ./set_seed:
-    store result score @s smithed.enchanter.seed time query gametime
+align xyz positioned ~.5 ~ ~.5 as @e[tag=smithed.enchanter,dx=0] at @s run function ./set_seed:
+    store result score @s smithed.enchanter.seed run time query gametime
     enchSeed["@s"] += entity.Pos[0] / 100
     enchSeed["@s"] += entity.Pos[1] / 100
     enchSeed["@s"] += entity.Pos[2] / 100
