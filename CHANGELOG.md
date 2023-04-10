@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.4.1 (2023-04-10)
+### Fix
+* Add forward-compatibility for new Beet versions ([#26](https://github.com/Smithed-MC/Libraries/issues/26)) ([`85ea724`](https://github.com/Smithed-MC/Libraries/commit/85ea72419b56c6096bd9a2d4681a70ecdea13392))
+
 ## v0.4.0 (2023-01-13)
 ### Feature
 * **prevent-aggression:** Fix load issue, bump version ([`51a1a05`](https://github.com/Smithed-MC/Libraries/commit/51a1a053cf7f06bcffdde43193e1587d84515d2e))
