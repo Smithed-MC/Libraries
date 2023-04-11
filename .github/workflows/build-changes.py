@@ -1,8 +1,8 @@
 import json
-import os
 import subprocess
 from pathlib import Path
 
+import github_action_utils as gha  # type: ignore
 import yaml
 
 # Load manifest
@@ -44,8 +44,8 @@ if packs:
         ]
     )
 
-with open(os.environ["GITHUB_OUTPUT"], "a") as fh:
-    build_changes = str(bool(packs)).lower()
-    built_packs = ",".join(f"{pack.stem}:{version}" for pack, version in packs)
-    print(f"build_changes={build_changes}", file=fh)
-    print(f"built_packs={built_packs}", file=fh)
+gha.set_output("build_changes", str(bool(packs)).lower())
+gha.set_output(
+    "built_packs",
+    ",".join(f"{pack.stem}:{version}" for pack, version in packs),
+)
