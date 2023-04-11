@@ -52,7 +52,14 @@
 # }
 # ```
 # The freeze value has a minimum value of 0 and a maximum value of 50.
-
+#
+# ## Additional Details
+# When a message gets called to potentially display, the api will compare your message pack to the message
+# that's currently being shown to the user. Your message will only display if:
+#   - Your priority is the same or lower than the current message
+#   - There is no current message (i.e. the freeze ran out)
+# This is not the case if the current message is an "override".
+# `priority: "override"` will continue to display **until** the freeze value counts down!
 
 # get the message input
 # @s = player that needs a new actionbar shown
@@ -61,6 +68,9 @@
 
 # force-give player a priority score
 scoreboard players add @s smithed.actionbar.priority 0
+
+# if there is a message, but they forgot the priority, it should be the default
+execute if data storage smithed.actionbar:input message run scoreboard players set $priority smithed.actionbar.temp 99
 
 # convert string priority into number
 #  if we introduce new priorities in future versions
@@ -74,15 +84,19 @@ execute unless data storage smithed.actionbar:input message.priority run scorebo
 # grab freeze
 #  load default freeze if not defined
 execute store result score $freeze smithed.actionbar.temp run data get storage smithed.actionbar:input message.freeze
-execute unless data storage smithed.actionbar:input message.freeze run scoreboard players operation $freeze smithed.actionbar.temp = $default.freeze smithed.actionbar.const
+execute
+    unless data storage smithed.actionbar:input message.freeze
+    run scoreboard players operation $freeze smithed.actionbar.temp = $default.freeze smithed.actionbar.const
 
-# determine if display
-#  if priority is the same, check if freeze is 1..
-#  OR if priority is strictly lower,
+# to determine if we display
+#  if priority is the same or lower AND current priority is not "override"
 #  OR if player has no shown actionbar
 #    then display the message
-execute if score $priority smithed.actionbar.temp = @s smithed.actionbar.priority unless score @s smithed.actionbar.freeze matches 1.. run function smithed.actionbar:impl/display
-execute if score $priority smithed.actionbar.temp < @s smithed.actionbar.priority run function smithed.actionbar:impl/display
+execute
+    unless score @s smithed.actionbar.priority matches 1    # override notifications should not be "overriden"
+    if score $priority smithed.actionbar.temp <= @s smithed.actionbar.priority
+    run function smithed.actionbar:impl/display
+
 execute if score @s smithed.actionbar.priority matches 0 run function smithed.actionbar:impl/display
 
 # cleanup

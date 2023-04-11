@@ -8,3 +8,6 @@ description: Native Actionbar Library for Smithed
 data_pack:
   name: Smithed Actionbar
   load: .
+
+require:
+  - bolt
