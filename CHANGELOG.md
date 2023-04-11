@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.5.1 (2023-04-11)
+### Fix
+* Github CI, using github-action-utils ([`3e482e9`](https://github.com/Smithed-MC/Libraries/commit/3e482e98bfd909ade84dc9c14f4f44755968f948))
+
 ## v0.5.0 (2023-04-11)
 ### Feature
 * **actionbar:** Priorities behavior altered + reset api ([#21](https://github.com/Smithed-MC/Libraries/issues/21)) ([`2d58586`](https://github.com/Smithed-MC/Libraries/commit/2d5858626a94ba09d0cb1c927dda991fabe15b36))
