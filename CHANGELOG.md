@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.6.0 (2023-04-11)
+### Feature
+* Bump actionbar version ([`00c9317`](https://github.com/Smithed-MC/Libraries/commit/00c931753016ab9ab4583a02f64ae2a4e979172e))
+
 ## v0.5.1 (2023-04-11)
 ### Fix
 * Github CI, using github-action-utils ([`3e482e9`](https://github.com/Smithed-MC/Libraries/commit/3e482e98bfd909ade84dc9c14f4f44755968f948))
