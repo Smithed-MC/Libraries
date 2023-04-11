@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.5.0 (2023-04-11)
+### Feature
+* **actionbar:** Priorities behavior altered + reset api ([#21](https://github.com/Smithed-MC/Libraries/issues/21)) ([`2d58586`](https://github.com/Smithed-MC/Libraries/commit/2d5858626a94ba09d0cb1c927dda991fabe15b36))
+
 ## v0.4.1 (2023-04-10)
 ### Fix
 * Add forward-compatibility for new Beet versions ([#26](https://github.com/Smithed-MC/Libraries/issues/26)) ([`85ea724`](https://github.com/Smithed-MC/Libraries/commit/85ea72419b56c6096bd9a2d4681a70ecdea13392))
