@@ -1,4 +1,5 @@
 import json
+import os
 import subprocess
 from pathlib import Path
 
@@ -44,8 +45,12 @@ if packs:
         ]
     )
 
-gha.set_output("build_changes", str(bool(packs)).lower())
-gha.set_output(
-    "built_packs",
-    ",".join(f"{pack.stem}:{version}" for pack, version in packs),
-)
+build_changes = str(bool(packs)).lower()
+built_packs = ",".join(f"{pack.stem}:{version}" for pack, version in packs)
+
+if "GITHUB_ACTIONS" in os.environ:
+    gha.set_output("build_changes", build_changes)
+    gha.set_output("built_packs", built_packs)
+else:
+    print(f"{build_changes=}")
+    print(f"{built_packs=}")
