@@ -19,15 +19,20 @@
             }
           }
         ],
-        "location": {
-          "dimension": "minecraft:overworld",
-          "block": {
-            "tag": "minecraft:beds",
-            "state": {
-              "occupied": false
+        "location": [
+          {
+            "condition": "minecraft:location_check",
+            "predicate": {
+              "dimension": "minecraft:overworld",
+              "block": {
+                "tag": "minecraft:beds",
+                "state": {
+                  "occupied": false
+                }
+              }
             }
           }
-        }
+        ]
       }
     },
     "occupied": {
@@ -49,15 +54,20 @@
             }
           }
         ],
-        "location": {
-          "dimension": "minecraft:overworld",
-          "block": {
-            "tag": "minecraft:beds",
-            "state": {
-              "occupied": true
+        "location": [
+          {
+            "condition": "minecraft:location_check",
+            "predicate": {
+              "dimension": "minecraft:overworld",
+              "block": {
+                "tag": "minecraft:beds",
+                "state": {
+                  "occupied": true
+                }
+              }
             }
           }
-        }
+        ]
       }
     },
     "unoccupied_empty": {
@@ -81,15 +91,20 @@
             "minecraft:air"
           ]
         },
-        "location": {
-          "dimension": "minecraft:overworld",
-          "block": {
-            "tag": "minecraft:beds",
-            "state": {
-              "occupied": false
+        "location": [
+          {
+            "condition": "minecraft:location_check",
+            "predicate": {
+              "dimension": "minecraft:overworld",
+              "block": {
+                "tag": "minecraft:beds",
+                "state": {
+                  "occupied": false
+                }
+              }
             }
           }
-        }
+        ]
       }
     },
     "occupied_empty": {
@@ -113,15 +128,20 @@
             "minecraft:air"
           ]
         },
-        "location": {
-          "dimension": "minecraft:overworld",
-          "block": {
-            "tag": "minecraft:beds",
-            "state": {
-              "occupied": true
+        "location": [
+          {
+            "condition": "minecraft:location_check",
+            "predicate": {
+              "dimension": "minecraft:overworld",
+              "block": {
+                "tag": "minecraft:beds",
+                "state": {
+                  "occupied": true
+                }
+              }
             }
           }
-        }
+        ]
       }
     }
   },
