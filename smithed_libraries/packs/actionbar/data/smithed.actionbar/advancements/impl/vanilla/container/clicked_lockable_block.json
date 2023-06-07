@@ -19,11 +19,16 @@
             }
           }
         ],
-        "location": {
-          "block": {
-            "tag": "smithed.actionbar:impl/lockable"
+        "location": [
+          {
+            "condition": "minecraft:location_check",
+            "predicate": {
+              "block": {
+                "tag": "mithed.actionbar:impl/lockable"
+              }
+            }
           }
-        }
+        ]
       }
     },
     "click_empty": {
@@ -36,11 +41,16 @@
             "minecraft:air"
           ]
         },
-        "location": {
-          "block": {
-            "tag": "smithed.actionbar:impl/lockable"
+        "location": [
+          {
+            "condition": "minecraft:location_check",
+            "predicate": {
+              "block": {
+                "tag": "mithed.actionbar:impl/lockable"
+              }
+            }
           }
-        }
+        ]
       }
     }
   },
