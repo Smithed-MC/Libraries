@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.6.1 (2023-06-15)
+### Fix
+* Update beet, fix smithed.item, 1.20 ([#28](https://github.com/Smithed-MC/Libraries/issues/28)) ([`973841f`](https://github.com/Smithed-MC/Libraries/commit/973841fcebc786dc865c3628e7dc91806dff220c))
+
 ## v0.6.0 (2023-04-11)
 ### Feature
 * Bump actionbar version ([`00c9317`](https://github.com/Smithed-MC/Libraries/commit/00c931753016ab9ab4583a02f64ae2a4e979172e))
