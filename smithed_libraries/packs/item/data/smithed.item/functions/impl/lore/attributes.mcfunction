@@ -71,7 +71,7 @@ def generateOperations(mode):
     for i in range(0, 3):
         if data storage smithed.item:main lore.attr{Operation: i} data modify storage smithed.item:main lore.attr.initialJSON set value ('{"translate":"attribute.modifier.'+ mode + '.' + str(i) + '","with":[{"nbt":"lore.attr.AmountJSON","interpret":true,"storage":"smithed.item:main"},{"nbt":"lore.attr.AttributeName","storage":"smithed.item:main","interpret":true}],"color":"' + color + '","italic":false}')
                             
-    data modify block -30000000 0 1603 Text1 set from storage smithed.item:main lore.attr.initialJSON
+    data modify block -30000000 0 1603 front_text.messages[0] set from storage smithed.item:main lore.attr.initialJSON
 
 execute function ./attributes/add_lore:
     path = 'lore/attributes/add_lore'
@@ -147,6 +147,6 @@ for slot in ['mainhand', 'offhand', 'feet', 'legs', 'chest', 'head']:
                 if score $amount smithed.data matches ..-1 function generate_path(f"{path}/{slot}/negative"):
                     generateOperations('take')
 
-            data modify storage smithed.item:main item.tag.display.Lore append from block -30000000 0 1603 Text1
+            data modify storage smithed.item:main item.tag.display.Lore append from block -30000000 0 1603 front_text.messages[0]
 
             if score $iter smithed.data matches 1.. function generate_path(f"{path}/{slot}/loop")
