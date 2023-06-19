@@ -2,6 +2,13 @@
 
 <!--next-version-placeholder-->
 
+## v0.7.0 (2023-06-19)
+### Feature
+* Update to 1.20 (trigger rebuild) ([`c13ec7a`](https://github.com/Smithed-MC/Libraries/commit/c13ec7a4eee36d8fdaba605bc5498431bcb2289d))
+
+### Fix
+* Trigger rebuild ([`179256c`](https://github.com/Smithed-MC/Libraries/commit/179256ccffbc2f923e1c824031b8f37766b6a30e))
+
 ## v0.6.1 (2023-06-15)
 ### Fix
 * Update beet, fix smithed.item, 1.20 ([#28](https://github.com/Smithed-MC/Libraries/issues/28)) ([`973841f`](https://github.com/Smithed-MC/Libraries/commit/973841fcebc786dc865c3628e7dc91806dff220c))
