@@ -3,5 +3,6 @@
 # located at @s
 # run from technical/tick
 
+
 scoreboard players reset @s smithed.actionbar.freeze
 scoreboard players set @s smithed.actionbar.priority 0
