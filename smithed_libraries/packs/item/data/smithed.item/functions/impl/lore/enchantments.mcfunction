@@ -72,7 +72,7 @@ execute function ./enchantments/loop:
         if score $lvl smithed.data matches 11..:
             storage.lore.lvl = ('{"score":{"objective":"smithed.data","name":"$lvl","italic": "false","color":"gray"}}')
 
-    data modify block -30000000 0 1603 Text1 set value '[{"nbt":"lore.ench","storage":"smithed.item:main","interpret":true}," ",{"nbt":"lore.lvl","storage":"smithed.item:main","interpret":true}]'
-    data modify storage smithed.item:main item.tag.display.Lore prepend from block -30000000 0 1603 Text1
+    data modify block -30000000 0 1603 front_text.messages[0] set value '[{"nbt":"lore.ench","storage":"smithed.item:main","interpret":true}," ",{"nbt":"lore.lvl","storage":"smithed.item:main","interpret":true}]'
+    data modify storage smithed.item:main item.tag.display.Lore prepend from block -30000000 0 1603 front_text.messages[0]
 
     if data storage smithed.item:main 'enchantments'[] function ./enchantments/loop

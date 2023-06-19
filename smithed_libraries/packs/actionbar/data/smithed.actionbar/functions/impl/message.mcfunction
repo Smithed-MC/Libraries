@@ -35,6 +35,3 @@ execute
     run function smithed.actionbar:impl/display
 
 execute if score @s smithed.actionbar.priority matches 0 run function smithed.actionbar:impl/display
-
-# cleanup
-data remove storage smithed.actionbar:input message
