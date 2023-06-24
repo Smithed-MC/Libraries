@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.7.2 (2023-06-24)
+### Fix
+* Dummy commit for item ([`b6b7565`](https://github.com/Smithed-MC/Libraries/commit/b6b756554b887e1024a27f6c4488dd05bccfd5f2))
+
 ## v0.7.1 (2023-06-24)
 ### Fix
 * Update smithed.item's item list to 1.20 ([`c7b25b4`](https://github.com/Smithed-MC/Libraries/commit/c7b25b4081c1d14981da3890bfaf68fc50977425))
