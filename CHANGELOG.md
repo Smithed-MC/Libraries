@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.7.3 (2023-06-25)
+### Fix
+* **actionbar:** Ensure api tags **exist** ([`6ebba8c`](https://github.com/Smithed-MC/Libraries/commit/6ebba8c5bf4cb92bf13f0a1ca575a7f49210cd08))
+
 ## v0.7.2 (2023-06-24)
 ### Fix
 * Dummy commit for item ([`b6b7565`](https://github.com/Smithed-MC/Libraries/commit/b6b756554b887e1024a27f6c4488dd05bccfd5f2))
