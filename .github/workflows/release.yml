@@ -110,7 +110,7 @@ jobs:
       run: |
         set -e
         mkdir -p releases/$MC_VERSION
-        cp -rf dist/* releases/$MC_VERSION
+        cp -rf "dist/"* releases/$MC_VERSION
         cd releases
         SHORT_HASH=$(git rev-parse --short HEAD)
         VERSION="${{ steps.pypi-release.outputs.version }}"

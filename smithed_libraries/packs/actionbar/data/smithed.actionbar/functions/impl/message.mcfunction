@@ -1,3 +1,5 @@
+# @public
+
 # get the message input
 # @s = player that needs a new actionbar shown
 # location undefined; based on how the user calls the function
