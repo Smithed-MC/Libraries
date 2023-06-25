@@ -80,6 +80,7 @@ jobs:
         mkdir -p dist
         cp releases/$MC_VERSION/manifest.json dist/manifest.json
         poetry run python .github/workflows/build-changes.py
+        echo $(ls dist)
 
     #----------------------------------------------
     #                 Push to PYPI
