@@ -52,14 +52,14 @@ for pack, version in packs:
     payload["downloads"]["datapack"] = download_url.format(
         commit_hash=os.environ["COMMIT_HASH"],
         version=os.environ["MC_VERSION"],
-        pack=pack,
+        pack=pack.replace("-", "_"),
         type="dp",
     )
     if "resource_pack" in beet:
         payload["downloads"]["resourcepack"] = download_url.format(
             commit_hash=os.environ["COMMIT_HASH"],
             version=os.environ["MC_VERSION"],
-            pack=pack,
+            pack=pack.replace("-", "_"),
             type="rp",
         )
 
