@@ -3,7 +3,7 @@ extend: "@smithed_libraries/common.yaml"
 id: smithed.item
 name: Smithed Item 
 description: Native Item Library for Smithed
-version: "0.3.1"
+version: "0.3.0"
 
 data_pack:
   name: Smithed Item
