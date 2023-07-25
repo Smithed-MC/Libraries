@@ -28,5 +28,6 @@ pipeline:
 #     ]}
 
 meta:
+  crafter_mc_version: "1.20.1"
   depends_on:  # used for metadata
     custom-block: "0.1.0"
