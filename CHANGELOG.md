@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.7.4 (2023-07-30)
+### Fix
+* Clicked_lockable_block.json ([`3ebdd3e`](https://github.com/Smithed-MC/Libraries/commit/3ebdd3e31e2d1e31d7a57cb8c85ead4de085a62a))
+
 ## v0.7.3 (2023-06-25)
 ### Fix
 * **actionbar:** Ensure api tags **exist** ([`6ebba8c`](https://github.com/Smithed-MC/Libraries/commit/6ebba8c5bf4cb92bf13f0a1ca575a7f49210cd08))
