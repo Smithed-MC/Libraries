@@ -8,8 +8,8 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.10"
-mecha = "^0.73.0"
-bolt = "^0.36.0"
+mecha = "^0.74.0"
+bolt = "^0.37.0"
 bolt-expressions = "^0.12.2"
 beet = "^0.89.1"
 pydantic = "^1.10.2"
