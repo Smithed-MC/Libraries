@@ -8,7 +8,7 @@ execute store result score $unbreaking_lvl smithed.item run data get storage smi
 
 # check if the item is unbreakable
 scoreboard players set $unbreakable smithed.item 0
-execute store result score $unbreakable smithed.item run data get storage smithed.item:main item.tag.Unbreakable
+execute store result score $unbreakable smithed.item run data get storage smithed.item:main item.tag.Unbreakable 1
 execute unless score $unbreakable smithed.item matches 0 run scoreboard players set $unbreaking_lvl smithed.item -1
 
 # if delta is positive (i.e. adding durability), ignore unbreaking

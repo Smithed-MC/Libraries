@@ -8,7 +8,4 @@ scoreboard players set 16 smithed.const 16
 scoreboard players set 2 smithed.const 2
 scoreboard players set 0 smithed.const 0
 
-scoreboard objectives add smithed.xp xp
-scoreboard objectives add smithed.item.prev_xp dummy
-
 #declare storage smithed.item:main
