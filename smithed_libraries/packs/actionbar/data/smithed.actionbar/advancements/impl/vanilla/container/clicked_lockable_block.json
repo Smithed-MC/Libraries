@@ -24,7 +24,7 @@
             "condition": "minecraft:location_check",
             "predicate": {
               "block": {
-                "tag": "mithed.actionbar:impl/lockable"
+                "tag": "smithed.actionbar:impl/lockable"
               }
             }
           }
@@ -46,7 +46,7 @@
             "condition": "minecraft:location_check",
             "predicate": {
               "block": {
-                "tag": "mithed.actionbar:impl/lockable"
+                "tag": "smithed.actionbar:impl/lockable"
               }
             }
           }
