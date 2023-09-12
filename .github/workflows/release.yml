@@ -11,7 +11,7 @@ on:
   workflow_dispatch:
 
 env:
-  MC_VERSION: '1.19'
+  MC_VERSION: '1.20'
   COMMIT_MSG: ${{ github.event.head_commit.message }}
 
 jobs:
@@ -80,6 +80,31 @@ jobs:
         mkdir -p dist
         cp releases/$MC_VERSION/manifest.json dist/manifest.json
         poetry run python .github/workflows/build-changes.py
+        echo $(ls dist)
+
+    #----------------------------------------------
+    #        Commit built packs to branch
+    #----------------------------------------------
+    #  We use `&&` to ensure git steps are atomic
+    #  TODO: Fix `git commit` message line
+    #----------------------------------------------
+
+    - id: push-to-branch
+      name: Copy and push release files to branch
+      if: steps.beet-build.outputs.build_changes == 'true'
+      run: |
+        set -e
+        mkdir -p releases/$MC_VERSION
+        cp -rf "dist/"* releases/$MC_VERSION
+        cd releases
+        SHORT_HASH=$(git rev-parse --short HEAD)
+        VERSION="${{ steps.pypi-release.outputs.version }}"
+        git add .
+        git config --global user.name "github-actions"
+        git config --global user.email "action@github.com"
+        git commit -m "🚀 $SHORT_HASH (v$VERSION): $COMMIT_MSG"
+        git push --force origin releases
+        echo "commit_hash=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
 
     #----------------------------------------------
     #                 Push to PYPI
@@ -96,30 +121,6 @@ jobs:
         git config --global user.email "action@github.com"
         poetry run semantic-release publish -v DEBUG -D commit_author="github-actions <action@github.com>"
         echo "version=$(poetry run semantic-release print-version)" >> $GITHUB_OUTPUT
-    
-    #----------------------------------------------
-    #        Commit built packs to branch
-    #----------------------------------------------
-    #  We use `&&` to ensure git steps are atomic
-    #  TODO: Fix `git commit` message line
-    #----------------------------------------------
-
-    - id: push-to-branch
-      name: Copy and push release files to branch
-      if: steps.beet-build.outputs.build_changes == 'true'
-      run: |
-        set -e
-        mkdir -p releases/$MC_VERSION
-        cp -rf dist/* releases/$MC_VERSION
-        cd releases
-        SHORT_HASH=$(git rev-parse --short HEAD)
-        VERSION="${{ steps.pypi-release.outputs.version }}"
-        git add .
-        git config --global user.name "github-actions"
-        git config --global user.email "action@github.com"
-        git commit -m "🚀 $SHORT_HASH (v$VERSION): $COMMIT_MSG"
-        git push --force origin releases
-        echo "commit_hash=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
 
     #----------------------------------------------
     #        Push packs to Smithed via API

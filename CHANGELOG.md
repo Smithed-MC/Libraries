@@ -2,6 +2,33 @@
 
 <!--next-version-placeholder-->
 
+## v0.7.4 (2023-07-30)
+### Fix
+* Clicked_lockable_block.json ([`3ebdd3e`](https://github.com/Smithed-MC/Libraries/commit/3ebdd3e31e2d1e31d7a57cb8c85ead4de085a62a))
+
+## v0.7.3 (2023-06-25)
+### Fix
+* **actionbar:** Ensure api tags **exist** ([`6ebba8c`](https://github.com/Smithed-MC/Libraries/commit/6ebba8c5bf4cb92bf13f0a1ca575a7f49210cd08))
+
+## v0.7.2 (2023-06-24)
+### Fix
+* Dummy commit for item ([`b6b7565`](https://github.com/Smithed-MC/Libraries/commit/b6b756554b887e1024a27f6c4488dd05bccfd5f2))
+
+## v0.7.1 (2023-06-24)
+### Fix
+* Update smithed.item's item list to 1.20 ([`c7b25b4`](https://github.com/Smithed-MC/Libraries/commit/c7b25b4081c1d14981da3890bfaf68fc50977425))
+
+## v0.7.0 (2023-06-19)
+### Feature
+* Update to 1.20 (trigger rebuild) ([`c13ec7a`](https://github.com/Smithed-MC/Libraries/commit/c13ec7a4eee36d8fdaba605bc5498431bcb2289d))
+
+### Fix
+* Trigger rebuild ([`179256c`](https://github.com/Smithed-MC/Libraries/commit/179256ccffbc2f923e1c824031b8f37766b6a30e))
+
+## v0.6.1 (2023-06-15)
+### Fix
+* Update beet, fix smithed.item, 1.20 ([#28](https://github.com/Smithed-MC/Libraries/issues/28)) ([`973841f`](https://github.com/Smithed-MC/Libraries/commit/973841fcebc786dc865c3628e7dc91806dff220c))
+
 ## v0.6.0 (2023-04-11)
 ### Feature
 * Bump actionbar version ([`00c9317`](https://github.com/Smithed-MC/Libraries/commit/00c931753016ab9ab4583a02f64ae2a4e979172e))

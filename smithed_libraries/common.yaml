@@ -9,6 +9,7 @@ resource_pack:
   zipped: true
 
 require:
+  - beet.contrib.model_merging
   - smithed_libraries.plugins.misc.display_broadcasted_pack
   - smithed_libraries.plugins.manifest.collect_version
 

@@ -2,7 +2,7 @@ extend: "@smithed_libraries/common.yaml"
 
 id: smithed.damage
 name: Smithed Damage 
-version: "0.1.0"
+version: "0.2.0"
 description: Native Damage Library for Smithed
 
 data_pack:
