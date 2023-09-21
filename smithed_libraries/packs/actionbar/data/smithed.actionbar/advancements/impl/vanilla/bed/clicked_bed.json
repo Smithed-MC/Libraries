@@ -27,7 +27,7 @@
               "block": {
                 "tag": "minecraft:beds",
                 "state": {
-                  "occupied": false
+                  "occupied": "false"
                 }
               }
             }
@@ -62,7 +62,7 @@
               "block": {
                 "tag": "minecraft:beds",
                 "state": {
-                  "occupied": true
+                  "occupied": "true"
                 }
               }
             }
@@ -99,7 +99,7 @@
               "block": {
                 "tag": "minecraft:beds",
                 "state": {
-                  "occupied": false
+                  "occupied": "false"
                 }
               }
             }
@@ -136,7 +136,7 @@
               "block": {
                 "tag": "minecraft:beds",
                 "state": {
-                  "occupied": true
+                  "occupied": "true"
                 }
               }
             }
