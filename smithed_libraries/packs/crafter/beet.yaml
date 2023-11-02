@@ -2,7 +2,7 @@ extend: "@smithed_libraries/common.yaml"
 
 id: smithed.crafter
 name: Smithed Crafter
-version: "0.3.0"
+version: "0.3.1"
 description: Native Library for Smithed
 author: TheNuclearNexus
 
@@ -20,6 +20,7 @@ require:
 
 pipeline:
   - mecha
+  - smithed_libraries.plugins.crafter
 
 # overrides:
 #   - >
