@@ -2,6 +2,14 @@
 
 <!--next-version-placeholder-->
 
+## v0.8.1 (2023-11-02)
+### Fix
+* **crafter:** Get #smithed.crafter:all from misode/mcmeta ([#37](https://github.com/Smithed-MC/Libraries/issues/37)) ([`b5f9cd0`](https://github.com/Smithed-MC/Libraries/commit/b5f9cd00a2ee9a967133dca66e7c277085be301f))
+
+## v0.8.0 (2023-10-18)
+### Feature
+* Bump versions + beet ([`a3ff2cf`](https://github.com/Smithed-MC/Libraries/commit/a3ff2cf4a44347d29e43bf9a9728c79b2d909ec6))
+
 ## v0.7.4 (2023-07-30)
 ### Fix
 * Clicked_lockable_block.json ([`3ebdd3e`](https://github.com/Smithed-MC/Libraries/commit/3ebdd3e31e2d1e31d7a57cb8c85ead4de085a62a))

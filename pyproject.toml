@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "smithed-libraries"
-version = "0.7.4"
+version = "0.8.1"
 description = "All of the Smithed Libraries"
 authors = ["Smithed Council <team@smithed.dev>"]
 license = "MIT"
@@ -11,7 +11,7 @@ python = "^3.10"
 mecha = "^0.73.0"
 bolt = "^0.36.0"
 bolt-expressions = "^0.12.2"
-beet = "^0.88.0"
+beet = "^0.96.1"
 pydantic = "^1.10.2"
 
 [tool.poetry.group.dev.dependencies]
