@@ -2,7 +2,7 @@ from typing import Any, ClassVar, Literal
 
 from beet import Context, ListOption, PathSpecOption
 from beet.contrib.rename_files import RenderRenameOption, TextRenameOption
-from pydantic import BaseModel, Field, validator
+from pydantic.v1 import BaseModel, Field, validator
 
 from .types import JsonDict, JsonType
 
