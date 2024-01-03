@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.8.2 (2024-01-03)
+### Fix
+* Bump beet and pydantic vers ([`aced5d8`](https://github.com/Smithed-MC/Libraries/commit/aced5d8f03f6e73914d859f66492928a1c289b4e))
+
 ## v0.8.1 (2023-11-02)
 ### Fix
 * **crafter:** Get #smithed.crafter:all from misode/mcmeta ([#37](https://github.com/Smithed-MC/Libraries/issues/37)) ([`b5f9cd0`](https://github.com/Smithed-MC/Libraries/commit/b5f9cd00a2ee9a967133dca66e7c277085be301f))
