@@ -2,6 +2,12 @@
 
 <!--next-version-placeholder-->
 
+## v0.8.3 (2024-01-03)
+
+### Fix
+
+* 1.20.4 and beet v100+ ([#38](https://github.com/Smithed-MC/Libraries/issues/38)) ([`b1fdbf6`](https://github.com/Smithed-MC/Libraries/commit/b1fdbf683edeb8bd5677804b68ca62bf61791e56))
+
 ## v0.8.2 (2024-01-03)
 ### Fix
 * Bump beet and pydantic vers ([`aced5d8`](https://github.com/Smithed-MC/Libraries/commit/aced5d8f03f6e73914d859f66492928a1c289b4e))
