@@ -77,8 +77,11 @@ def set_version(generate: Generator, opts: VersioningOptions):
 
 def resolve_advancements(ctx: Context, opts: VersioningOptions):
     """Select packs that match refactor statement"""
-
-    for advancement in ctx.select(match=opts.refactor.match, extend=Advancement):
+    
+    query = ctx.query(match=opts.refactor.match, extend=Advancement)
+    if not Advancement in query:
+        return
+    for (path, advancement) in query[Advancement].keys():
         resolve_advancement(advancement, opts)
 
 
