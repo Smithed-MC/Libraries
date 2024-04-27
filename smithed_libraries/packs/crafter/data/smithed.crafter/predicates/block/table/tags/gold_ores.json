@@ -4,7 +4,7 @@
     "predicate": {
         "equipment": {
             "mainhand": {
-                "tag": "minecraft:gold_ores"
+                "items": "#minecraft:gold_ores"
             }
         }
     }

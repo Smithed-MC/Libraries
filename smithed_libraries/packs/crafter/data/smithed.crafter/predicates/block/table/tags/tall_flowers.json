@@ -4,7 +4,7 @@
     "predicate": {
         "equipment": {
             "mainhand": {
-                "tag": "minecraft:tall_flowers"
+                "items": "#minecraft:tall_flowers"
             }
         }
     }

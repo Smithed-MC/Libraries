@@ -1,6 +1,6 @@
 data modify storage smithed.crafter:main root.temp.a set from storage smithed.crafter:main root.temp.shapeless_crafting_input[-1]
 data remove storage smithed.crafter:main root.temp.a.Slot
-data remove storage smithed.crafter:main root.temp.a.Count
+data remove storage smithed.crafter:main root.temp.a.count
 data remove storage smithed.crafter:main root.temp.shapeless_crafting_input[-1]
 
 execute store result score $temp4 smithed.data if data storage smithed.crafter:main root.temp.simplified[]
