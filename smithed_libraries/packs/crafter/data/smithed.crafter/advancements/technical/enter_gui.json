@@ -1,7 +1,7 @@
 {
   "criteria": {
     "click_paleontology_table": {
-      "trigger": "minecraft:item_used_on_block",
+      "trigger": "minecraft:default_block_use",
       "conditions": {
         "location": [
           {
