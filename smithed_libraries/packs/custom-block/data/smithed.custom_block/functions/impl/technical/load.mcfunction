@@ -1,8 +1,6 @@
 scoreboard objectives add smithed.data dummy
 scoreboard objectives add smithed.custom_block dummy
 
-scoreboard objectives add geomancy.id dummy
-
 scoreboard objectives add smithed.logLevel dummy
 scoreboard objectives add smithed.const dummy
 
@@ -23,4 +21,3 @@ fill -30000000 1 1600 -30000000 1 1615 minecraft:bedrock
 
 function smithed.custom_block:impl/technical/def_const
 
-function smithed.custom_block:impl/technical/tick
