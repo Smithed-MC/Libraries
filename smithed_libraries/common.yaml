@@ -2,7 +2,7 @@ author: Smithed Council
 
 data_pack:
   name: "{{ project_id.replace('.', '_') }}_dp"
-  zipped: false
+  zipped: true
 
 resource_pack:
   name: "{{ project_id.replace('.', '_') }}_rp"
