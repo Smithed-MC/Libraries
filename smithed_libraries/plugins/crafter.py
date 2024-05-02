@@ -1,7 +1,9 @@
 from beet import Context, Function, Predicate
 from typing import Any
 import json
+from mecha import Mecha
 
+mc = Mecha()
 
 def beet_default(ctx: Context):
     generate_advanced_remove_tool(ctx)
@@ -13,17 +15,13 @@ def append_tag(
     ctx: Context,
     tag: str,
 ):
-    # execute if predicate smithed.crafter:block/table/tags/wool run data modify storage smithed.crafter:main root.temp.item_tag append value "#minecraft:wool"
 
-    predicate = {
-        "condition": "minecraft:entity_properties",
-        "entity": "this",
-        "predicate": {"equipment": {"mainhand": {"items": f"#minecraft:{tag}"}}},
-    }
-    predicate = Predicate(predicate)
-    ctx.data.predicates[f"smithed.crafter:block/table/tags/{tag}"] = predicate
-
-    return f"execute if predicate smithed.crafter:block/table/tags/{tag} run data modify storage smithed.crafter:main root.temp.item_tag append value '#minecraft:{tag}'"
+    command = f"""
+execute 
+    if items entity @s weapon.mainhand #minecraft:{tag} 
+    run data modify storage smithed.crafter:main root.temp.item_tag append value '#minecraft:{tag}'
+"""
+    return mc.serialize(mc.parse(command, multiline=True))
 
 
 def generate_tag_args(ctx: Context):
@@ -49,8 +47,13 @@ def generate_tag_args(ctx: Context):
 
 
 def delete_tool(item: str, max_damage: int):
-    # execute if data entity @s {HandItems:[{id:"minecraft:wooden_sword"}]} if score $temp1 smithed.data matches 59.. run function smithed.crafter:impl/block/table/crafting/output/clear_input/delete_tool/sub
-    return f"execute if data entity @s {{HandItems:[{{id:'{item}'}}]}} if score $temp1 smithed.data matches {max_damage}.. run function smithed.crafter:impl/block/table/crafting/output/clear_input/delete_tool/sub"
+    command = f"""
+execute 
+    if items entity @s weapon.mainhand minecraft:{item}
+    if score $temp1 smithed.data matches {max_damage}.. 
+    run function smithed.crafter:impl/block/table/crafting/output/clear_input/delete_tool/sub
+"""
+    return mc.serialize(mc.parse(command, multiline=True))
 
 
 def generate_advanced_remove_tool(ctx: Context):
