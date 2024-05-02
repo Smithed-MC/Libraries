@@ -16,12 +16,11 @@ def append_tag(
     tag: str,
 ):
 
-    command = f"""
+    return f"""
 execute 
     if items entity @s weapon.mainhand #minecraft:{tag} 
     run data modify storage smithed.crafter:main root.temp.item_tag append value '#minecraft:{tag}'
 """
-    return mc.serialize(mc.parse(command, multiline=True))
 
 
 def generate_tag_args(ctx: Context):
@@ -41,19 +40,20 @@ def generate_tag_args(ctx: Context):
 
     commands.append("function #smithed.crafter:event/query_tags")
 
+
     ctx.data.functions[
         f"smithed.crafter:v{ctx.project_version}/block/table/crafting/input/query_tags"
-    ] = Function("\n".join(commands))
+    ].append(mc.serialize(mc.parse("\n".join(commands), multiline=True)))
 
 
-def delete_tool(item: str, max_damage: int):
-    command = f"""
+def delete_tool(ctx: Context, item: str, max_damage: int):
+    return f"""
 execute 
-    if items entity @s weapon.mainhand minecraft:{item}
+    if data entity @s {{HandItems:[{{id:"minecraft:{item}"}}]}}
     if score $temp1 smithed.data matches {max_damage}.. 
-    run function smithed.crafter:impl/block/table/crafting/output/clear_input/delete_tool/sub
+    run function smithed.crafter:v{ctx.project_version}/block/table/crafting/output/clear_input/delete_tool/sub
 """
-    return mc.serialize(mc.parse(command, multiline=True))
+
 
 
 def generate_advanced_remove_tool(ctx: Context):
@@ -70,9 +70,9 @@ def generate_advanced_remove_tool(ctx: Context):
         if max_damage:
             max_damage = max_damage[0]["value"]
 
-            command = delete_tool(item, max_damage)
+            command = delete_tool(ctx, item, max_damage)
             commands.append(command)
 
     ctx.data.functions[
         f"smithed.crafter:v{ctx.project_version}/block/table/crafting/output/clear_input/delete_tool/vanilla"
-    ] = Function("\n".join(commands))
+    ].append(mc.serialize(mc.parse("\n".join(commands), multiline=True)))
