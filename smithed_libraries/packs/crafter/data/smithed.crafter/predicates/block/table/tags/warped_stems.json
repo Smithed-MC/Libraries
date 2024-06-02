@@ -4,7 +4,7 @@
     "predicate": {
         "equipment": {
             "mainhand": {
-                "tag": "minecraft:warped_stems"
+                "items": "#minecraft:warped_stems"
             }
         }
     }

@@ -4,7 +4,7 @@
     "predicate": {
         "equipment": {
             "mainhand": {
-                "tag": "minecraft:freeze_immune_wearables"
+                "items": "#minecraft:freeze_immune_wearables"
             }
         }
     }

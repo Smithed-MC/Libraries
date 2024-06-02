@@ -4,7 +4,7 @@
     "predicate": {
         "equipment": {
             "mainhand": {
-                "tag": "minecraft:soul_fire_base_blocks"
+                "items": "#minecraft:soul_fire_base_blocks"
             }
         }
     }

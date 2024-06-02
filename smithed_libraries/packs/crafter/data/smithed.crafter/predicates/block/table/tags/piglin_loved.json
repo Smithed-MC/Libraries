@@ -4,7 +4,7 @@
     "predicate": {
         "equipment": {
             "mainhand": {
-                "tag": "minecraft:piglin_loved"
+                "items": "#minecraft:piglin_loved"
             }
         }
     }

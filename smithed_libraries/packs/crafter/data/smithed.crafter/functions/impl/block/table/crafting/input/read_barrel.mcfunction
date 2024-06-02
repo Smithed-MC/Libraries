@@ -37,5 +37,5 @@ execute if entity @s[scores={smithed.data=0}] run function smithed.crafter:impl/
 # If something was crafted, add the assembled output nonsense
 execute if entity @s[scores={smithed.data=0}] run data remove block ~ ~ ~ Items[{Slot:16b}]
 execute if entity @s[scores={smithed.data=1..}] run tag @s add smithed.crafter.assembled_output
-data modify entity @s ArmorItems[3].tag.smithed.stored_barrel_data set from block ~ ~ ~ Items
-execute if entity @s[scores={smithed.data=1..}] run data modify entity @s ArmorItems[3].tag.smithed.stored_output set from block ~ ~ ~ Items[{Slot:16b}]
+data modify entity @s ArmorItems[3].components."minecraft:custom_data".smithed.stored_barrel_data set from block ~ ~ ~ Items
+execute if entity @s[scores={smithed.data=1..}] run data modify entity @s ArmorItems[3].components."minecraft:custom_data".smithed.stored_output set from block ~ ~ ~ Items[{Slot:16b}]

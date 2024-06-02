@@ -1,19 +1,45 @@
 {
     "pools": [
-      {
-        "rolls": 1,
-        "entries": [
-          {
-            "type": "minecraft:item",
-            "name": "minecraft:furnace",
-            "functions": [
-              {
-                "function": "minecraft:set_nbt",
-                "tag": "{CustomModelData:4250001,display:{Name:'{\"translate\":\"block.smithed.crafter\",\"italic\":false}'},BlockEntityTag:{Items:[{id:\"minecraft:stone\",Count:1b,Slot:0b,tag:{smithed:{block:{id:\"smithed:crafter\"}}}}]}}"
-              }
+        {
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "minecraft:item",
+                    "name": "minecraft:furnace",
+                    "functions": [
+                        {
+                            "function": "minecraft:set_components",
+                            "components": {
+                                "minecraft:item_name": "{\"translate\":\"block.smithed.crafter\",\"italic\":false}",
+                                "minecraft:custom_model_data": 4250001,
+                                "minecraft:container": [
+                                    {
+                                        "slot": 0,
+                                        "item": {
+                                            "id": "minecraft:stone",
+                                            "count": 1,
+                                            "components": {
+                                                "minecraft:custom_data": {
+                                                    "smithed": {
+                                                        "block": {
+                                                            "id": "smithed:crafter"
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                ],
+                                "minecraft:custom_data": {
+                                    "smithed": {
+                                        "id": "smithed:crafter"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                }
             ]
-          }
-        ]
-      }
+        }
     ]
-  }
+}

@@ -1,0 +1,15 @@
+[
+    {
+        "function": "minecraft:set_count",
+        "count": {
+            "type": "minecraft:score",
+            "target": {
+                "type": "minecraft:fixed",
+                "name": "$temp2"
+            },
+            "score": "smithed.data",
+            "scale": -1
+        },
+        "add": true
+    }
+]

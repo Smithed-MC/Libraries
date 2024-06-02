@@ -4,7 +4,7 @@
     "predicate": {
         "equipment": {
             "mainhand": {
-                "tag": "minecraft:beacon_payment_items"
+                "items": "#minecraft:beacon_payment_items"
             }
         }
     }
