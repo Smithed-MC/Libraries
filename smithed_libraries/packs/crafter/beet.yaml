@@ -2,7 +2,7 @@ extend: "@smithed_libraries/common.yaml"
 
 id: smithed.crafter
 name: Smithed Crafter
-version: "0.3.1"
+version: "0.4.0"
 description: Native Library for Smithed
 author: TheNuclearNexus
 
