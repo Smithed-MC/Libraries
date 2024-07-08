@@ -61,15 +61,18 @@ def generate_advanced_remove_tool(ctx: Context):
     url = f"https://raw.githubusercontent.com/misode/mcmeta/{minecraft_version}-summary/item_components/data.json"
     item_components_file = ctx.cache["smithed.crafter"].download(url)
     with open(item_components_file) as f:
-        item_components: dict[str, list[Any]] = json.load(f)
+        item_components: dict[str, (list[Any] | dict[str,Any])] = json.load(f)
 
     commands: list[str] = []
 
     for item, components in item_components.items():
-        max_damage = [c for c in components if c["type"] == "minecraft:max_damage"]
-        if max_damage:
-            max_damage = max_damage[0]["value"]
+        if isinstance(components, list):
+            components_dict = {x["type"]: x["value"] for x in components}
+        else:
+            components_dict = components
 
+        max_damage = components_dict.get("minecraft:max_damage", None)
+        if max_damage:
             command = delete_tool(ctx, item, max_damage)
             commands.append(command)
 
