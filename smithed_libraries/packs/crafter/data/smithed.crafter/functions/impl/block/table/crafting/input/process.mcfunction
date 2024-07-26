@@ -11,7 +11,7 @@ execute unless data storage smithed.crafter:main root.temp.crafting_input_temp[]
 execute unless data storage smithed.crafter:main root.temp.crafting_input_temp[][0].Slot run data remove storage smithed.crafter:main root.temp.crafting_input_temp[][0]
 execute unless data storage smithed.crafter:main root.temp.crafting_input_temp[][-1].Slot run data remove storage smithed.crafter:main root.temp.crafting_input_temp[][-1]
 
-data remove storage smithed.crafter:main root.temp.crafting_input_temp[][].Count
+data remove storage smithed.crafter:main root.temp.crafting_input_temp[][].count
 data remove storage smithed.crafter:main root.temp.crafting_input_temp[][].Slot
 data modify storage smithed.crafter:main root.temp.crafting_input set value {0:[{id:"minecraft:air",item_tag:"NONE",Slot:0b},{id:"minecraft:air",item_tag:"NONE",Slot:1b},{id:"minecraft:air",item_tag:"NONE",Slot:2b}],1:[{id:"minecraft:air",item_tag:"NONE",Slot:0b},{id:"minecraft:air",item_tag:"NONE",Slot:1b},{id:"minecraft:air",item_tag:"NONE",Slot:2b}],2:[{id:"minecraft:air",item_tag:"NONE",Slot:0b},{id:"minecraft:air",item_tag:"NONE",Slot:1b},{id:"minecraft:air",item_tag:"NONE",Slot:2b}]}
 

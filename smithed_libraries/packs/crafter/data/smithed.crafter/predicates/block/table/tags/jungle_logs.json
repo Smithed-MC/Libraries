@@ -4,7 +4,7 @@
     "predicate": {
         "equipment": {
             "mainhand": {
-                "tag": "minecraft:jungle_logs"
+                "items": "#minecraft:jungle_logs"
             }
         }
     }

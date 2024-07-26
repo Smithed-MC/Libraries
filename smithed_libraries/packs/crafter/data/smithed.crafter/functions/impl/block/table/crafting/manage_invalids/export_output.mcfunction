@@ -20,4 +20,4 @@ execute if score @s smithed.data matches 0 run tag @s add smithed.no_shift_click
 function smithed.crafter:impl/block/table/crafting/manage_invalids/spawn_loop
 
 # Reset the saved tag to have nothing in it because you just exported the output
-data modify entity @s ArmorItems[3].tag.smithed.stored_output set value {Slot:16b}
+data modify entity @s ArmorItems[3].components."minecraft:custom_data".smithed.stored_output set value {Slot:16b}

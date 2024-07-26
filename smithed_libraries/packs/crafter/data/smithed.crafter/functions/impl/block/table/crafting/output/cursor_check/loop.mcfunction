@@ -3,7 +3,7 @@
 ####################
 
 scoreboard players remove @s smithed.data 1
-execute store result score $temp smithed.data run data get storage smithed.crafter:main root.temp.Inventory[0].Count
+execute store result score $temp smithed.data run data get storage smithed.crafter:main root.temp.Inventory[0].count
 scoreboard players operation $temp1 smithed.data += $temp smithed.data
 data remove storage smithed.crafter:main root.temp.Inventory[0]
 execute if entity @s[scores={smithed.data=1..}] run function smithed.crafter:impl/block/table/crafting/output/cursor_check/loop
