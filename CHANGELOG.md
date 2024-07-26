@@ -2,6 +2,13 @@
 
 <!--next-version-placeholder-->
 
+## v0.9.0 (2024-07-26)
+
+### Feature
+
+* Update minecraft version ([`936eddc`](https://github.com/Smithed-MC/Libraries/commit/936eddcfe4a5a613eba1601d539945968b82d8ac))
+* Update to 1.20.5, useless ticking function, fix: #34 ([`8c6cfd8`](https://github.com/Smithed-MC/Libraries/commit/8c6cfd82e904dba690b13dfcff638d0f18049d51))
+
 ## v0.8.3 (2024-01-03)
 
 ### Fix
