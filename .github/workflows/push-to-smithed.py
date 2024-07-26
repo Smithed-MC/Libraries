@@ -15,9 +15,7 @@ class PackVersion(NamedTuple):
 packs_root = Path("smithed_libraries/packs")
 
 post_url = (
-    "https://api.smithed.dev/addUserPackVersion?"
-    f"uid={os.environ['SMITHED_UID']}"
-    "&pack={pack}"
+    "https://api.smithed.dev/v2/packs/{pack}/versions?"
     "&version={version}"
     f"&token={os.environ['SMITHED_TOKEN']}"
 )
