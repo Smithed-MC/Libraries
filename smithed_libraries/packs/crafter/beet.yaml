@@ -2,9 +2,10 @@ extend: "@smithed_libraries/common.yaml"
 
 id: smithed.crafter
 name: Smithed Crafter
-version: "0.4.1"
+version: "0.4.2"
 description: Native Library for Smithed
 author: TheNuclearNexus
+minecraft: "1.20"
 
 data_pack:
   name: Smithed Crafter
@@ -30,5 +31,5 @@ pipeline:
 
 meta:
   depends_on: # used for metadata
-    custom-block: "0.4.1"
+    custom-block: "0.4.2"
   minecraft_version: "1.20.6"

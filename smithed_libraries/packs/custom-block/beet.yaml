@@ -2,8 +2,9 @@ extend: "@smithed_libraries/common.yaml"
 
 id: smithed.custom_block
 name: Smithed Custom Block
-version: "0.4.1"
+version: "0.4.2"
 description: Native Custom Block Library for Smithed
+minecraft: "1.20"
 
 data_pack:
   name: Smithed Custom Block
