@@ -2,6 +2,12 @@
 
 <!--next-version-placeholder-->
 
+## v0.9.1 (2024-09-08)
+
+### Fix
+
+* Route for smithed upload was incorrect ([`25939b5`](https://github.com/Smithed-MC/Libraries/commit/25939b5a02aa0534511d03d035d6210e3278369a))
+
 ## v0.9.0 (2024-07-26)
 
 ### Feature
