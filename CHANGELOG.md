@@ -2,6 +2,12 @@
 
 <!--next-version-placeholder-->
 
+## v0.9.2 (2024-09-08)
+
+### Fix
+
+* Specify pack format ([`6d28f51`](https://github.com/Smithed-MC/Libraries/commit/6d28f514e9f8df5b13d3382390199696bf7677e1))
+
 ## v0.9.1 (2024-09-08)
 
 ### Fix
