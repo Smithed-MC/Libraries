@@ -17,3 +17,6 @@ require:
 
 pipeline:
   - mecha
+
+meta:
+  minecraft_version: "1.21"
