@@ -6,22 +6,16 @@
         "SSS"
     ],
     "key": {
-        "#": {
-            "tag": "minecraft:logs"
-        },
-        "C": {
-            "item": "minecraft:crafting_table"
-        },
-        "S": {
-            "item": "minecraft:smooth_stone"
-        }
+        "#": "#minecraft:logs",
+        "C": "minecraft:crafting_table",
+        "S": "minecraft:smooth_stone"
     },
     "result": {
         "id": "minecraft:furnace",
         "count": 1,
         "components":{
             "minecraft:item_name": "{\"translate\":\"block.smithed.crafter\",\"italic\":false}",
-            "minecraft:custom_model_data": 4250001,
+            "minecraft:item_model": "smithed.crafter:table",
             "minecraft:container": [
                 {
                     "slot": 0,

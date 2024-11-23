@@ -11,7 +11,7 @@
                             "function": "minecraft:set_components",
                             "components": {
                                 "minecraft:item_name": "{\"translate\":\"block.smithed.crafter\",\"italic\":false}",
-                                "minecraft:custom_model_data": 4250001,
+                                "minecraft:item_model": "smithed.crafter:table",
                                 "minecraft:container": [
                                     {
                                         "slot": 0,
