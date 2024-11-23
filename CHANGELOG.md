@@ -2,6 +2,12 @@
 
 <!--next-version-placeholder-->
 
+## v0.10.0 (2024-11-23)
+
+### Feature
+
+* Update to 1.21 ([`3fa6af8`](https://github.com/Smithed-MC/Libraries/commit/3fa6af8561b3da489ee307cbef9b316df0712bfb))
+
 ## v0.9.2 (2024-09-08)
 
 ### Fix
