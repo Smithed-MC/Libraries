@@ -1,13 +1,11 @@
-# @public
-
-# force damage to the item in the player's mainhand
-# @s = player who needs to have durability changed in mainhand
+# checks the mainhand for a change in durability
+# @s = player who has a custom durability item in their mainhand
 # located at world spawn
-# run from api call
+# run from durability/track_changes/get_new
 
-# set mainhand durability
-data modify storage smithed.item:main item set from entity @s SelectedItem
-function smithed.item:impl/durability/damage/force/calc_unbreaking
+# check mainhand for changes
+data modify storage smithed.item:main item set from storage smithed.item:main player.SelectedItem
+function smithed.item:impl/durability/track_changes/process_item
 
 # update mainhand
 execute if score $out smithed.item matches 1 run item modify entity @s weapon.mainhand smithed.item:impl/update_nbt
