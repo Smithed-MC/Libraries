@@ -65,7 +65,7 @@ for pack, version in packs:
 
     # assemble deps from beet file
     payload["dependencies"] = [
-        {"id": f"smithed:{dependency}", "version": version}
+        {"id": f"{dependency}", "version": version}
         for dependency, version in beet.get("meta", {}).get("depends_on", {}).items()
     ]
 
