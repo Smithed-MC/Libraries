@@ -49,7 +49,13 @@ def generate_tag_args(ctx: Context):
 def delete_tool(ctx: Context, item: str, max_damage: int):
     return f"""
 execute 
-    if data entity @s {{HandItems:[{{id:"minecraft:{item}"}}]}}
+    if data entity @s {{
+        equipment:{{
+            mainhand:{{
+                id:"minecraft:{item}"
+            }}
+        }}
+    }}
     if score $temp1 smithed.data matches {max_damage}.. 
     run function smithed.crafter:v{ctx.project_version}/block/table/crafting/output/clear_input/delete_tool/sub
 """
