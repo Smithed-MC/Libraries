@@ -2,7 +2,7 @@ extend: "@smithed_libraries/common.yaml"
 
 id: smithed.custom_block
 name: Smithed Custom Block
-version: "0.6.2"
+version: "0.7.0"
 description: Native Custom Block Library for Smithed
 minecraft: "1.21"
 
@@ -19,5 +19,3 @@ require:
 pipeline:
   - mecha
 
-meta:
-  minecraft_version: "1.21"

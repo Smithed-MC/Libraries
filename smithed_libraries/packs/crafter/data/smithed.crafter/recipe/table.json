@@ -14,7 +14,10 @@
         "id": "minecraft:furnace",
         "count": 1,
         "components":{
-            "minecraft:item_name": "{\"translate\":\"block.smithed.crafter\",\"italic\":false}",
+            "minecraft:item_name": {
+                "translate":"block.smithed.crafter",
+                "italic":false
+            },
             "minecraft:item_model": "smithed.crafter:table",
             "minecraft:container": [
                 {
@@ -38,6 +41,11 @@
                 "smithed": {
                     "id": "smithed:crafter"
                 }
+            },
+            "minecraft:tooltip_display": {
+                "hidden_components": [
+                    "minecraft:container"
+                ]
             }
         }
     }
