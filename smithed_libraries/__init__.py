@@ -4,7 +4,7 @@ from beet import subproject
 
 from . import plugins
 
-__version__ = "0.12.0"
+__version__ = "0.13.0"
 
 __all__ = [
     "actionbar",

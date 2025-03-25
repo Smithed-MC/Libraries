@@ -2,6 +2,16 @@
 
 <!--next-version-placeholder-->
 
+## v0.13.0 (2025-03-25)
+
+### Feature
+
+* Update to 1.21.5 ([`f0c34c8`](https://github.com/Smithed-MC/Libraries/commit/f0c34c82eb878b63e26c91bb1cc07ac30816cff6))
+
+### Fix
+
+* Upload script was still using namespaced ids ([`9cf6cd6`](https://github.com/Smithed-MC/Libraries/commit/9cf6cd6e90571daecd7e535095c79e9bb55cccf7))
+
 ## v0.12.0 (2024-12-03)
 
 ### Feature
