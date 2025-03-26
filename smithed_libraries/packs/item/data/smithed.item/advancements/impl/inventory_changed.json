@@ -1,0 +1,20 @@
+{
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "count": {
+              "min": 1
+            },
+            "nbt": "{smithed:{durability:{}}}"
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "function": "smithed.item:impl/durability/track_changes/mark"
+  }
+}

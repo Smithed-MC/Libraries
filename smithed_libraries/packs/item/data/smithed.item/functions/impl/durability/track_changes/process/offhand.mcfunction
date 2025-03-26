@@ -1,13 +1,11 @@
-# @public
-
-# force damage to the item in the player's offhand
-# @s = player who needs to have durability changed in offhand
+# checks the offhand for a change in durability
+# @s = player who has a custom durability item in their offhand
 # located at world spawn
-# run from api call
+# run from durability/track_changes/get_new
 
-# set offhand durability
-data modify storage smithed.item:main item set from entity @s Inventory[{Slot:-106b}]
-function smithed.item:impl/durability/damage/force/calc_unbreaking
+# check offhand for changes
+data modify storage smithed.item:main item set from storage smithed.item:main player.Inventory[{Slot:-106b}]
+function smithed.item:impl/durability/track_changes/process_item
 
 # update offhand
 execute if score $out smithed.item matches 1 run item modify entity @s weapon.offhand smithed.item:impl/update_nbt
