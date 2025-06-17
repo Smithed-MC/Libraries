@@ -2,6 +2,12 @@
 
 <!--next-version-placeholder-->
 
+## v0.14.0 (2025-06-17)
+
+### Feature
+
+* Update to 1.21.6 ([`0909679`](https://github.com/Smithed-MC/Libraries/commit/0909679d2a76de4fd74e5fdff5875629e2a0a7fa))
+
 ## v0.13.0 (2025-03-25)
 
 ### Feature
