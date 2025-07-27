@@ -9,4 +9,4 @@ scoreboard players set $max.freeze smithed.title.const 50
 scoreboard players set $min.freeze smithed.title.const 0
 scoreboard players set #100 smithed.title.const 100
 
-schedule function smithed.actionbar:impl/title/technical/tick 1t
+schedule function smithed.title:impl/technical/tick 1t

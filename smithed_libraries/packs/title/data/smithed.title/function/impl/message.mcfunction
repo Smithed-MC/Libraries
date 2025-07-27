@@ -34,7 +34,7 @@ execute
 execute
     unless score @s smithed.title.priority matches 1    # override notifications should not be "overriden"
     if score $priority smithed.title.temp <= @s smithed.title.priority
-    run function smithed.actionbar:impl/title/display
+    run function smithed.title:impl/display
 
-execute if score @s smithed.title.priority matches 0 run function smithed.actionbar:impl/title/display
+execute if score @s smithed.title.priority matches 0 run function smithed.title:impl/display
 
