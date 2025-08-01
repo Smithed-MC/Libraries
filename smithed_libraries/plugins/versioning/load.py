@@ -98,6 +98,14 @@ def resolve_advancement(advancement: Advancement, opts: VersioningOptions):
         conditions = requirement.setdefault("conditions", {})
         player_conditions = conditions.setdefault("player", [])
 
+        if isinstance(player_conditions, dict):
+            player_conditions = [{
+                "condition": "minecraft:entity_properties",
+                "entity": "this",
+                "predicate": player_conditions
+            }]
+            conditions["player"] = player_conditions
+
         for name, number in opts.version.named_parts():
             scoreholder_part = f"{opts.scoreholder}.{name}"
             version_check = {
