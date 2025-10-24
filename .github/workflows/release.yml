@@ -11,7 +11,7 @@ on:
   workflow_dispatch:
 
 env:
-  MC_VERSION: '1.21.6'
+  MC_VERSION: '1.21.10'
   COMMIT_MSG: ${{ github.event.head_commit.message }}
 
 jobs:
