@@ -2,6 +2,16 @@
 
 <!--next-version-placeholder-->
 
+## v0.15.0 (2025-10-24)
+
+### Feature
+
+* Update to 1.21.10 ([`d1211db`](https://github.com/Smithed-MC/Libraries/commit/d1211db32b8ad1f3c3cb309e691353f0fd053a04))
+
+### Fix
+
+* **versioning:** Allows player condition in advancements to be a object ([`4bb4585`](https://github.com/Smithed-MC/Libraries/commit/4bb4585e7eb132e48e723ffbed6b29aa5febbcb6))
+
 ## v0.14.0 (2025-06-17)
 
 ### Feature
