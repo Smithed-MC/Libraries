@@ -12,7 +12,7 @@ This pack also allows vanilla survival actionbar messages to be shown over other
 ## Usage
 For usage information, see the [documentation](https://docs.smithed.dev/libraries/actionbar)
 ## Downloading
-You can download this library from [the website](https://smithed.net/packs/jj8jhhGXHAVsdHoQ8Rqh)  
+You can download this library from [the website](https://smithed.net/packs/actionbar)  
 or  
 You can build it from source using [beet](https://github.com/mcbeet/beet)
 

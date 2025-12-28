@@ -20,7 +20,7 @@ All mobs that naturally attack villagers are added to the team by default:
 ## Usage
 [Documentation](https://docs.smithed.dev/libraries/prevent-aggression/)
 ## Downloading
-You can download it from [here](https://api.smithed.dev/v2/download?pack=prevent-aggression)
+You can download it from [here](https://smithed.net/packs/prevent-aggression)
 or<br/>
 You can build it from source using the [beet](https://github.com/mcbeet/beet)
 

@@ -10,7 +10,7 @@ This library provides utilities to apply custom damage to entities and players.
 ## Usage
 [Documentation](https://docs.smithed.dev/libraries/damage/)
 ## Downloading
-You can download it from [here](https://api.smithed.dev/v2/download?pack=damage)
+You can download it from [here](https://smithed.net/packs/damage)
 or<br/>
 You can build it from source using the [beet](https://github.com/mcbeet/beet)
 

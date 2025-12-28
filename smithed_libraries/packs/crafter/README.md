@@ -7,7 +7,7 @@
 ## Usage
 For usage information, see the [documentation](https://docs.smithed.dev/libraries/crafter/)
 ## Downloading
-You can download this library from [the website](https://smithed.net/packs/GlsJvron3k5H2Z9Q5LHn)  
+You can download this library from [the website](https://smithed.net/packs/crafter)  
 or  
 You can build it from source using [beet](https://github.com/mcbeet/beet)
 

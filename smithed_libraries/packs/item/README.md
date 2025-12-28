@@ -7,7 +7,7 @@
 ## Usage
 [Documentation](https://docs.smithed.dev/libraries/item/)
 ## Downloading
-You can download it from [here](https://api.smithed.dev/v2/download?pack=item)
+You can download it from [here](https://smithed.net/packs/item)
 or<br/>
 You can build it from source using the [beet](https://github.com/mcbeet/beet)
 

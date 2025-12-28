@@ -8,7 +8,7 @@ A customizable API to make custom blocks easier to work with.
 ## Usage
 [Documentation](https://docs.smithed.dev/libraries/custom-block/)
 ## Downloading
-You can download it from [here](https://api.smithed.dev/v2/download?pack=custom-block)<br/>
+You can download it from [here](https://smithed.net/packs/custom-block)<br/>
 or<br/>
 You can build it from source using the [beet](https://github.com/mcbeet/beet)
 
