@@ -2,6 +2,12 @@
 
 <!--next-version-placeholder-->
 
+## v0.16.0 (2025-12-28)
+
+### Feature
+
+* New title / subtitle library ([#52](https://github.com/Smithed-MC/Libraries/issues/52)) ([`175fce8`](https://github.com/Smithed-MC/Libraries/commit/175fce873ed74576088608952b20ee06da0d3b06))
+
 ## v0.15.0 (2025-10-24)
 
 ### Feature
