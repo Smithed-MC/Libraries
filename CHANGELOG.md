@@ -2,6 +2,12 @@
 
 <!--next-version-placeholder-->
 
+## v0.16.1 (2025-12-28)
+
+### Fix
+
+*  packs readme ([#55](https://github.com/Smithed-MC/Libraries/issues/55)) ([`3650513`](https://github.com/Smithed-MC/Libraries/commit/365051346584bb30dc5796bb4bcdfb62813174a3))
+
 ## v0.16.0 (2025-12-28)
 
 ### Feature
