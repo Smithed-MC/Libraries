@@ -9,7 +9,5 @@ data_pack:
   name: Smithed Actionbar
   load: .
 
-output: dist
-
 require:
   - bolt
