@@ -16,6 +16,3 @@ scoreboard players set $min.freeze smithed.actionbar.const 0
 scoreboard players set #100 smithed.actionbar.const 100
 
 schedule function smithed.actionbar:impl/technical/tick 1t
-
-function smithed.title:impl/technical/load
-schedule function smithed.title:impl/technical/tick 1t
