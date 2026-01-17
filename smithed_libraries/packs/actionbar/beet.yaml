@@ -2,7 +2,7 @@ extend: "@smithed_libraries/common.yaml"
 
 id: smithed.actionbar
 name: Smithed Actionbar
-version: "0.6.4"
+version: "0.6.5"
 description: Native Actionbar Library for Smithed
 
 data_pack:
