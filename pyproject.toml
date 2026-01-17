@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "smithed-libraries"
-version = "0.16.2"
+version = "0.16.3"
 description = "All of the Smithed Libraries"
 authors = ["Smithed Council <team@smithed.dev>"]
 license = "MIT"

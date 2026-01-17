@@ -2,6 +2,12 @@
 
 <!--next-version-placeholder-->
 
+## v0.16.3 (2026-01-17)
+
+### Fix
+
+* For real ([`71153a2`](https://github.com/Smithed-MC/Libraries/commit/71153a213361d8c5ab3b8f56a6682ed32493a3de))
+
 ## v0.16.2 (2026-01-17)
 
 ### Fix
