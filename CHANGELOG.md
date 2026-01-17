@@ -2,6 +2,12 @@
 
 <!--next-version-placeholder-->
 
+## v0.16.2 (2026-01-17)
+
+### Fix
+
+* Update gamerule name for 1.21.11 ([`59129c0`](https://github.com/Smithed-MC/Libraries/commit/59129c0a9bb9fd46e643368365442dcae847cce6))
+
 ## v0.16.1 (2025-12-28)
 
 ### Fix
