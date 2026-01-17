@@ -1,5 +1,5 @@
 {
-  "smithed.actionbar": "0.6.4",
+  "smithed.actionbar": "0.6.6",
   "smithed.custom_block": "0.9.0",
   "smithed.crafter_addon": "0.1.0",
   "smithed.prevent_aggression": "0.3.0",
@@ -7,6 +7,6 @@
   "smithed.crafter": "0.9.0",
   "smithed.item": "0.3.0",
   "smithed.enchanter": "0.1.0",
-  "last_commit": "2f653535abf02aca8310ea7375d8e8fb43e55f4c",
+  "last_commit": "71153a213361d8c5ab3b8f56a6682ed32493a3de",
   "smithed.title": "0.1.0"
 }
