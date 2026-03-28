@@ -2,6 +2,12 @@
 
 <!--next-version-placeholder-->
 
+## v0.16.4 (2026-03-28)
+
+### Fix
+
+* **actionbar:** Added clock specification for time checks ([#60](https://github.com/Smithed-MC/Libraries/issues/60)) ([`40ea4dc`](https://github.com/Smithed-MC/Libraries/commit/40ea4dc26d78739af681bebcb4b6451408118764))
+
 ## v0.16.3 (2026-01-17)
 
 ### Fix
