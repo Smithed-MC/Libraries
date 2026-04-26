@@ -4,6 +4,7 @@ id: smithed.damage
 name: Smithed Damage 
 version: "0.2.0"
 description: Native Damage Library for Smithed
+minecraft: "1.20"
 
 data_pack:
   name: Smithed Damage

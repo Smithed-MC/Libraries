@@ -11,7 +11,7 @@ from .models import ContextualModel, Versioning
 def inject_version(ctx: Context):
     opts = ctx.inject(Versioning).opts
 
-    substitution = opts.refactor.dict()
+    substitution = opts.refactor.model_dump()
     del substitution["match"]
 
     # dynamic renames
