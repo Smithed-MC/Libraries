@@ -1,43 +1,28 @@
-from typing import ClassVar
+import json
 
-from beet import Context, JsonFileBase, NamespaceFileScope, TextFileBase
-from pydantic import BaseModel
+from beet import Context
 
-
-class WikiConfigModel(BaseModel):
-    title: str
-    description: str
-    icon: str
-    category: str
-
-
-class WikiConfig(JsonFileBase[WikiConfigModel]):
-    scope: ClassVar[NamespaceFileScope] = ("wiki", "book")
-    extension: ClassVar[str] = ".json"
-
-
-class WikiPage(JsonFileBase[WikiConfigModel]):
-    scope: ClassVar[NamespaceFileScope] = ("wiki", "page")
-    extension: ClassVar[str] = ".json"
-
-
-class WikiContent(TextFileBase[str]):
-    scope: ClassVar[NamespaceFileScope] = ("wiki", "page")
-    extension: ClassVar[str] = ".md"
+from .models import AnySectionModel, SectionModel, BookModel
+from .plugin import WikiBuilder
+from .resources import WikiBook, WikiContent, WikiSection
 
 
 def beet_default(ctx: Context):
-    ctx.data.extend_namespace.append(WikiConfig)
-    ctx.data.extend_namespace.append(WikiPage)
+    ctx.data.extend_namespace.append(WikiBook)
+    ctx.data.extend_namespace.append(WikiSection)
     ctx.data.extend_namespace.append(WikiContent)
 
-    yield 
+    ctx.inject(WikiBuilder)
 
-    for config in ctx.data[WikiConfig].items():
-        print(config)
+    yield
 
-    for page in ctx.data[WikiPage].items():
-        print(page)
+    for model in SectionModel._section_registry:
+        model.model_rebuild()
 
-    for content in ctx.data[WikiContent].items():
-        print(content)
+    (ctx.cache["smithed.wiki"].directory / "book.json").write_text(
+        json.dumps(BookModel.model_json_schema())
+    )
+
+    (ctx.cache["smithed.wiki"].directory / "section.json").write_text(
+        json.dumps(AnySectionModel.model_json_schema())
+    )

@@ -1,0 +1,8 @@
+{
+    "type": "smithed.wiki:category",
+    "title": "A Section",
+    "description": "An example section",
+    "sections": [
+        "smithed.wiki:article"
+    ]
+}

@@ -1,0 +1,23 @@
+{
+  "components": {
+    "minecraft:item_model": "smithed.wiki:example",
+    "minecraft:item_name": {"translate": "item.smithed.wiki.example"},
+    "minecraft:rarity": "uncommon"
+  },
+  "sections": [
+    {
+      "type": "smithed.wiki:title",
+      "title": "Example",
+      "description": "An example wiki book",
+      "icon": ""
+    },
+    {
+      "type": "smithed.wiki:toc",
+      "title": "The table of contents",
+      "sections": [
+        "smithed.wiki:category"
+      ]
+    },
+    "smithed.wiki:category"
+  ]
+}
