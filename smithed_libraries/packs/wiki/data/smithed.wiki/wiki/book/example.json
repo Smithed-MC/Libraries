@@ -1,7 +1,7 @@
 {
   "components": {
     "minecraft:item_model": "smithed.wiki:example",
-    "minecraft:item_name": {"translate": "item.smithed.wiki.example"},
+    "minecraft:item_name": { "translate": "item.smithed.wiki.example" },
     "minecraft:rarity": "uncommon"
   },
   "sections": [
@@ -14,10 +14,11 @@
     {
       "type": "smithed.wiki:toc",
       "title": "The table of contents",
-      "sections": [
-        "smithed.wiki:category"
-      ]
+      "sections": [2]
     },
-    "smithed.wiki:category"
+    {
+      "type": "smithed.wiki:reference",
+      "path": "smithed.wiki:category"
+    }
   ]
 }

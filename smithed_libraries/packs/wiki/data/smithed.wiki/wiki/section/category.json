@@ -1,8 +1,8 @@
 {
-    "type": "smithed.wiki:category",
-    "title": "A Section",
-    "description": "An example section",
-    "sections": [
-        "smithed.wiki:article"
-    ]
+  "type": "smithed.wiki:category",
+  "title": "A category",
+  "description": "An example category",
+  "sections": [
+    { "type": "smithed.wiki:reference", "path": "smithed.wiki:article" }
+  ]
 }
