@@ -1,6 +1,6 @@
 {
   "components": {
-    "minecraft:item_model": "smithed.wiki:example",
+    "minecraft:item_model": "smithed.wiki:wiki",
     "minecraft:item_name": { "translate": "item.smithed.wiki.example" },
     "minecraft:rarity": "uncommon"
   },

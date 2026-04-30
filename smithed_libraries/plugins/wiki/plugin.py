@@ -1,6 +1,15 @@
 from typing import Any, Protocol, cast
 
-from beet import Advancement, Context, Dialog, Font, Function, FunctionTag, LootTable
+from beet import (
+    Advancement,
+    Context,
+    Dialog,
+    Font,
+    Function,
+    FunctionTag,
+    LootTable,
+    Predicate,
+)
 from beet.core.utils import JsonDict
 
 from .models import (
@@ -45,6 +54,80 @@ class WikiBuilder:
         }
 
         self.ctx = ctx
+
+        ctx.data["smithed.wiki:technical/holding_book"] = Predicate(
+            {
+                "condition": "minecraft:any_of",
+                "terms": [
+                    {
+                        "condition": "minecraft:entity_properties",
+                        "entity": "this",
+                        "predicate": {
+                            "equipment": {
+                                "offhand": {
+                                    "predicates": {
+                                        "minecraft:custom_data": {
+                                            "smithed": {"wiki": {"book": True}}
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                    },
+                    {
+                        "condition": "minecraft:entity_properties",
+                        "entity": "this",
+                        "predicate": {
+                            "equipment": {
+                                "mainhand": {
+                                    "predicates": {
+                                        "minecraft:custom_data": {
+                                            "smithed": {"wiki": {"book": True}}
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                    },
+                ],
+            }
+        )
+
+        ctx.data[Function].setdefault("smithed.wiki:technical/load", Function()).append(
+            """
+                scoreboard objectives add smithed.wiki.use_book minecraft.used:minecraft.written_book
+            """
+        )
+
+        ctx.data[Function].setdefault("smithed.wiki:technical/tick", Function()).append(
+            """
+                execute as @a[scores={smithed.wiki.use_book=1..}] run function smithed.wiki:wiki/use_book
+            """
+        )
+
+        ctx.data[FunctionTag].setdefault("minecraft:tick", FunctionTag()).add(
+            "smithed.wiki:technical/tick"
+        )
+        ctx.data[FunctionTag].setdefault("minecraft:load", FunctionTag()).add(
+            "smithed.wiki:technical/load"
+        )
+
+        ctx.data["smithed.wiki:wiki/use_book"] = Function("""
+                scoreboard players reset @s smithed.wiki.use_book
+
+                execute unless predicate smithed.wiki:technical/holding_book run return fail
+
+                data remove storage smithed.wiki:temp trigger_name
+                data modify storage smithed.wiki:temp trigger_name set from entity @s SelectedItem.components."minecraft:custom_data".smithed.wiki.trigger
+                execute unless data storage smithed.wiki:temp trigger_name run data modify storage smithed.wiki:temp trigger_name set from entity @s equipment.offhand.components."minecraft:custom_data".smithed.wiki.trigger
+
+                function smithed.wiki:wiki/use_book/macro with storage smithed.wiki:temp {} 
+            """)
+
+        ctx.data["smithed.wiki:wiki/use_book/macro"] = Function(f"""
+                $trigger $(trigger_name) set {PAGE_INDEX_OFFSET}
+            """)
+
         ctx.require(self.build_all)
 
     def get_image(self, texture: str | None, height: int = 16) -> tuple[str, str]:
@@ -113,6 +196,8 @@ class WikiBuilder:
             self.current_path = f"{namespace}:{path}"
             self.current_font = {}
 
+            trigger_name = f"{namespace}.{path.replace('/', '.')}.trigger"
+
             ctx.data[location] = LootTable(
                 {
                     "pools": [
@@ -128,12 +213,15 @@ class WikiBuilder:
                                             "components": {
                                                 **book.components,
                                                 "minecraft:custom_data": {
-                                                    "summit": {"id": "sticker_book"},
                                                     "smithed": {
+                                                        "wiki": {
+                                                            "book": True,
+                                                            "trigger": trigger_name,
+                                                        },
                                                         "ignore": {
                                                             "functionality": True,
                                                             "crafting": True,
-                                                        }
+                                                        },
                                                     },
                                                 },
                                                 "minecraft:enchantment_glint_override": False,
@@ -161,8 +249,6 @@ class WikiBuilder:
                         "rewards": {"loot": [path]},
                     }
                 )
-
-            trigger_name = f"{namespace}.{path.replace('/', '.')}.trigger"
 
             # Register the trigger commands for changing pages
             ctx.data[Function].setdefault(
@@ -246,21 +332,23 @@ class WikiBuilder:
                     [
                         (
                             "",
-                            {
-                                "text": "\n<--",
-                                "color": "gold",
-                                "bold": True,
-                                "hover_event": {
-                                    "action": "show_text",
-                                    "value": {"text": "Previous Page"},
-                                },
-                                "click_event": {
-                                    "action": "run_command",
-                                    "command": f"/trigger {trigger_name} set {idx + PAGE_INDEX_OFFSET - 1}",
-                                },
-                            }
-                            if idx > 0
-                            else {"text": "\n    "}
+                            (
+                                {
+                                    "text": "\n<--",
+                                    "color": "gold",
+                                    "bold": True,
+                                    "hover_event": {
+                                        "action": "show_text",
+                                        "value": {"text": "Previous Page"},
+                                    },
+                                    "click_event": {
+                                        "action": "run_command",
+                                        "command": f"/trigger {trigger_name} set {idx + PAGE_INDEX_OFFSET - 1}",
+                                    },
+                                }
+                                if idx > 0
+                                else {"text": "\n    "}
+                            ),
                         ),
                         {"text": " " * 5},
                         (
