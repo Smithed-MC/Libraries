@@ -21,12 +21,12 @@ resource_pack:
 
 require:
   - bolt
-  - beet.contrib.unknown_files
   - smithed_libraries.plugins.wiki
+  - beet.contrib.unknown_files
+
 
 pipeline:
   - mecha
-
 
 output: dist
 
@@ -34,3 +34,5 @@ meta:
   depends_on: # used for metadata
     custom-block: "0.10.0"
   minecraft_version: "26.1"
+  smithed.wiki:
+    implementation_folder: impl/wiki

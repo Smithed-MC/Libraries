@@ -39,13 +39,37 @@ class SectionBuilder[T: SectionModel](Protocol):
 
 
 class WikiBuilder:
+    """
+    The context object used to build wiki books and sections.
+    """
+
     current: BookModel
+    """
+    The book that is currently being built.
+    """
     current_path: str
+    """
+    The path to the current book.
+    """
     current_font: dict[tuple[str, int], int]
+    """
+    The set of font characters current in use.
+
+    Where the key is a tuple of (`path to image`, `height`) and the value is the unicode character offset from \\uE000.
+    """
+
+    implementation_folder: str = "wiki"
+    """
+    The base folder the generated files go into.
+    """
 
     builders: dict[str, SectionBuilder[Any]]
+    """
+    The builders for each section type.
+    """
 
     def __init__(self, ctx: Context):
+        # Define the default builders for the sections
         self.builders = {
             "smithed.wiki:title": TitleSectionBuilder(),
             "smithed.wiki:category": CategorySectionBuilder(),
@@ -55,7 +79,14 @@ class WikiBuilder:
 
         self.ctx = ctx
 
-        ctx.data["smithed.wiki:technical/holding_book"] = Predicate(
+        # Get the override for the implementation folder if present
+        if (wiki := self.ctx.meta.get("smithed.wiki")) and (
+            implementation_folder := wiki.get("implementation_folder")
+        ):
+            self.implementation_folder = implementation_folder
+
+        # Predicate used to detect if the player is holding a wiki book in either hand
+        ctx.data["smithed.wiki:impl/technical/holding_book"] = Predicate(
             {
                 "condition": "minecraft:any_of",
                 "terms": [
@@ -93,59 +124,102 @@ class WikiBuilder:
             }
         )
 
-        ctx.data[Function].setdefault("smithed.wiki:technical/load", Function()).append(
+        # Define a scoreboard which is used to track when the player opens a book
+        ctx.data[Function].setdefault(
+            "smithed.wiki:impl/technical/load", Function()
+        ).append(
             """
                 scoreboard objectives add smithed.wiki.use_book minecraft.used:minecraft.written_book
             """
         )
 
-        ctx.data[Function].setdefault("smithed.wiki:technical/tick", Function()).append(
+        # Function responsible for detecting the previously defined scoreboard
+        ctx.data[Function].setdefault(
+            "smithed.wiki:impl/technical/tick", Function()
+        ).append(
             """
-                execute as @a[scores={smithed.wiki.use_book=1..}] run function smithed.wiki:wiki/use_book
+                schedule function smithed.wiki:impl/technical/tick 1t replace
+                execute as @a[scores={smithed.wiki.use_book=1..}] run function smithed.wiki:impl/wiki/use_book
             """
         )
 
+        # Register the above functions to run on tick (every 1/20th of a second) and load (when the game is reloaded)
         ctx.data[FunctionTag].setdefault("minecraft:tick", FunctionTag()).add(
-            "smithed.wiki:technical/tick"
-        )
-        ctx.data[FunctionTag].setdefault("minecraft:load", FunctionTag()).add(
-            "smithed.wiki:technical/load"
+            "smithed.wiki:impl/technical/tick"
         )
 
-        ctx.data["smithed.wiki:wiki/use_book"] = Function("""
+        ctx.data[FunctionTag].setdefault("minecraft:load", FunctionTag()).add(
+            "smithed.wiki:impl/technical/load"
+        )
+
+        # The function ran on players that use a book
+        ctx.data["smithed.wiki:impl/wiki/use_book"] = Function("""
+                # Reset the player's score
                 scoreboard players reset @s smithed.wiki.use_book
 
-                execute unless predicate smithed.wiki:technical/holding_book run return fail
+                # Exit early if they didn't use a wiki book
+                execute unless predicate smithed.wiki:impl/technical/holding_book run return fail
 
+                # Determine the ID of the book they used
                 data remove storage smithed.wiki:temp trigger_name
                 data modify storage smithed.wiki:temp trigger_name set from entity @s SelectedItem.components."minecraft:custom_data".smithed.wiki.trigger
                 execute unless data storage smithed.wiki:temp trigger_name run data modify storage smithed.wiki:temp trigger_name set from entity @s equipment.offhand.components."minecraft:custom_data".smithed.wiki.trigger
 
-                function smithed.wiki:wiki/use_book/macro with storage smithed.wiki:temp {} 
+                # Display the book
+                function smithed.wiki:impl/wiki/use_book/macro with storage smithed.wiki:temp {} 
             """)
 
-        ctx.data["smithed.wiki:wiki/use_book/macro"] = Function(f"""
+        # Function used to open the first page of the book via macri
+        ctx.data["smithed.wiki:impl/wiki/use_book/macro"] = Function(f"""
                 $trigger $(trigger_name) set {PAGE_INDEX_OFFSET}
             """)
 
+        # Add the plugin to build all books at the end of the pipeline step
         ctx.require(self.build_all)
 
     def get_image(self, texture: str | None, height: int = 16) -> tuple[str, str]:
+        """
+        Parameters
+        ---
+        **texture**: The path in context to the texture. If `None`, the placeholder texture is used instead.
+
+        **height**: The height of the texture in pixels. Defaults to 16px.
+
+        Returns
+        ---
+        A tuple of a unicode character and font name to render the given texture.
+        """
         if texture is None or len(texture.strip()) == 0:
             texture = PLACEHOLDER
 
+        # If the texture & height has been registered, return it
         if (texture, height) in self.current_font:
             idx = self.current_font[(texture, height)]
             return chr(0xE000 + idx), self.current_path
 
+        # If the texture is found in context, register it in the dictionary and return it
         if texture in self.ctx.assets.textures:
             idx = len(self.current_font)
             self.current_font[(texture, height)] = idx
             return chr(0xE000 + idx), self.current_path
         else:
-            raise ValueError(f"Texture {texture} not found")
+            raise KeyError(f"Texture {texture} not found")
 
     def build(self, key: str, section: SectionUnion) -> list[tuple[str, JsonDict]]:
+        """
+        Builds the provided section.
+        Parameters
+        ---
+        **key**: The key used to identify the section.
+
+        **section**: The section to build.
+        Returns
+        ---
+        A list of pages produced by the section.
+        Each page is represented by a tuple where:
+         - The first element is the key that generated the page (used for nesting)
+         - And the second is the JSON body of the page.
+        """
         if section.type == "smithed.wiki:reference":
             while section.type == "smithed.wiki:reference":
                 section = AnySectionModel.model_validate(
@@ -159,6 +233,17 @@ class WikiBuilder:
     def resolve_change_page(
         self, contents: Any, trigger_name: str, key_to_index: dict[str, int]
     ):
+        """
+        Recursively update change_page actions to the appropriate trigger command
+
+        Parameters
+        ---
+        **contents**: The object to update
+
+        **trigger_name**: The name of the trigger to be used in the command
+
+        **key_to_index**: A mapping from section key to page index
+        """
         match contents:
             case list():
                 for c in contents:
@@ -186,18 +271,26 @@ class WikiBuilder:
                 pass
 
     def build_all(self, ctx: Context):
-        yield
-
+        """
+        Builds all wiki books loaded into context
+        """
         for location, book in ctx.data[WikiBook].items():
+            # Validate the Pydantic model and configure the builder
             book = BookModel.model_validate(book.data)
             namespace, path = location.split(":", 1)
 
+            base_path = f"{namespace}:{self.implementation_folder}"
+
+            location = f"{base_path}/{path}"
+
             self.current = book
-            self.current_path = f"{namespace}:{path}"
+            self.current_path = location
             self.current_font = {}
 
+            # Generate a unique trigger name for each book
             trigger_name = f"{namespace}.{path.replace('/', '.')}.trigger"
 
+            # The loot table to give a player the book
             ctx.data[location] = LootTable(
                 {
                     "pools": [
@@ -242,48 +335,48 @@ class WikiBuilder:
                 }
             )
 
+            # If the book is automatically granted, generate an advancement that rewards the above loot table
             if book.grant_automatically:
-                ctx.data[f"{namespace}:technical/tick/{path}"] = Advancement(
+                ctx.data[f"{base_path}/technical/tick/{path}"] = Advancement(
                     {
                         "criteria": {"tick": {"trigger": "minecraft:tick"}},
-                        "rewards": {"loot": [path]},
+                        "rewards": {"loot": [location]},
                     }
                 )
 
             # Register the trigger commands for changing pages
             ctx.data[Function].setdefault(
-                f"{namespace}:technical/load", Function()
+                f"{base_path}/technical/load", Function()
             ).append(f"scoreboard objectives add {trigger_name} trigger")
             ctx.data[Function].setdefault(
-                f"{namespace}:technical/tick", Function()
+                f"{base_path}/technical/tick", Function()
             ).append(
                 f"""
                     scoreboard players enable @a {trigger_name}
-                    execute as @a[scores={{{trigger_name}=1000..}}] run function {namespace}:wiki/{path}/change_page
+                    execute as @a[scores={{{trigger_name}=1000..}}] run function {base_path}/{path}/change_page
                 """
             )
 
+            # Add them to the tick/load tags
             ctx.data[FunctionTag].setdefault(f"minecraft:load", FunctionTag()).add(
-                f"{namespace}:technical/load"
+                f"{base_path}/technical/load"
             )
 
             ctx.data[FunctionTag].setdefault(f"minecraft:tick", FunctionTag()).add(
-                f"{namespace}:technical/tick"
+                f"{base_path}/technical/tick"
             )
 
             # Display the appropriate page when the player runs the trigger
-            ctx.data[Function][f"{namespace}:wiki/{path}/change_page"] = Function(f"""
+            ctx.data[Function][f"{base_path}/{path}/change_page"] = Function(f"""
                     scoreboard players remove @s {trigger_name} 1000
                     execute store result storage smithed.wiki:temp page int 1 run scoreboard players get @s {trigger_name}
                     scoreboard players reset @s {trigger_name}
-                    function {namespace}:wiki/{path}/change_page/macro with storage smithed.wiki:temp {{}} 
+                    function {base_path}/{path}/change_page/macro with storage smithed.wiki:temp {{}} 
                 """)
 
-            ctx.data[Function][f"{namespace}:wiki/{path}/change_page/macro"] = Function(
-                f"""
-                    $dialog show @s {namespace}:{path}/page/$(page)
-                """
-            )
+            ctx.data[Function][f"{base_path}/{path}/change_page/macro"] = Function(f"""
+                    $dialog show @s {base_path}/{path}/page/$(page)
+                """)
 
             # We use a unique key for each section, so that each section can generate multiple pages
             pages: list[tuple[str, JsonDict]] = []
@@ -292,8 +385,9 @@ class WikiBuilder:
             toc_index = -1
 
             for idx, section in enumerate(book.sections):
-                pages.extend(self.build(f"{namespace}:{path}/{idx}", section))
+                pages.extend(self.build(f"{base_path}/{path}/{idx}", section))
 
+                # Store the index to the TOC, if theres multiple, raise an error.
                 if isinstance(section, TOCSectionModel):
                     if toc_index != -1:
                         raise ValueError(
@@ -301,6 +395,7 @@ class WikiBuilder:
                         )
                     toc_index = idx
 
+            # Build the required font to render all images
             ctx.assets[Font][self.current_path] = Font(
                 {
                     "providers": [
@@ -333,6 +428,7 @@ class WikiBuilder:
                         (
                             "",
                             (
+                                # If the page isn't first, add a back button
                                 {
                                     "text": "\n<--",
                                     "color": "gold",
@@ -352,6 +448,7 @@ class WikiBuilder:
                         ),
                         {"text": " " * 5},
                         (
+                            # Add a button to go to the TOC if it is present in the book
                             {
                                 "text": "■",
                                 "color": "gold",
@@ -369,6 +466,7 @@ class WikiBuilder:
                         ),
                         {"text": " " * 5},
                         (
+                            # If it isn't the last page, add a button to go forward
                             {
                                 "text": "-->",
                                 "color": "gold",
@@ -388,15 +486,26 @@ class WikiBuilder:
                     ]
                 )
 
+                # Resolve any change_page actions
                 self.resolve_change_page(
                     page["body"]["contents"], trigger_name, key_to_index
                 )
 
-                ctx.data[f"{namespace}:{path}/page/{idx}"] = Dialog(page)
+                # Save the page into context
+                ctx.data[f"{base_path}/{path}/page/{idx}"] = Dialog(page)
 
+        yield
+
+        ctx.data[WikiBook].clear()
+        ctx.data[WikiSection].clear()
 
 def resolve(section: ReferenceSectionModel, ctx: Context) -> NonReferenceSectionModel:
+    """
+    Resolves a reference section to the section it points to.
+    """
     root = section
+
+    # Use a set to prevent cycles
     visited: set[str] = set()
 
     while root.type == "smithed.wiki:reference" and root.path not in visited:
@@ -411,6 +520,10 @@ def resolve(section: ReferenceSectionModel, ctx: Context) -> NonReferenceSection
 
 
 class TitleSectionBuilder(SectionBuilder[TitleSectionModel]):
+    """
+    The builder for title pages.
+    """
+
     def __call__(
         self, key: str, builder: WikiBuilder, section: TitleSectionModel
     ) -> list[tuple[str, JsonDict]]:
@@ -428,6 +541,7 @@ class TitleSectionBuilder(SectionBuilder[TitleSectionModel]):
                             {"text": section.title, "bold": True},
                             "\n",
                             {"text": icon, "font": font},
+                            # Spacing for a 64px image.
                             "\n" * 9,
                             {"text": section.description, "color": DESCRIPTION},
                             "\n",
@@ -444,11 +558,16 @@ class TOCSectionBuilder(SectionBuilder[TOCSectionModel]):
     def build_category(
         self, key: str, builder: WikiBuilder, section: SectionUnion, indentation: int
     ) -> list[JsonDict]:
+        """
+        Builds the links to the section of the TOC.
+        """
         toc: list[JsonDict] = []
 
+        # Resolve the reference
         if section.type == "smithed.wiki:reference":
             section = resolve(section, builder.ctx)
 
+        # Appease the type checker
         assert section.type != "smithed.wiki:reference"
 
         toc.append({"text": f"{'  ' * indentation}- ", "color": SEPARATOR})
@@ -465,6 +584,7 @@ class TOCSectionBuilder(SectionBuilder[TOCSectionModel]):
             }
         )
 
+        # Recursively build the subsections
         if isinstance(section, CategorySectionModel):
             for idx, s in enumerate(section.sections):
                 toc.extend(
@@ -476,8 +596,13 @@ class TOCSectionBuilder(SectionBuilder[TOCSectionModel]):
     def __call__(
         self, key: str, builder: WikiBuilder, section: TOCSectionModel
     ) -> list[tuple[str, JsonDict]]:
+        """
+        Builds the table of contents.
+        """
+
         toc: list[JsonDict] = []
 
+        # Build the sub-sections
         for idx in section.sections:
             category = builder.current.sections[idx]
             toc.extend(
@@ -510,6 +635,10 @@ class ArticleSectionBuilder(SectionBuilder[ArticleSectionModel]):
     def __call__(
         self, key: str, builder: WikiBuilder, section: ArticleSectionModel
     ) -> list[tuple[str, JsonDict]]:
+        """
+        Builds the article section.
+        """
+
         return [
             (
                 key,
@@ -539,6 +668,10 @@ class CategorySectionBuilder(SectionBuilder[CategorySectionModel]):
         sections: list[SectionUnion],
         body: list[JsonDict],
     ) -> list[tuple[str, JsonDict]]:
+        """
+        Builds the category section.
+        """
+
         for i, section in enumerate(sections):
             if section.type == "smithed.wiki:reference":
                 section = resolve(section, builder.ctx)
@@ -547,6 +680,7 @@ class CategorySectionBuilder(SectionBuilder[CategorySectionModel]):
 
             body.append(
                 {
+                    # Adds an additional space between the current icon and the next
                     "text": f'{icon}{"   " if i % 4 < 3 and i + 1 < len(sections) else "\n\n\n"}',
                     "font": font,
                     "hover_event": {
@@ -560,6 +694,7 @@ class CategorySectionBuilder(SectionBuilder[CategorySectionModel]):
                 }
             )
 
+        # Build the sub-sections
         dialogs: list[tuple[str, JsonDict]] = []
         for i, d in enumerate(sections):
             dialogs.extend(builder.build(f"{key}/{i}", d))
@@ -588,6 +723,7 @@ class CategorySectionBuilder(SectionBuilder[CategorySectionModel]):
                                 "font": font,
                                 "bold": True,
                             },
+                            # Adds space for a 32px image
                             "\n" * 5,
                             {
                                 "text": f"{section.title}\n",

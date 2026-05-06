@@ -1,0 +1,2 @@
+execute if score #{{ project_id }}.major load.status matches ..0 unless score #{{ project_id }}.major load.status matches 0 run function smithed.wiki:v0.1.0/technical/load/enumerate/set_version
+execute unless score #{{ project_id }}.set load.status matches 1 if score #{{ project_id }}.major load.status matches ..0 if score #{{ project_id }}.major load.status matches 0 run function smithed.wiki:v0.1.0/technical/load/enumerate/minor
