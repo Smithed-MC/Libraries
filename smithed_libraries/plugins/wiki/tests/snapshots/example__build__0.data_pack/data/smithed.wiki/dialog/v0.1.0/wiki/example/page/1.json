@@ -1,0 +1,117 @@
+{
+  "type": "minecraft:multi_action",
+  "body": {
+    "type": "minecraft:plain_message",
+    "contents": [
+      "",
+      {
+        "text": "Table of Contents",
+        "bold": true
+      },
+      {
+        "text": "\n---\n",
+        "color": "dark_gray"
+      },
+      {
+        "text": "- ",
+        "color": "dark_gray"
+      },
+      {
+        "text": "A category\n",
+        "color": "white",
+        "click_event": {
+          "action": "run_command",
+          "command": "/trigger smithed.wiki.example.trigger set 1002"
+        },
+        "hover_event": {
+          "action": "show_text",
+          "value": {
+            "text": "Jump to 'A category'"
+          }
+        }
+      },
+      {
+        "text": "  - ",
+        "color": "dark_gray"
+      },
+      {
+        "text": "An article\n",
+        "color": "white",
+        "click_event": {
+          "action": "run_command",
+          "command": "/trigger smithed.wiki.example.trigger set 1003"
+        },
+        "hover_event": {
+          "action": "show_text",
+          "value": {
+            "text": "Jump to 'An article'"
+          }
+        }
+      },
+      [
+        [
+          "",
+          {
+            "text": "\n<--",
+            "color": "gold",
+            "bold": true,
+            "hover_event": {
+              "action": "show_text",
+              "value": {
+                "text": "Previous Page"
+              }
+            },
+            "click_event": {
+              "action": "run_command",
+              "command": "/trigger smithed.wiki.example.trigger set 1000"
+            }
+          }
+        ],
+        {
+          "text": "     "
+        },
+        {
+          "text": "\u25a0",
+          "color": "gold",
+          "hover_event": {
+            "action": "show_text",
+            "value": {
+              "text": "Table of Contents"
+            }
+          },
+          "click_event": {
+            "action": "run_command",
+            "command": "/trigger smithed.wiki.example.trigger set 1001"
+          }
+        },
+        {
+          "text": "     "
+        },
+        {
+          "text": "-->",
+          "color": "gold",
+          "bold": true,
+          "hover_event": {
+            "action": "show_text",
+            "value": {
+              "text": "Next Page"
+            }
+          },
+          "click_event": {
+            "action": "run_command",
+            "command": "/trigger smithed.wiki.example.trigger set 1002"
+          }
+        }
+      ]
+    ]
+  },
+  "actions": [
+    {
+      "label": "Close"
+    }
+  ],
+  "title": {
+    "translate": "item.smithed.wiki.example"
+  },
+  "pause": false
+}

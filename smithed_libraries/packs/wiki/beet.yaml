@@ -20,13 +20,9 @@ resource_pack:
   pack_format: 84
 
 require:
-  - bolt
   - smithed_libraries.plugins.wiki
-  - beet.contrib.unknown_files
+  - bolt
 
-
-pipeline:
-  - mecha
 
 output: dist
 

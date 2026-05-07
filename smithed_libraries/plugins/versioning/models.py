@@ -1,6 +1,6 @@
 from typing import Any, ClassVar, Literal
 
-from beet import Context, ListOption, PathSpecOption
+from beet import Context, ListOption
 from beet.contrib.rename_files import RenderRenameOption, TextRenameOption
 from pydantic import (
     BaseModel,
@@ -61,26 +61,32 @@ class VersioningOptions(ContextualModel):
         function_path: str = "impl/load"
 
     class ApiOptions(ContextualModel):
-        match: PathSpecOption = "{{ project_id }}:v{{ project_version }}/*"  # type: ignore
-        implementation_prefix: str = "{{ project_id }}:v{{ project_version }}/"
-        version_check_path: str = "v{{ project_version }}/calls"
+        match: str = "{{ ctx.project_id }}:v{{ version }}/*"  # type: ignore
+        implementation_prefix: str = "{{ ctx.project_id }}:v{{ version }}/"
+        version_check_path: str = "v{{ version }}/calls"
         tag_path: str = ""
 
-    scoreholder: str = "#{{ project_id }}"
+    scoreholder: str = Field("#{{ ctx.project_id }}", validate_default=True)
     schema_: list[str] = Field(["major", "minor", "patch"], alias="schema")
-    scheduled_paths: ListOption[str] = ListOption(["impl/tick"])
-    
-    # In V2, use validate_default=True instead of always=True on the validator
+    scheduled_paths: ListOption[str] = Field(
+        ListOption(["impl/tick"]), validate_default=True
+    )
+
     version: Version | None = Field(default=None, validate_default=True)
-    
-    refactor: TextRenameOption | RenderRenameOption = {
-        "match": "{{ project_id }}:*",
-        "find": "{{ project_id }}:impl/",
-        "replace": "{{ project_id }}:impl/v{{ version }}/",
-    }  # type: ignore
-    
-    lantern_load: LanternLoadOptions = Field(default_factory=LanternLoadOptions)
-    api: ApiOptions = Field(default_factory=ApiOptions)
+
+    refactor: TextRenameOption | RenderRenameOption = Field(
+        {
+            "match": "{{ ctx.project_id }}:*",
+            "find": "{{ ctx.project_id }}:impl/",
+            "replace": "{{ ctx.project_id }}:impl/v{{ version }}/",
+        },
+        validate_default=True,
+    )
+
+    lantern_load: LanternLoadOptions = Field(
+        default_factory=LanternLoadOptions, validate_default=True
+    )
+    api: ApiOptions = Field(default_factory=ApiOptions, validate_default=True)
 
     @property
     def namespace(self):
@@ -109,26 +115,29 @@ class VersioningOptions(ContextualModel):
                 return [cls.render_value(v, all_values) for v in vals]
 
             case dict(vals):
-                return {
-                    key: cls.render_value(v, all_values) for key, v in vals.items()
-                }
+                return {key: cls.render_value(v, all_values) for key, v in vals.items()}
 
             case _ as v:
                 return v
 
-    @model_validator(mode="before")
+    @field_validator(
+        "*",
+        mode="before",
+    )
     @classmethod
-    def render_all(cls, data: Any) -> Any:
+    def render_all(cls, value: Any, info: ValidationInfo) -> Any:
         """This validator handles the rendering of all structures inside
 
-        In Pydantic V2, a before-mode model_validator takes the whole raw
-        input dict before individual field validation, replacing the V1 `*` wildcard.
+        In Pydantic V2, we would likely try to generalize this behavior in `beet`.
+        For now, we have to match every key-value in our values dict to figure out
+        if the string or string within needs to be rendered.
         """
-        if isinstance(data, dict):
-            return {
-                key: cls.render_value(val, data) for key, val in data.items()
-            }
-        return data
+        # In V2, previously validated data is accessed via info.data
+        rendered = cls.render_value(value, all_values={**info.data, "ctx": cls.ctx})
+        return rendered
+
+
+
 
 
 class Versioning:

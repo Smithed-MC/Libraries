@@ -3,6 +3,15 @@ from typing import Annotated, Any, ClassVar, Literal
 from pydantic import BaseModel, Field, RootModel
 
 
+class WikiOpts(BaseModel):
+    implementation_folder: str = "wiki"
+    """
+    The base folder the generated files go into.
+    """
+
+    tick_function: str = "impl/technical/tick"
+    load_function: str = "impl/technical/load"
+
 class SectionModel(BaseModel):
     """
     Represents a section of pages for a Wiki.

@@ -1,3 +1,4 @@
+import logging
 from typing import Any, Protocol, cast
 
 from beet import (
@@ -23,8 +24,12 @@ from .models import (
     SectionUnion,
     TOCSectionModel,
     TitleSectionModel,
+    WikiOpts,
 )
 from .resources import WikiBook, WikiSection
+
+logger = logging.getLogger(__name__)
+
 
 PAGE_INDEX_OFFSET = 1000
 SEPARATOR = "dark_gray"
@@ -58,11 +63,6 @@ class WikiBuilder:
     Where the key is a tuple of (`path to image`, `height`) and the value is the unicode character offset from \\uE000.
     """
 
-    implementation_folder: str = "wiki"
-    """
-    The base folder the generated files go into.
-    """
-
     builders: dict[str, SectionBuilder[Any]]
     """
     The builders for each section type.
@@ -80,10 +80,7 @@ class WikiBuilder:
         self.ctx = ctx
 
         # Get the override for the implementation folder if present
-        if (wiki := self.ctx.meta.get("smithed.wiki")) and (
-            implementation_folder := wiki.get("implementation_folder")
-        ):
-            self.implementation_folder = implementation_folder
+        self.opts = WikiOpts.model_validate(ctx.meta.get("smithed.wiki", {}))
 
         # Predicate used to detect if the player is holding a wiki book in either hand
         ctx.data["smithed.wiki:impl/technical/holding_book"] = Predicate(
@@ -128,7 +125,8 @@ class WikiBuilder:
         ctx.data[Function].setdefault(
             "smithed.wiki:impl/technical/load", Function()
         ).append(
-            """
+            """ 
+                schedule function smithed.wiki:impl/technical/tick 1t replace
                 scoreboard objectives add smithed.wiki.use_book minecraft.used:minecraft.written_book
             """
         )
@@ -141,11 +139,6 @@ class WikiBuilder:
                 schedule function smithed.wiki:impl/technical/tick 1t replace
                 execute as @a[scores={smithed.wiki.use_book=1..}] run function smithed.wiki:impl/wiki/use_book
             """
-        )
-
-        # Register the above functions to run on tick (every 1/20th of a second) and load (when the game is reloaded)
-        ctx.data[FunctionTag].setdefault("minecraft:tick", FunctionTag()).add(
-            "smithed.wiki:impl/technical/tick"
         )
 
         ctx.data[FunctionTag].setdefault("minecraft:load", FunctionTag()).add(
@@ -274,18 +267,21 @@ class WikiBuilder:
         """
         Builds all wiki books loaded into context
         """
+        yield
+
         for location, book in ctx.data[WikiBook].items():
+            logger.info(f"Building book {location}")
             # Validate the Pydantic model and configure the builder
             book = BookModel.model_validate(book.data)
             namespace, path = location.split(":", 1)
 
-            base_path = f"{namespace}:{self.implementation_folder}"
-
-            location = f"{base_path}/{path}"
+            base_path = f"{namespace}:{self.opts.implementation_folder}"
 
             self.current = book
             self.current_path = location
             self.current_font = {}
+
+            location = f"{base_path}/{path}"
 
             # Generate a unique trigger name for each book
             trigger_name = f"{namespace}.{path.replace('/', '.')}.trigger"
@@ -346,24 +342,15 @@ class WikiBuilder:
 
             # Register the trigger commands for changing pages
             ctx.data[Function].setdefault(
-                f"{base_path}/technical/load", Function()
+                f"{namespace}:{self.opts.load_function}", Function()
             ).append(f"scoreboard objectives add {trigger_name} trigger")
             ctx.data[Function].setdefault(
-                f"{base_path}/technical/tick", Function()
+                f"{namespace}:{self.opts.tick_function}", Function()
             ).append(
                 f"""
                     scoreboard players enable @a {trigger_name}
                     execute as @a[scores={{{trigger_name}=1000..}}] run function {base_path}/{path}/change_page
                 """
-            )
-
-            # Add them to the tick/load tags
-            ctx.data[FunctionTag].setdefault(f"minecraft:load", FunctionTag()).add(
-                f"{base_path}/technical/load"
-            )
-
-            ctx.data[FunctionTag].setdefault(f"minecraft:tick", FunctionTag()).add(
-                f"{base_path}/technical/tick"
             )
 
             # Display the appropriate page when the player runs the trigger
@@ -385,7 +372,7 @@ class WikiBuilder:
             toc_index = -1
 
             for idx, section in enumerate(book.sections):
-                pages.extend(self.build(f"{base_path}/{path}/{idx}", section))
+                pages.extend(self.build(f"{self.current_path}/{idx}", section))
 
                 # Store the index to the TOC, if theres multiple, raise an error.
                 if isinstance(section, TOCSectionModel):
@@ -498,6 +485,7 @@ class WikiBuilder:
 
         ctx.data[WikiBook].clear()
         ctx.data[WikiSection].clear()
+
 
 def resolve(section: ReferenceSectionModel, ctx: Context) -> NonReferenceSectionModel:
     """
