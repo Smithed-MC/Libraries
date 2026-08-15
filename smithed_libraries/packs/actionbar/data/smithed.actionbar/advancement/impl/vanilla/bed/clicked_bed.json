@@ -1,7 +1,7 @@
 {
   "criteria": {
     "unoccupied": {
-      "trigger": "minecraft:item_used_on_block",
+      "trigger": "minecraft:any_block_use",
       "conditions": {
         "player": [
           {
@@ -17,6 +17,42 @@
                 "min": 1
               }
             }
+          },
+          {
+            "condition": "minecraft:value_check",
+            "value": {
+              "type": "minecraft:score",
+              "target": {
+                "type": "minecraft:fixed",
+                "name": "#smithed.actionbar.major"
+              },
+              "score": "load.status"
+            },
+            "range": 0
+          },
+          {
+            "condition": "minecraft:value_check",
+            "value": {
+              "type": "minecraft:score",
+              "target": {
+                "type": "minecraft:fixed",
+                "name": "#smithed.actionbar.minor"
+              },
+              "score": "load.status"
+            },
+            "range": 7
+          },
+          {
+            "condition": "minecraft:value_check",
+            "value": {
+              "type": "minecraft:score",
+              "target": {
+                "type": "minecraft:fixed",
+                "name": "#smithed.actionbar.patch"
+              },
+              "score": "load.status"
+            },
+            "range": 0
           }
         ],
         "location": [
@@ -25,7 +61,7 @@
             "predicate": {
               "dimension": "minecraft:overworld",
               "block": {
-                "tag": "minecraft:beds",
+                "blocks": "#minecraft:beds",
                 "state": {
                   "occupied": "false"
                 }
@@ -36,7 +72,7 @@
       }
     },
     "occupied": {
-      "trigger": "minecraft:item_used_on_block",
+      "trigger": "minecraft:any_block_use",
       "conditions": {
         "player": [
           {
@@ -52,89 +88,51 @@
                 "min": 1
               }
             }
-          }
-        ],
-        "location": [
-          {
-            "condition": "minecraft:location_check",
-            "predicate": {
-              "dimension": "minecraft:overworld",
-              "block": {
-                "tag": "minecraft:beds",
-                "state": {
-                  "occupied": "true"
-                }
-              }
-            }
-          }
-        ]
-      }
-    },
-    "unoccupied_empty": {
-      "trigger": "minecraft:item_used_on_block",
-      "conditions": {
-        "player": [
+          },
           {
             "condition": "minecraft:value_check",
             "value": {
               "type": "minecraft:score",
-              "target": "this",
-              "score": "smithed.actionbar.sneaking"
+              "target": {
+                "type": "minecraft:fixed",
+                "name": "#smithed.actionbar.major"
+              },
+              "score": "load.status"
             },
-            "range": {
-              "min": 1
-            }
-          }
-        ],
-        "item": {
-          "items": [
-            "minecraft:air"
-          ]
-        },
-        "location": [
-          {
-            "condition": "minecraft:location_check",
-            "predicate": {
-              "dimension": "minecraft:overworld",
-              "block": {
-                "tag": "minecraft:beds",
-                "state": {
-                  "occupied": "false"
-                }
-              }
-            }
-          }
-        ]
-      }
-    },
-    "occupied_empty": {
-      "trigger": "minecraft:item_used_on_block",
-      "conditions": {
-        "player": [
+            "range": 0
+          },
           {
             "condition": "minecraft:value_check",
             "value": {
               "type": "minecraft:score",
-              "target": "this",
-              "score": "smithed.actionbar.sneaking"
+              "target": {
+                "type": "minecraft:fixed",
+                "name": "#smithed.actionbar.minor"
+              },
+              "score": "load.status"
             },
-            "range": {
-              "min": 1
-            }
+            "range": 7
+          },
+          {
+            "condition": "minecraft:value_check",
+            "value": {
+              "type": "minecraft:score",
+              "target": {
+                "type": "minecraft:fixed",
+                "name": "#smithed.actionbar.patch"
+              },
+              "score": "load.status"
+            },
+            "range": 0
           }
         ],
-        "item": {
-          "items": [
-            "minecraft:air"
-          ]
-        },
         "location": [
           {
             "condition": "minecraft:location_check",
             "predicate": {
               "dimension": "minecraft:overworld",
               "block": {
-                "tag": "minecraft:beds",
+                "blocks": "#minecraft:beds",
                 "state": {
                   "occupied": "true"
                 }
@@ -148,12 +146,10 @@
   "requirements": [
     [
       "unoccupied",
-      "occupied",
-      "unoccupied_empty",
-      "occupied_empty"
+      "occupied"
     ]
   ],
   "rewards": {
-    "function": "smithed.actionbar:impl/vanilla/bed/clicked_bed"
+    "function": "smithed.actionbar:v0.7.0/vanilla/bed/clicked_bed"
   }
 }
