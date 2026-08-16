@@ -1,25 +1,23 @@
+import logging
+
 from beet import Context
 from beet.contrib.find_replace import find_replace
 from beet.contrib.rename_files import rename_files
+from beet.contrib.autosave import Autosave
 
 from .api import generate_api
 from .load import generate_load
 from .models import ContextualModel, Versioning
 
-
-
 def inject_version(ctx: Context):
     opts = ctx.inject(Versioning).opts
 
-    substitution = opts.refactor.dict()
+    substitution = opts.refactor.model_dump()
     del substitution["match"]
-
-    # dynamic renames
-    ctx.require(
-        find_replace(data_pack={"match": opts.refactor.match}, substitute=substitution)
-    )
-    ctx.require(rename_files(data_pack={"match": opts.refactor.match} | substitution))
-
+    
+    autosave = ctx.inject(Autosave)
+    autosave.output_handlers.insert(0, rename_files(data_pack={"match": opts.refactor.match} | substitution))
+    autosave.output_handlers.insert(0, find_replace(data_pack={"match": opts.refactor.match}, substitute=substitution))
 
 def beet_default(ctx: Context):
     """This plugins generates all the versioning requirements that LL needs

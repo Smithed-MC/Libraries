@@ -1,0 +1,73 @@
+{
+  "type": "minecraft:multi_action",
+  "body": {
+    "type": "minecraft:plain_message",
+    "contents": [
+      "\n",
+      {
+        "text": "An article",
+        "bold": true
+      },
+      {
+        "text": "\n---\n",
+        "color": "dark_gray"
+      },
+      {
+        "text": "The contents of an article"
+      },
+      "\n",
+      [
+        [
+          "",
+          {
+            "text": "\n<--",
+            "color": "gold",
+            "bold": true,
+            "hover_event": {
+              "action": "show_text",
+              "value": {
+                "text": "Previous Page"
+              }
+            },
+            "click_event": {
+              "action": "run_command",
+              "command": "/trigger smithed.wiki.example.trigger set 1002"
+            }
+          }
+        ],
+        {
+          "text": "     "
+        },
+        {
+          "text": "\u25a0",
+          "color": "gold",
+          "hover_event": {
+            "action": "show_text",
+            "value": {
+              "text": "Table of Contents"
+            }
+          },
+          "click_event": {
+            "action": "run_command",
+            "command": "/trigger smithed.wiki.example.trigger set 1001"
+          }
+        },
+        {
+          "text": "     "
+        },
+        {
+          "text": "    "
+        }
+      ]
+    ]
+  },
+  "actions": [
+    {
+      "label": "Close"
+    }
+  ],
+  "title": {
+    "translate": "item.smithed.wiki.example"
+  },
+  "pause": false
+}

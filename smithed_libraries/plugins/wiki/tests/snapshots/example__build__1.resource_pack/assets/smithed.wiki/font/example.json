@@ -1,0 +1,31 @@
+{
+  "providers": [
+    {
+      "type": "bitmap",
+      "ascent": 0,
+      "chars": [
+        "\ue000"
+      ],
+      "file": "smithed.wiki:wiki/placeholder.png",
+      "height": 64
+    },
+    {
+      "type": "bitmap",
+      "ascent": 0,
+      "chars": [
+        "\ue001"
+      ],
+      "file": "smithed.wiki:wiki/placeholder.png",
+      "height": 16
+    },
+    {
+      "type": "bitmap",
+      "ascent": 0,
+      "chars": [
+        "\ue002"
+      ],
+      "file": "smithed.wiki:wiki/placeholder.png",
+      "height": 32
+    }
+  ]
+}

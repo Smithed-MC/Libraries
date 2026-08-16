@@ -42,7 +42,7 @@ def generate_tag_args(ctx: Context):
 
 
     ctx.data.functions[
-        f"smithed.crafter:v{ctx.project_version}/block/table/crafting/input/query_tags"
+        f"smithed.crafter:impl/block/table/crafting/input/query_tags"
     ].append(mc.serialize(mc.parse("\n".join(commands), multiline=True)))
 
 
@@ -83,5 +83,5 @@ def generate_advanced_remove_tool(ctx: Context):
             commands.append(command)
 
     ctx.data.functions[
-        f"smithed.crafter:v{ctx.project_version}/block/table/crafting/output/clear_input/delete_tool/vanilla"
+        f"smithed.crafter:impl/block/table/crafting/output/clear_input/delete_tool/vanilla"
     ].append(mc.serialize(mc.parse("\n".join(commands), multiline=True)))

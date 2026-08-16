@@ -1,0 +1,10 @@
+{
+  "values": [
+    {
+      "id": "#smithed.wiki:load/dependencies",
+      "required": false
+    },
+    "#smithed.wiki:load/enumerate",
+    "#smithed.wiki:load/resolve"
+  ]
+}

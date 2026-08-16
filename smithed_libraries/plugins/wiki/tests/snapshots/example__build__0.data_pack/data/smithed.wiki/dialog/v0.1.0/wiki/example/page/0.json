@@ -1,0 +1,76 @@
+{
+  "type": "minecraft:multi_action",
+  "body": {
+    "type": "minecraft:plain_message",
+    "contents": [
+      "",
+      {
+        "text": "Example",
+        "bold": true
+      },
+      "\n",
+      {
+        "text": "\ue000",
+        "font": "smithed.wiki:example"
+      },
+      "\n\n\n\n\n\n\n\n\n",
+      {
+        "text": "An example wiki book",
+        "color": "gray"
+      },
+      "\n",
+      [
+        [
+          "",
+          {
+            "text": "\n    "
+          }
+        ],
+        {
+          "text": "     "
+        },
+        {
+          "text": "\u25a0",
+          "color": "gold",
+          "hover_event": {
+            "action": "show_text",
+            "value": {
+              "text": "Table of Contents"
+            }
+          },
+          "click_event": {
+            "action": "run_command",
+            "command": "/trigger smithed.wiki.example.trigger set 1001"
+          }
+        },
+        {
+          "text": "     "
+        },
+        {
+          "text": "-->",
+          "color": "gold",
+          "bold": true,
+          "hover_event": {
+            "action": "show_text",
+            "value": {
+              "text": "Next Page"
+            }
+          },
+          "click_event": {
+            "action": "run_command",
+            "command": "/trigger smithed.wiki.example.trigger set 1001"
+          }
+        }
+      ]
+    ]
+  },
+  "actions": [
+    {
+      "label": "Close"
+    }
+  ],
+  "title": {
+    "translate": "item.smithed.wiki.example"
+  },
+  "pause": false
+}

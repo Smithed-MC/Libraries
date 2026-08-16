@@ -1,0 +1,34 @@
+extend: "@smithed_libraries/common.yaml"
+
+id: smithed.wiki
+name: Smithed Wiki
+version: "0.1.0"
+description: Native Library for Smithed
+author: TheNuclearNexus
+minecraft: "26.1"
+
+data_pack:
+  name: Smithed Wiki
+  load: .
+  zipped: true
+  pack_format: 101
+
+resource_pack:
+  name: Smithed Wiki RP
+  load: .
+  zipped: true
+  pack_format: 84
+
+require:
+  - smithed_libraries.plugins.wiki
+  - bolt
+
+
+output: dist
+
+meta:
+  depends_on: # used for metadata
+    custom-block: "0.10.0"
+  minecraft_version: "26.1"
+  smithed.wiki:
+    implementation_folder: impl/wiki

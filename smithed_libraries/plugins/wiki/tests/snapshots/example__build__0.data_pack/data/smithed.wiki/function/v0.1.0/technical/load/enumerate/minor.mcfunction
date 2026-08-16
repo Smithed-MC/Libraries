@@ -1,0 +1,2 @@
+execute if score #smithed.wiki.minor load.status matches ..1 unless score #smithed.wiki.minor load.status matches 1 run function smithed.wiki:v0.1.0/technical/load/enumerate/set_version
+execute unless score #smithed.wiki.set load.status matches 1 if score #smithed.wiki.minor load.status matches ..1 if score #smithed.wiki.minor load.status matches 1 run function smithed.wiki:v0.1.0/technical/load/enumerate/patch

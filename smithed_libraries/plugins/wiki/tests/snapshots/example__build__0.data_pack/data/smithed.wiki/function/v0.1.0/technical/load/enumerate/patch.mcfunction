@@ -1,0 +1,1 @@
+execute if score #smithed.wiki.patch load.status matches ..0 unless score #smithed.wiki.patch load.status matches 0 run function smithed.wiki:v0.1.0/technical/load/enumerate/set_version
