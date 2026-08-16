@@ -1,7 +1,7 @@
 {
   "criteria": {
     "click_no_sneak": {
-      "trigger": "minecraft:item_used_on_block",
+      "trigger": "minecraft:any_block_use",
       "conditions": {
         "player": [
           {
@@ -24,7 +24,7 @@
             "condition": "minecraft:location_check",
             "predicate": {
               "block": {
-                "tag": "smithed.actionbar:impl/lockable"
+                "blocks": "#smithed.actionbar:impl/lockable"
               }
             }
           }
@@ -32,21 +32,15 @@
       }
     },
     "click_empty": {
-      "trigger": "minecraft:item_used_on_block",
+      "trigger": "minecraft:default_block_use",
       "conditions": {
-        "player": [
-        ],
-        "item": {
-          "items": [
-            "minecraft:air"
-          ]
-        },
+        "player": [],
         "location": [
           {
             "condition": "minecraft:location_check",
             "predicate": {
               "block": {
-                "tag": "smithed.actionbar:impl/lockable"
+                "blocks": "#smithed.actionbar:impl/lockable"
               }
             }
           }
@@ -54,12 +48,6 @@
       }
     }
   },
-  "requirements": [
-    [
-      "click_no_sneak",
-      "click_empty"
-    ]
-  ],
   "rewards": {
     "function": "smithed.actionbar:impl/vanilla/container/clicked_lockable_block"
   }

@@ -3,11 +3,14 @@
     "requirement": {
       "trigger": "minecraft:slept_in_bed",
       "conditions": {
-        "location": [
+        "player": [
           {
-            "condition": "minecraft:location_check",
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
             "predicate": {
-              "dimension": "minecraft:overworld"
+              "minecraft:location": {
+                "dimension": "minecraft:overworld"
+              }
             }
           }
         ]
