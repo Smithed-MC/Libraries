@@ -2,6 +2,12 @@
 
 <!--next-version-placeholder-->
 
+## v0.16.5 (2026-08-16)
+
+### Fix
+
+* **actionbar:** Port vanilla interactions to 26.2 (#63) + bump (custom-block & crafter) to support 26.2 ([`af54ac0`](https://github.com/Smithed-MC/Libraries/commit/af54ac04007fbc28854eb9c49f7b06e29f8d1a94))
+
 ## v0.16.4 (2026-03-28)
 
 ### Fix
