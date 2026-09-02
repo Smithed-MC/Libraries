@@ -12,10 +12,15 @@ logger = logging.getLogger(__name__)
 PUBLIC_PAT = re.compile("^#>? @public")
 
 
-def generate_call(ctx: Context, opts: VersioningOptions, path: str):
+def generate_call(ctx: Context, opts: VersioningOptions, path: str, macros: list[str]):
     """Generates the actual call function that checks the version"""
 
     base_path = path.replace(opts.api.implementation_prefix, "")
+
+    function = call_if_version_match(opts.scoreholder, opts.version, path)
+    if len(macros) > 0:
+        macro = " {" + ",".join(f"{x}:$({x})" for x in macros) + "}" # `stringify` macros
+        function = f"${function.rstrip("\n")} {macro}\n"
 
     version_check = ctx.generate[opts.api.version_check_path](
         base_path, Function(call_if_version_match(opts.scoreholder, opts.version, path))
@@ -43,4 +48,6 @@ def generate_api(ctx: Context):
         return
     for (path, func) in query[Function].keys():
         if func.lines and path is not None and PUBLIC_PAT.match(func.lines[0]):
-            generate_call(ctx, opts, path)
+            macros = re.findall(r"\$\(([A-Za-z0-9_]+)\)", "\n".join(func.lines)) # fild all macros (including in comment? maybe need fixing)
+            macros = list(dict.fromkeys(macros)) # filter out duplicates
+            generate_call(ctx, opts, path, macros)
