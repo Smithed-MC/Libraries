@@ -3,71 +3,63 @@
     "unoccupied": {
       "trigger": "minecraft:any_block_use",
       "conditions": {
-        "player": [
-          {
-            "condition": "minecraft:inverted",
-            "term": {
-              "condition": "minecraft:value_check",
-              "value": {
-                "type": "minecraft:score",
-                "target": "this",
-                "score": "smithed.actionbar.sneaking"
-              },
-              "range": {
-                "min": 1
+        "player": {
+          "type": "minecraft:inverted",
+          "term": {
+            "type": "minecraft:int_value_check",
+            "value": {
+              "type": "minecraft:score",
+              "target": "this",
+              "score": "smithed.actionbar.sneaking"
+            },
+            "test": {
+              "min": 1
+            }
+          }
+        },
+        "location": {
+          "type": "minecraft:location_check",
+          "predicate": {
+            "dimension": "minecraft:overworld",
+            "block": {
+              "blocks": "#minecraft:beds",
+              "state": {
+                "occupied": "false"
               }
             }
           }
-        ],
-        "location": [
-          {
-            "condition": "minecraft:location_check",
-            "predicate": {
-              "dimension": "minecraft:overworld",
-              "block": {
-                "blocks": "#minecraft:beds",
-                "state": {
-                  "occupied": "false"
-                }
-              }
-            }
-          }
-        ]
+        }
       }
     },
     "occupied": {
       "trigger": "minecraft:any_block_use",
       "conditions": {
-        "player": [
-          {
-            "condition": "minecraft:inverted",
-            "term": {
-              "condition": "minecraft:value_check",
-              "value": {
-                "type": "minecraft:score",
-                "target": "this",
-                "score": "smithed.actionbar.sneaking"
-              },
-              "range": {
-                "min": 1
+        "player": {
+          "type": "minecraft:inverted",
+          "term": {
+            "type": "minecraft:int_value_check",
+            "value": {
+              "type": "minecraft:score",
+              "target": "this",
+              "score": "smithed.actionbar.sneaking"
+            },
+            "test": {
+              "min": 1
+            }
+          }
+        },
+        "location": {
+          "type": "minecraft:location_check",
+          "predicate": {
+            "dimension": "minecraft:overworld",
+            "block": {
+              "blocks": "#minecraft:beds",
+              "state": {
+                "occupied": "true"
               }
             }
           }
-        ],
-        "location": [
-          {
-            "condition": "minecraft:location_check",
-            "predicate": {
-              "dimension": "minecraft:overworld",
-              "block": {
-                "blocks": "#minecraft:beds",
-                "state": {
-                  "occupied": "true"
-                }
-              }
-            }
-          }
-        ]
+        }
       }
     }
   },
