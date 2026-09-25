@@ -1,1 +1,1 @@
-return run gamerule keepInventory
+return run gamerule keep_inventory

@@ -1,7 +1,7 @@
 # @public
 
 # disable command feedback
-execute if function smithed.tech_slots:impl/technical/get_send_command_feedback run gamerule sendCommandFeedback false
+execute if function smithed.tech_slots:impl/technical/get_send_command_feedback run gamerule send_command_feedback false
 
 # toggle gamemode (and re-enable command feedback)
 execute if entity @s[gamemode=survival] run return run function smithed.tech_slots:impl/modifier/gamemode/survival

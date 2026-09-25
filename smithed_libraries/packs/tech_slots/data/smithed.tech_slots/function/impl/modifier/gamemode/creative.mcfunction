@@ -8,4 +8,4 @@ gamemode creative
 tag @s[tag=smithed.tech_slots.no_fly] remove smithed.tech_slots.no_fly
 
 # restore command feedback
-execute if score $sendCommandFeedback smithed.data matches 1 run gamerule sendCommandFeedback true
+execute if score $send_command_feedback smithed.data matches 1 run gamerule send_command_feedback true
