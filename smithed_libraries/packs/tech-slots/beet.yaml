@@ -2,7 +2,7 @@ extend: "@smithed_libraries/common.yaml"
 
 id: smithed.tech_slots
 name: Smithed Tech Slots
-version: "0.1.2"
+version: "1.0.0"
 description: Tech Slots Library for Smithed
 author: BPR02 and Conure512
 
