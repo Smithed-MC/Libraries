@@ -11,7 +11,7 @@ item modify entity @s armor.body smithed.tech_slots:impl/set_body_data
 
 # force silent equip sound
 data modify storage smithed.tech_slots:data temp.body set from entity @s equipment.body
-data modify storage smithed.tech_slots:data body merge value {components:{"minecraft:equippable":{slot:"body",equip_sound:"intentionally_empty"}}}
+data modify storage smithed.tech_slots:data temp.body merge value {components:{"minecraft:equippable":{slot:"body",equip_sound:"intentionally_empty"}}}
 item replace entity @s armor.body with air
 
 tag @s add smithed.tech_slots.target
