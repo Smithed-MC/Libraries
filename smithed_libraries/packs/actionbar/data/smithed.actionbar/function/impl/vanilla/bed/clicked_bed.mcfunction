@@ -5,7 +5,6 @@
 
 # check if the player entered the bed
 tag @s[advancements={smithed.actionbar:impl/vanilla/bed/clicked_bed={occupied=true}}] add smithed.actionbar.occupied
-tag @s[advancements={smithed.actionbar:impl/vanilla/bed/clicked_bed={occupied_empty=true}}] add smithed.actionbar.occupied
 tag @s[advancements={smithed.actionbar:impl/vanilla/bed/slept_in_bed={requirement=true}}] add smithed.actionbar.sleeping
 
 advancement revoke @s only smithed.actionbar:impl/vanilla/bed/clicked_bed

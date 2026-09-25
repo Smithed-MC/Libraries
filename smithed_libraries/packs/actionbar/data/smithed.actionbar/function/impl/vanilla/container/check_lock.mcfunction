@@ -5,7 +5,7 @@
 
 # check if the block is locked
 scoreboard players set $locked smithed.actionbar.temp 0
-execute store success score $locked smithed.actionbar.temp if data block ~ ~ ~ Lock
+execute store success score $locked smithed.actionbar.temp if data block ~ ~ ~ lock
 execute if score $locked smithed.actionbar.temp matches 1 run data modify storage smithed.actionbar:data block set from block ~ ~ ~ {}
 execute if score $locked smithed.actionbar.temp matches 0 if block ~ ~ ~ #smithed.actionbar:impl/chests unless block ~ ~ ~ #smithed.actionbar:impl/chests[type=single] run function smithed.actionbar:impl/vanilla/container/check_double_chest_lock
 

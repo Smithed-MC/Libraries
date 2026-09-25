@@ -1,7 +1,7 @@
 {
   "criteria": {
-    "click_no_sneak": {
-      "trigger": "minecraft:item_used_on_block",
+    "unoccupied": {
+      "trigger": "minecraft:any_block_use",
       "conditions": {
         "player": [
           {
@@ -23,30 +23,47 @@
           {
             "condition": "minecraft:location_check",
             "predicate": {
+              "dimension": "minecraft:overworld",
               "block": {
-                "tag": "smithed.actionbar:impl/lockable"
+                "blocks": "#minecraft:beds",
+                "state": {
+                  "occupied": "false"
+                }
               }
             }
           }
         ]
       }
     },
-    "click_empty": {
-      "trigger": "minecraft:item_used_on_block",
+    "occupied": {
+      "trigger": "minecraft:any_block_use",
       "conditions": {
         "player": [
+          {
+            "condition": "minecraft:inverted",
+            "term": {
+              "condition": "minecraft:value_check",
+              "value": {
+                "type": "minecraft:score",
+                "target": "this",
+                "score": "smithed.actionbar.sneaking"
+              },
+              "range": {
+                "min": 1
+              }
+            }
+          }
         ],
-        "item": {
-          "items": [
-            "minecraft:air"
-          ]
-        },
         "location": [
           {
             "condition": "minecraft:location_check",
             "predicate": {
+              "dimension": "minecraft:overworld",
               "block": {
-                "tag": "smithed.actionbar:impl/lockable"
+                "blocks": "#minecraft:beds",
+                "state": {
+                  "occupied": "true"
+                }
               }
             }
           }
@@ -56,11 +73,11 @@
   },
   "requirements": [
     [
-      "click_no_sneak",
-      "click_empty"
+      "unoccupied",
+      "occupied"
     ]
   ],
   "rewards": {
-    "function": "smithed.actionbar:impl/vanilla/container/clicked_lockable_block"
+    "function": "smithed.actionbar:impl/vanilla/bed/clicked_bed"
   }
 }

@@ -5,7 +5,7 @@
 
 # yes, if you define raw and json, you'll get 2 messages
 #  i left this "bug" in so that folks catch this in testing
-execute if data storage smithed.actionbar:input message.raw run title @s actionbar {"storage": "smithed.actionbar:input", "nbt": "message.raw"}
+execute if data storage smithed.actionbar:input message.raw run title @s actionbar {"storage": "smithed.actionbar:input", "nbt": "message.raw", "interpret": true}
 execute if data storage smithed.actionbar:input message.json run title @s actionbar {"storage": "smithed.actionbar:input", "nbt": "message.json", "interpret": true}
 
 # copy freeze w/ bounds checking

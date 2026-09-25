@@ -1,0 +1,15 @@
+extend: "@smithed_libraries/common.yaml"
+
+id: smithed.title
+name: Smithed Title
+version: "0.1.0"
+description: Native Title Library for Smithed
+
+data_pack:
+  name: Smithed Title
+  load: .
+
+output: dist
+
+require:
+  - bolt

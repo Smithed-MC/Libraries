@@ -2,6 +2,42 @@
 
 <!--next-version-placeholder-->
 
+## v0.16.5 (2026-08-16)
+
+### Fix
+
+* **actionbar:** Port vanilla interactions to 26.2 (#63) + bump (custom-block & crafter) to support 26.2 ([`af54ac0`](https://github.com/Smithed-MC/Libraries/commit/af54ac04007fbc28854eb9c49f7b06e29f8d1a94))
+
+## v0.16.4 (2026-03-28)
+
+### Fix
+
+* **actionbar:** Added clock specification for time checks ([#60](https://github.com/Smithed-MC/Libraries/issues/60)) ([`40ea4dc`](https://github.com/Smithed-MC/Libraries/commit/40ea4dc26d78739af681bebcb4b6451408118764))
+
+## v0.16.3 (2026-01-17)
+
+### Fix
+
+* For real ([`71153a2`](https://github.com/Smithed-MC/Libraries/commit/71153a213361d8c5ab3b8f56a6682ed32493a3de))
+
+## v0.16.2 (2026-01-17)
+
+### Fix
+
+* Update gamerule name for 1.21.11 ([`59129c0`](https://github.com/Smithed-MC/Libraries/commit/59129c0a9bb9fd46e643368365442dcae847cce6))
+
+## v0.16.1 (2025-12-28)
+
+### Fix
+
+*  packs readme ([#55](https://github.com/Smithed-MC/Libraries/issues/55)) ([`3650513`](https://github.com/Smithed-MC/Libraries/commit/365051346584bb30dc5796bb4bcdfb62813174a3))
+
+## v0.16.0 (2025-12-28)
+
+### Feature
+
+* New title / subtitle library ([#52](https://github.com/Smithed-MC/Libraries/issues/52)) ([`175fce8`](https://github.com/Smithed-MC/Libraries/commit/175fce873ed74576088608952b20ee06da0d3b06))
+
 ## v0.15.0 (2025-10-24)
 
 ### Feature
