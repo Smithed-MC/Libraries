@@ -15,8 +15,8 @@ scoreboard players operation $required_sleeping_players smithed.actionbar.temp /
 execute if score $required_sleeping_players smithed.actionbar.temp matches ..0 run scoreboard players set $required_sleeping_players smithed.actionbar.temp 1
 
 # send message
-execute unless score $sleeping_players smithed.actionbar.temp = $required_sleeping_players smithed.actionbar.temp run data modify storage smithed.actionbar:input message set value {json:'{"translate":"sleep.players_sleeping","with":[{"score":{"name":"$sleeping_players","objective":"smithed.actionbar.temp"}},{"score":{"name":"$required_sleeping_players","objective":"smithed.actionbar.temp"}}]}',priority:'notification',freeze:20}
-execute if score $sleeping_players smithed.actionbar.temp = $required_sleeping_players smithed.actionbar.temp run data modify storage smithed.actionbar:input message set value {json:'{"translate":"sleep.skipping_night"}',priority:'notification',freeze:20}
+execute unless score $sleeping_players smithed.actionbar.temp = $required_sleeping_players smithed.actionbar.temp run data modify storage smithed.actionbar:input message set value {json:{"translate":"sleep.players_sleeping","with":[{"score":{"name":"$sleeping_players","objective":"smithed.actionbar.temp"}},{"score":{"name":"$required_sleeping_players","objective":"smithed.actionbar.temp"}}]},priority:'notification',freeze:20}
+execute if score $sleeping_players smithed.actionbar.temp = $required_sleeping_players smithed.actionbar.temp run data modify storage smithed.actionbar:input message set value {json:{"translate":"sleep.skipping_night"},priority:'notification',freeze:20}
 function #smithed.actionbar:message
 
 # update player counts
