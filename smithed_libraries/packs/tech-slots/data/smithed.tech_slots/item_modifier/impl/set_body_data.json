@@ -1,0 +1,17 @@
+[
+    {
+        "function": "minecraft:set_enchantments",
+        "enchantments": {
+            "minecraft:binding_curse": 1,
+            "minecraft:vanishing_curse": 1
+        }
+    },
+    {
+        "function": "set_custom_data",
+        "tag": {
+            "smithed.tech_slots": {
+                "set": true
+            }
+        }
+    }
+]

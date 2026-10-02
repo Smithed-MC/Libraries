@@ -1,0 +1,24 @@
+{
+  "criteria": {
+    "respawned": {
+      "trigger": "minecraft:tick",
+      "conditions": {
+        "player": [
+          {
+            "condition": "inverted",
+            "term": {
+              "condition": "entity_properties",
+              "entity": "this",
+              "predicate": {
+                "nbt": "{Health:0f}"
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "function": "smithed.tech_slots:impl/player/respawned"
+  }
+}

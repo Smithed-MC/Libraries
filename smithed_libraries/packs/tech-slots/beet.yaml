@@ -1,0 +1,17 @@
+extend: "@smithed_libraries/common.yaml"
+
+id: smithed.tech_slots
+name: Smithed Tech Slots
+version: "1.0.0"
+description: Tech Slots Library for Smithed
+author: BPR02 and Conure512
+
+data_pack:
+  name: Smithed Tech Slots
+  load: .
+  zipped: true
+
+require:
+  - beet.contrib.unknown_files
+
+output: dist
