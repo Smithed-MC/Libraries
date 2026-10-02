@@ -2,6 +2,12 @@
 
 <!--next-version-placeholder-->
 
+## v0.16.6 (2026-10-02)
+
+### Fix
+
+* Update loot, predicate and advancement JSON to the 26.3 formats ([#64](https://github.com/Smithed-MC/Libraries/issues/64)) ([`54bd32b`](https://github.com/Smithed-MC/Libraries/commit/54bd32bc055fd94145a5e31bc09a9c36a35d7491))
+
 ## v0.16.5 (2026-08-16)
 
 ### Fix
