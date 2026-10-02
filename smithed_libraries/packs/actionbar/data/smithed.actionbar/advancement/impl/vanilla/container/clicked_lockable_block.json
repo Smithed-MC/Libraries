@@ -3,48 +3,41 @@
     "click_no_sneak": {
       "trigger": "minecraft:any_block_use",
       "conditions": {
-        "player": [
-          {
-            "condition": "minecraft:inverted",
-            "term": {
-              "condition": "minecraft:value_check",
-              "value": {
-                "type": "minecraft:score",
-                "target": "this",
-                "score": "smithed.actionbar.sneaking"
-              },
-              "range": {
-                "min": 1
-              }
+        "player": {
+          "type": "minecraft:inverted",
+          "term": {
+            "type": "minecraft:int_value_check",
+            "value": {
+              "type": "minecraft:score",
+              "target": "this",
+              "score": "smithed.actionbar.sneaking"
+            },
+            "test": {
+              "min": 1
             }
           }
-        ],
-        "location": [
-          {
-            "condition": "minecraft:location_check",
-            "predicate": {
-              "block": {
-                "blocks": "#smithed.actionbar:impl/lockable"
-              }
+        },
+        "location": {
+          "type": "minecraft:location_check",
+          "predicate": {
+            "block": {
+              "blocks": "#smithed.actionbar:impl/lockable"
             }
           }
-        ]
+        }
       }
     },
     "click_empty": {
       "trigger": "minecraft:default_block_use",
       "conditions": {
-        "player": [],
-        "location": [
-          {
-            "condition": "minecraft:location_check",
-            "predicate": {
-              "block": {
-                "blocks": "#smithed.actionbar:impl/lockable"
-              }
+        "location": {
+          "type": "minecraft:location_check",
+          "predicate": {
+            "block": {
+              "blocks": "#smithed.actionbar:impl/lockable"
             }
           }
-        ]
+        }
       }
     }
   },

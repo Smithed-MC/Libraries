@@ -85,6 +85,30 @@ def resolve_advancements(ctx: Context, opts: VersioningOptions):
         resolve_advancement(advancement, opts)
 
 
+def as_terms(player):
+    """The conditions already on a trigger field, which 26.3 stores as a single condition
+
+    A dict without a "type" is a raw entity predicate rather than a condition,
+      so it keeps being wrapped the way it always was.
+    """
+
+    if player is None:
+        return []
+    if isinstance(player, list):
+        return player
+    if "type" not in player:
+        return [{"type": "minecraft:entity_properties", "entity": "this", "predicate": player}]
+    if player["type"] == "minecraft:all_of":
+        return list(player["terms"])
+    return [player]
+
+
+def one_condition(terms):
+    """A trigger field holds one condition, so several of them become an all_of"""
+
+    return terms[0] if len(terms) == 1 else {"type": "minecraft:all_of", "terms": terms}
+
+
 def resolve_advancement(advancement: Advancement, opts: VersioningOptions):
     """Adds version checking to advancement conditions
 
@@ -96,20 +120,12 @@ def resolve_advancement(advancement: Advancement, opts: VersioningOptions):
     criteria = advancement.data["criteria"]
     for requirement in criteria.values():
         conditions = requirement.setdefault("conditions", {})
-        player_conditions = conditions.setdefault("player", [])
-
-        if isinstance(player_conditions, dict):
-            player_conditions = [{
-                "condition": "minecraft:entity_properties",
-                "entity": "this",
-                "predicate": player_conditions
-            }]
-            conditions["player"] = player_conditions
+        player_conditions = as_terms(conditions.get("player"))
 
         for name, number in opts.version.named_parts():
             scoreholder_part = f"{opts.scoreholder}.{name}"
             version_check = {
-                "condition": "minecraft:value_check",
+                "type": "minecraft:int_value_check",
                 "value": {
                     "type": "minecraft:score",
                     "target": {
@@ -118,20 +134,22 @@ def resolve_advancement(advancement: Advancement, opts: VersioningOptions):
                     },
                     "score": "load.status",
                 },
-                "range": number,
+                "test": number,
             }
 
             for cond in player_conditions:
                 with suppress(KeyError, TypeError):
                     if (
-                        cond["condition"] == "minecraft:value_check"
+                        cond["type"] == "minecraft:int_value_check"
                         and cond["value"]["target"]["name"] == scoreholder_part
                     ):
-                        cond["range"] = number
+                        cond["test"] = number
                         break
 
             else:  # only when there's no break
                 player_conditions.append(version_check)
+
+        conditions["player"] = one_condition(player_conditions)
 
 
 def enumerate_func(ctx: Context, opts: VersioningOptions) -> str:

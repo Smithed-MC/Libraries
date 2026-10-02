@@ -6,13 +6,13 @@
                 {
                     "type": "minecraft:item",
                     "name": "minecraft:furnace",
-                    "functions": [
+                    "modifier": [
                         {
-                            "function": "minecraft:set_components",
+                            "type": "minecraft:set_components",
                             "components": {
                                 "minecraft:item_name": {
-                                    "translate":"block.smithed.crafter",
-                                    "italic":false
+                                    "translate": "block.smithed.crafter",
+                                    "italic": false
                                 },
                                 "minecraft:item_model": "smithed.crafter:table",
                                 "minecraft:container": [

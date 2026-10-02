@@ -1,15 +1,23 @@
-[
-    {
-        "function": "minecraft:set_count",
-        "count": {
-            "type": "minecraft:score",
-            "target": {
-                "type": "minecraft:fixed",
-                "name": "$temp2"
+{
+    "type": "minecraft:sequence",
+    "functions": [
+        {
+            "type": "minecraft:set_count",
+            "count": {
+                "type": "minecraft:mul",
+                "inputs": [
+                    {
+                        "type": "minecraft:score",
+                        "target": {
+                            "type": "minecraft:fixed",
+                            "name": "$temp2"
+                        },
+                        "score": "smithed.data"
+                    },
+                    -1
+                ]
             },
-            "score": "smithed.data",
-            "scale": -1
-        },
-        "add": true
-    }
-]
+            "add": true
+        }
+    ]
+}
