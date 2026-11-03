@@ -16,6 +16,10 @@ class PackVersion(NamedTuple):
 packs_root = Path("src/smithed_libraries/packs")
 minecraft_version = str(yaml.safe_load(Path("beet.yaml").read_text())["minecraft"])
 
+get_url = "https://api.smithed.dev/v2/packs/{pack}"
+create_url = (
+    f"https://api.smithed.dev/v2/packs?&id={{pack}}&token={os.environ['SMITHED_TOKEN']}"
+)
 post_url = (
     "https://api.smithed.dev/v2/packs/{pack}/versions?"
     "&version={version}"
@@ -24,6 +28,10 @@ post_url = (
 download_url = (
     "https://github.com/Smithed-MC/Libraries/blob/"
     "{commit_hash}/{version}/{pack}/smithed_{pack}_{type}.zip?raw=true"
+)
+source_url = (
+    "https://github.com/Smithed-MC/Libraries/blob/main/"
+    "src/smithed_libraries/packs/{pack}/{file}?raw=true"
 )
 
 headers = {"Content-Type": "application/json"}
@@ -41,10 +49,60 @@ packs = [
     for pack in os.environ["BUILT_PACKS"].split(",")
 ]
 
+
+def ensure_pack_exists(pack: str, beet: Any):
+    """Create the pack on smithed if it doesn't exist yet."""
+
+    try:
+        resp = requests.get(url=get_url.format(pack=pack), timeout=30)
+    except requests.RequestException as exc:
+        raise SystemExit(f"Failed to fetch {pack}: {type(exc).__name__}") from None
+
+    if resp.status_code != 404:
+        if not 200 <= resp.status_code < 300:
+            raise SystemExit(f"Failed to fetch {pack}: HTTP {resp.status_code}")
+        return
+
+    readme = packs_root / pack / "README.md"
+    pack_data = {
+        "id": pack,
+        "display": {
+            "name": beet["name"].removeprefix("Smithed "),
+            "description": beet.get("description", ""),
+            "icon": source_url.format(pack=pack, file="pack.png"),
+            "hidden": False,
+            "webPage": (
+                source_url.format(pack=pack, file="README.md")
+                if readme.exists()
+                else ""
+            ),
+        },
+        "versions": [],
+        "categories": ["Library"],
+    }
+
+    try:
+        resp = requests.post(
+            url=create_url.format(pack=pack),
+            headers=headers,
+            data=json.dumps({"data": pack_data}),
+            timeout=30,
+        )
+    except requests.RequestException as exc:
+        raise SystemExit(f"Failed to create {pack}: {type(exc).__name__}") from None
+
+    print(resp.text)
+    # 409 means the pack was created in the meantime, which is fine
+    if not 200 <= resp.status_code < 300 and resp.status_code != 409:
+        raise SystemExit(f"Failed to create {pack}: HTTP {resp.status_code}")
+
+
 # upload packs to smithed
 for pack, version in packs:
     # load in beet file from pack directory
     beet = yaml.safe_load((packs_root / pack / "beet.yaml").read_text())
+    ensure_pack_exists(pack, beet)
+
     payload = deepcopy(payload_template)
 
     payload["name"] = version
