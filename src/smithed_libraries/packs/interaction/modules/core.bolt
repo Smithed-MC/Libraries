@@ -1,0 +1,80 @@
+# ---------------------------------------------------- #
+# --------------------           --------------------- #
+# ---------------         CORE         --------------- #
+# --------------------           --------------------- #
+# ---------------------------------------------------- #
+function smithed.interaction:impl/technical/load:
+  raw # core
+  scoreboard objectives add smithed.interaction.temp dummy
+
+for action in [
+  {"type": "interaction", "trigger": "minecraft:player_interacted_with_entity", "data_location": "on_right_click", "on": "target"},
+  {"type": "attack", "trigger": "minecraft:player_hurt_entity", "data_location": "on_left_click", "on": "attacker"}
+]:
+  ADV_LOC = "smithed.interaction:impl/" + action['type']
+  DATA_LOC = "data.smithed_interaction." + action['data_location']
+  CMD_LOC = DATA_LOC + ".command"
+  FUNC_LOC = DATA_LOC + ".function"
+  SHORTCUT_LOC = DATA_LOC + ".custom"
+  TIMESTAMP = action['type'] + ".timestamp"
+
+  advancement ADV_LOC:
+    criteria:
+      requirement:
+        trigger: action['trigger']
+        conditions:
+          entity:
+            type: "minecraft:entity_properties"
+            entity: "this"
+            predicate:
+              "minecraft:entity_type": "minecraft:interaction"
+              "minecraft:entity_tags":
+                all_of:
+                  - "smithed.interaction"
+    rewards:
+      function: ADV_LOC
+
+  def try_action(type: str, command_to_try: str, nbt_location: str, fail_text: str):
+    scoreboard players set #success smithed.interaction.temp 0
+    with entity @s DATA_LOC:
+      scoreboard players set #success smithed.interaction.temp 1
+      raw command_to_try
+    if score #success smithed.interaction.temp matches 0 tellraw @p[tag=smithed.interaction.player] [
+      {text:"", color:"red"}, f"Interaction's {type} failed: ",
+      {text:"\"",color:"aqua"}, {entity:"@s",nbt: nbt_location, interpret:true, color:"green"},
+      {text:"\"",color:"aqua"}, (" " + fail_text)
+    ]
+
+  function ADV_LOC:
+    advancement revoke @s only ADV_LOC
+    store result score #current_gametime smithed.interaction.temp run time query gametime
+    tag @s add smithed.interaction.player
+    # CONSIDER LATER: Do we want to macro in the players entity interaction range?
+    # | This is probably not worth, but it does make this feel incomplete
+    as @e[tag=smithed.interaction, type=interaction, distance=..16] if data entity @s action['type'] function ~/process:
+      store result score #check_gametime smithed.interaction.temp run data get entity @s TIMESTAMP
+      unless score #check_gametime smithed.interaction.temp = #current_gametime smithed.interaction.temp run return run data remove entity @s action['type']
+      raw f"execute on {action['on']} unless entity @s[tag=smithed.interaction.player] run return fail"
+      if data entity @s SHORTCUT_LOC at @s function ~/try_shortcut:
+        try_action(
+          "custom shortcut", 
+          f"$function #smithed.interaction:{action['data_location']}/$(custom)", 
+          SHORTCUT_LOC, 
+          "is not a valid shortcut. Cannot contain characters not valid in a function path!"
+        )
+      if data entity @s FUNC_LOC at @s function ~/try_function:
+        try_action(
+          "function", 
+          "$function $(function)", 
+          FUNC_LOC, 
+          "is not a valid function location!"
+        )
+      if data entity @s CMD_LOC at @s function ~/try_command:
+        try_action(
+          "command", 
+          "$$(command)", 
+          CMD_LOC, 
+          "is not a valid command!"
+        )
+      data remove entity @s action['type']
+    tag @s remove smithed.interaction.player

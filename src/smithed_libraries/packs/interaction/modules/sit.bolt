@@ -1,0 +1,84 @@
+# --------------------------------------------------- #
+# --------------------           -------------------- #
+# ---------------         SIT         --------------- #
+# --------------------           -------------------- #
+# --------------------------------------------------- #
+FUNCTION_LOCATION = "smithed.interaction:impl/custom/sit"
+PUBLIC_TAG = f"#{FUNCTION_LOCATION.replace('impl/','')}"
+function FUNCTION_LOCATION:
+  raw # @public
+  append function_tag smithed.interaction:on_right_click/sit {"values":[PUBLIC_TAG]}
+
+  # Functions
+  AT_HEIGHT = ~/at_height
+  SEC = ~/sec
+  TICK = ~/tick
+  
+  # Predicates
+  HAS_TEMP_ID = ~/has_temp_id
+  HAS_PASSENGER = ~/has_passenger
+
+  predicate HAS_PASSENGER {
+    "type":"minecraft:entity_properties",
+    "entity":"this",
+    "predicate":{
+      "minecraft:passenger":{}
+    }
+  }
+  predicate HAS_TEMP_ID {
+    "type": "minecraft:int_value_check",
+    "value": {
+      "type": "minecraft:score",
+      "target": {"type": "minecraft:fixed","name": "#temp"},
+      "score": "smithed.interaction.sittable_id"
+    },
+    "test": {
+      "type": "minecraft:score",
+      "target": "this",
+      "score": "smithed.interaction.sittable_id"
+    }
+  }
+  
+  # Follow
+  if data entity @s data.smithed_interaction.on_right_click{height:"follow"} return:
+    tag @s add smithed.interaction.sittable_interaction.follow
+    unless score @s smithed.interaction.sittable_id matches -2147483648..2147483647 store result score @s smithed.interaction.sittable_id run scoreboard players add #next smithed.interaction.sittable_id 1
+    store result score #temp smithed.interaction.sittable_id run scoreboard players get @s smithed.interaction.sittable_id
+    unless entity @e[tag=smithed.interaction.sittable_display.follow,type=item_display,distance=..0.001,predicate=(HAS_TEMP_ID)] summon item_display:
+      scoreboard players operation @s smithed.interaction.sittable_id = #temp smithed.interaction.sittable_id
+      tag @s add smithed.interaction.sittable_display
+      tag @s add smithed.interaction.sittable_display.follow
+      ride @p[tag=smithed.interaction.player] dismount
+      ride @p[tag=smithed.interaction.player] mount @s
+
+  # Normal
+  store result storage smithed.interaction:temp sitting.height double 0.5 run data get entity @s height
+  data modify storage smithed.interaction:temp sitting.height set from entity @s data.smithed_interaction.on_right_click.height
+  
+  with storage smithed.interaction:temp sitting:
+    raw f"$execute positioned ~ ~$(height) ~ run function {AT_HEIGHT}"
+    function AT_HEIGHT:
+      kill @e[tag=smithed.interaction.sittable_display,distance=..0.01,type=item_display,predicate=!(HAS_PASSENGER)]
+      unless entity @e[tag=smithed.interaction.sittable_display,distance=..0.01,type=item_display] summon item_display:
+        tag @s add smithed.interaction.sittable_display
+        ride @p[tag=smithed.interaction.player] dismount
+        ride @p[tag=smithed.interaction.player] mount @s
+
+  ## Helpers :D
+  append function smithed.interaction:impl/technical/load:
+    raw # custom : sit
+    scoreboard objectives add smithed.interaction.sittable_id dummy
+    scoreboard players add #next smithed.interaction.sittable_id 0
+    schedule function SEC 1t
+    schedule function TICK 1t
+
+  function SEC:
+    schedule function ~/ 20t
+    kill @e[tag=smithed.interaction.sittable_display,type=item_display,predicate=!(HAS_PASSENGER)]
+  
+  function TICK:
+    schedule function ~/ 1t
+    as @e[tag=smithed.interaction.sittable_display.follow,type=item_display] at @s:
+      store result score #temp smithed.interaction.sittable_id run scoreboard players get @s smithed.interaction.sittable_id
+      unless entity @e[tag=smithed.interaction.sittable_interaction.follow,type=interaction,distance=..0.001,predicate=(HAS_TEMP_ID)]:
+        tp @s @n[tag=smithed.interaction.sittable_interaction.follow,type=interaction,predicate=(HAS_TEMP_ID)]
