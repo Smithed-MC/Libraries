@@ -50,8 +50,12 @@ packs = [
 ]
 
 
-def ensure_pack_exists(pack: str, beet: Any):
-    """Create the pack on smithed if it doesn't exist yet."""
+def ensure_pack_exists(pack: str, beet: Any, first_version: Any) -> bool:
+    """Create the pack on smithed if it doesn't exist yet.
+
+    Smithed requires at least one version on creation, so the pack is created with
+    `first_version`. Returns True if it was, meaning the version is already uploaded.
+    """
 
     try:
         resp = requests.get(url=get_url.format(pack=pack), timeout=30)
@@ -61,7 +65,7 @@ def ensure_pack_exists(pack: str, beet: Any):
     if resp.status_code != 404:
         if not 200 <= resp.status_code < 300:
             raise SystemExit(f"Failed to fetch {pack}: HTTP {resp.status_code}")
-        return
+        return False
 
     readme = packs_root / pack / "README.md"
     pack_data = {
@@ -77,7 +81,7 @@ def ensure_pack_exists(pack: str, beet: Any):
                 else ""
             ),
         },
-        "versions": [],
+        "versions": [first_version],
         "categories": ["Library"],
     }
 
@@ -92,16 +96,19 @@ def ensure_pack_exists(pack: str, beet: Any):
         raise SystemExit(f"Failed to create {pack}: {type(exc).__name__}") from None
 
     print(resp.text)
-    # 409 means the pack was created in the meantime, which is fine
-    if not 200 <= resp.status_code < 300 and resp.status_code != 409:
+    # 409 means the pack was created in the meantime, so the version still needs
+    # to be uploaded
+    if resp.status_code == 409:
+        return False
+    if not 200 <= resp.status_code < 300:
         raise SystemExit(f"Failed to create {pack}: HTTP {resp.status_code}")
+    return True
 
 
 # upload packs to smithed
 for pack, version in packs:
     # load in beet file from pack directory
     beet = yaml.safe_load((packs_root / pack / "beet.yaml").read_text())
-    ensure_pack_exists(pack, beet)
 
     payload = deepcopy(payload_template)
 
@@ -128,6 +135,9 @@ for pack, version in packs:
         {"id": f"{dependency}", "version": version}
         for dependency, version in beet.get("meta", {}).get("depends_on", {}).items()
     ]
+
+    if ensure_pack_exists(pack, beet, payload):
+        continue
 
     # send post request
     try:
