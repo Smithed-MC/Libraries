@@ -2,6 +2,7 @@ import json
 import os
 import subprocess
 from pathlib import Path
+from typing import Any
 
 import github_action_utils as gha
 import yaml
@@ -9,6 +10,27 @@ import yaml
 # Load manifest
 manifest = json.loads(Path("dist/manifest.json").read_text())
 last_commit = manifest["last_commit"]
+
+# Make sure the last commit is reachable, otherwise every pack would look new
+subprocess.run(["git", "cat-file", "-e", f"{last_commit}^{{commit}}"], check=True)
+
+
+def read_old_beet_yaml(beet_yaml_path: Path) -> Any | None:
+    """Parse the "beet.yaml" file at the last commit, or None if the pack is new."""
+
+    # Packs lived at the repo root before being moved under "src"
+    for path in (beet_yaml_path, beet_yaml_path.relative_to("src")):
+        try:
+            data = subprocess.check_output(
+                ["git", "show", f"{last_commit}:{path}"],
+                stderr=subprocess.DEVNULL,
+            )
+        except subprocess.CalledProcessError:
+            continue
+        return yaml.safe_load(data.decode())
+
+    return None
+
 
 # Initialize the list of packs to build
 packs: list[tuple[Path, str]] = []
@@ -18,21 +40,10 @@ for pack in Path("src/smithed_libraries/packs").glob("*"):
     # Gather beet yaml path and parse it
     beet_yaml_path = pack / "beet.yaml"
     beet_yaml = yaml.safe_load(beet_yaml_path.read_text())
+    old_beet_yaml = read_old_beet_yaml(beet_yaml_path)
 
-    # Parse the "beet.yaml" file for the previous commit
-    try:
-        old_beet_yaml_data = subprocess.check_output(
-            ["git", "show", f"{last_commit}:" + str(beet_yaml_path)],
-            stderr=subprocess.DEVNULL,
-        )
-    except subprocess.CalledProcessError:
-        old_beet_yaml_data = subprocess.check_output(
-            ["git", "show", f"{last_commit}:" + str(beet_yaml_path.relative_to("src"))]
-        )
-    old_beet_yaml = yaml.safe_load(old_beet_yaml_data.decode())
-
-    # Check if the pack's version number has changed and add pack to list of builds
-    if beet_yaml["version"] != old_beet_yaml["version"]:
+    # Build new packs and packs whose version number has changed
+    if old_beet_yaml is None or beet_yaml["version"] != old_beet_yaml["version"]:
         packs.append((pack, beet_yaml["version"]))
 
 # Build the packs (if there are any to build)
