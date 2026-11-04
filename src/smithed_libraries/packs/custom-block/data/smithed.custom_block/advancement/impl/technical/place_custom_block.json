@@ -1,0 +1,21 @@
+{
+    "criteria": {
+        "requirement": {
+            "trigger": "minecraft:placed_block",
+            "conditions": {
+                "location": {
+                    "type": "minecraft:location_check",
+                    "predicate": {
+                        "block": {
+                            "blocks": "#smithed.custom_block:placeable",
+                            "nbt": "{Items:[{components:{\"minecraft:custom_data\":{smithed:{block:{}}}}}]}"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "rewards": {
+        "function": "smithed.custom_block:impl/place"
+    }
+}

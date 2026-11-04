@@ -1,81 +1,61 @@
 name: Build Nightly Libraries
 
-on: 
+on:
   push:
     branches:
       - main
     paths:
-      - smithed_libraries/packs/**
+      - src/smithed_libraries/packs/**
 
   pull_request:
     types: [opened, synchronize, reopened]
     paths:
-      - smithed_libraries/packs/**
-  
+      - src/smithed_libraries/packs/**
+
   workflow_dispatch:
 
 jobs:
   build-linux:
     runs-on: ubuntu-latest
-    
+
     #----------------------------------------------
     #       check-out repo and set-up python
     #----------------------------------------------
     steps:
-    - uses: actions/checkout@v3
+      - uses: actions/checkout@v7.0.1
 
-    - name: Set up Python 3.10
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.10'
+      #----------------------------------------------
+      #  -----  install & configure poetry  -----
+      #----------------------------------------------
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v10.2.0
+        with:
+          version: "0.12.11"
+          python-version: "3.14"
+          enable-cache: true
+          cache-python: true
+          cache-dependency-glob: uv.lock
 
-    #----------------------------------------------
-    #  -----  install & configure poetry  -----
-    #----------------------------------------------
-    - name: Cache poetry
-      id: cache-poetry
-      uses: actions/cache@v3
-      with:
-        path: ~/.local
-        key: poetry-${{ runner.os }}
+      - name: Set up Python 3.14
+        run: uv python install 3.14
 
-    - name: Install Poetry
-      if: steps.cache-poetry.outputs.cache-hit != 'true'
-      uses: snok/install-poetry@v1
-      with:
-        version: '1.2.2'
-        virtualenvs-in-project: true
+      #----------------------------------------------
+      #             install dependencies
+      #----------------------------------------------
+      - name: Install workflow dependencies
+        run: uv sync --locked --no-default-groups --group github-workflows
 
-    #----------------------------------------------
-    #       load cached venv if cache exists
-    #----------------------------------------------
-    - name: Setup cache
-      id: cached-poetry-dependencies
-      uses: actions/cache@v3
-      with:
-        path: .venv
-        key: venv-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
-        restore-keys: |
-          venv-${{ runner.os }}-
+      #----------------------------------------------
+      #          Build libraries via beet
+      #----------------------------------------------
+      - name: Build via beet
+        run: uv run --locked --no-default-groups --group github-workflows beet -s "data_pack.zipped = true" -s "resource_pack.zipped = true"
 
-    #----------------------------------------------
-    # install dependencies if cache does not exist
-    #----------------------------------------------
-    - name: Install dependencies
-      if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
-      run: poetry install
-    
-    #----------------------------------------------
-    #          Build libraries via beet
-    #----------------------------------------------
-    - name: Build via beet
-      run: poetry run beet -s "data_pack.zipped = true" -s "resource_pack.zipped = true"
-
-    #----------------------------------------------
-    #           Upload artifacts to GH
-    #----------------------------------------------
-    - name: Upload a Build Artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: packs
-        path: dist/
+      #----------------------------------------------
+      #           Upload artifacts to GH
+      #----------------------------------------------
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: packs
+          path: dist/

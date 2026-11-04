@@ -1,4 +1,5 @@
-broadcast: smithed_libraries/packs/*
+minecraft: "26.3"
+broadcast: src/smithed_libraries/packs/*
 extend: beet.yaml
 
-output: ../../../dist
+output: ../../../../dist

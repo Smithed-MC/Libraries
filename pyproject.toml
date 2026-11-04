@@ -1,44 +1,54 @@
-[tool.poetry]
-name = "smithed-libraries"
-version = "0.16.5"
+[project]
+authors = [{name = "Smithed Council", email = "team@smithed.dev"}]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.14",
+]
+dependencies = [
+  "mecha>=0.106.0,<0.107",
+  "bolt>=0.51.0,<0.52",
+  "bolt-expressions>=0.19.2,<0.20",
+  "beet>=0.119.0",
+  "pydantic>=2.12.4,<3",
+  "rich>=13.9.2,<16",
+]
 description = "All of the Smithed Libraries"
-authors = ["Smithed Council <team@smithed.dev>"]
 license = "MIT"
+name = "smithed-libraries"
 readme = "README.md"
+requires-python = ">=3.14,<4"
+version = "0.17.0"
 
-[tool.poetry.dependencies]
-python = "^3.10"
-bolt-expressions = "^0.17.0"
-pydantic = "^2.5.2"
-rich = "^13.9.2"
-beet = "^0.112.0"
-bolt = "^0.49.2"
-mecha = "^0.101.0"
+[dependency-groups]
+dev = [
+  "devtools>=0.9.0,<0.10",
+  "ty>=0.0.85",
+  "ruff>=0.16.10",
+]
 
-[tool.poetry.group.dev.dependencies]
-black = "^22.8.0"
-isort = "^5.10.1"
-devtools = "^0.9.0"
-python-semantic-release = "^7.32.2"
-requests = "^2.28.1"
-github-action-utils = "^1.1.0"
+# Tools used by .github/workflows to build libraries and publish releases.
+github-workflows = [
+  "python-semantic-release>=10.7.0,<11",
+  "requests>=2.28.1,<3",
+  "github-action-utils>=1.1.0,<2",
+  "pyyaml>=6.0.3,<7",
+]
 
-[tool.semantic_release]
-branch = "main"
-version_variable = ["smithed_libraries/__init__.py:__version__"]
-version_toml = "pyproject.toml:tool.poetry.version"
-major_on_zero = false
-build_command = "poetry build"
-
-[tool.isort]
-profile = "black"
-
-[tool.pyright]
-typeCheckingMode = "strict"
-
-[tool.poe.tasks]
-format = {shell = "isort smithed_libraries & black smithed_libraries"}
+[tool.uv]
+default-groups = "all"
 
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+build-backend = "uv_build"
+requires = ["uv_build>=0.12.11,<0.13.0"]
+
+[tool.semantic_release]
+allow_zero_version = true
+assets = ["uv.lock"]
+build_command = "uv lock --upgrade-package smithed-libraries && uv build"
+build_command_env = ["UV_CACHE_DIR", "UV_PYTHON"]
+major_on_zero = false
+version_toml = ["pyproject.toml:project.version"]
+version_variables = ["src/smithed_libraries/__init__.py:__version__"]
+
+[tool.semantic_release.branches.main]
+match = "^main$"

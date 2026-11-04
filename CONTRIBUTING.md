@@ -1,22 +1,24 @@
 # Contributing
-Contributions are welcome! Make sure to first open an issue discussing the problem or the new feature before creating a pull request. This project uses [poetry](https://python-poetry.org/) and [beet](https://mcbeet.dev) for building and publishing to pypi.
+Contributions are welcome! Make sure to first open an issue discussing the problem or the new feature before creating a pull request. This project uses [uv](https://docs.astral.sh/uv/) and [beet](https://mcbeet.dev) for building and publishing to pypi.
 
 ## Setup
-Make sure you install [poetry](https://python-poetry.org/docs/) via the official instructions. Then, setup can proceed like so:
+Make sure you install [uv](https://docs.astral.sh/uv/getting-started/installation/) via the official instructions. Then, setup can proceed like so:
 
 ```bash
 $ git clone https://github.com/Smithed-MC/Libraries
 $ cd Libraries
-$ poetry install
+$ uv sync
 
 # To build all projects
-$ beet
+$ uv run beet
 
 # To build just one library
-$ beet -p smithed_libraries/packs/actionbar
+$ uv run beet -p smithed_libraries/packs/actionbar
 # or
-$ cd smithed_libraries/packs/actionbar && beet
+$ cd smithed_libraries/packs/actionbar && uv run beet
 ```
+
+The rest of this guide will purely use `beet` but you may need `uv run beet` if your `.venv` isn't auto-activated by your terminal.
 
 ## Developing
 Since we leverage the beet toolchain, there are a couple of useful commands you can use while developing the libraries!
@@ -35,40 +37,29 @@ $ beet -p smithed_libraries/packs/actionbar watch --reload
 $ cd smithed_libraries/packs/actionbar && beet watch --reload
 ```
 
+## New Library
+Copy the [`template`][./template] to the `src/smithed_libraries/packs` folder. Configure the library id and update the `beet.yaml` file.
+
+> (soon) A `beet` subcommand to easily add new libraries!
+
+
 ## Code Style
-The code follows the [black](https://github.com/psf/black) code style. Import statements are sorted with [isort](https://pycqa.github.io/isort/). The project must type-check with [pyright](https://github.com/microsoft/pyright). We recommend running the type-checker via the VSCode Python extension (discussed below).
+For all `python` code (generally written for `beet` plugins), we follow standard PEP-8 conventions via [ruff](https://docs.astral.sh/ruff/). The project must type-check with [ty](https://docs.astral.sh/ty/). We recommend running the type-checker via the VSCode Python extension (discussed below).
 
 **Format**
 ```bash
-# omit `poetry run` if u have the virtualenv activated
-$ poetry run isort smithed_libraries
-$ poetry run black smithed_libraries
+$ ruff format src
 ```
 
 **Check**
 ```bash
-# omit `poetry run` if u have the virtualenv activated
-$ poetry run black --check smithed_libraries
-$ poetry run isort --check-only smithed_libraries
+$ ruff check src
 ```
-
-You can run `poetry self add 'poethepoet[poetry_plugin]'` to get access to an easier set of commands:
-```bash
-# omit `poetry` if u have the virtualenv activated
-$ poetry poe format
-$ poetry poe check
-```
-
-## IDE
-We recommend using [VSCode](https://code.visualstudio.com/). The following recommendations are made based on if you are making minecraft pack and/or python contributions.
 
 ### Minecraft
-We recommend using the [Bolt Syntax Definition](https://ptb.discord.com/channels/900530660677156924/900545626549387286/973086846227718185) (This links to the [Beet Discord Server](https://discord.gg/98MdSGMm8j) - Github coming soon). This extension is compatible with normal `mcfunction` commands while also allowing for multiline and bolt support.
+We recommend using the standard [syntax-mcfunction](https://github.com/MinecraftCommands/syntax-mcfunction) for syntax highlighting.
 
 > You can use DHP / Spyglass for most of the libraries as currently, only some libraries use `bolt` extensively.
-
-### Python
-We recommend using the official [Python](https://marketplace.visualstudio.com/items?itemName=ms-python.python) extension. This extension comes with type-checking support alongside automatic formatting and import sorting via the settings (coming soon).
 
 ## Commits
 When committing code, follow the [Conventional Commit](https://www.conventionalcommits.org/en/v1.0.0/) style for writing commit messages:

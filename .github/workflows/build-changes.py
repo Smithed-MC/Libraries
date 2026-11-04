@@ -3,7 +3,7 @@ import os
 import subprocess
 from pathlib import Path
 
-import github_action_utils as gha  # type: ignore
+import github_action_utils as gha
 import yaml
 
 # Load manifest
@@ -14,17 +14,22 @@ last_commit = manifest["last_commit"]
 packs: list[tuple[Path, str]] = []
 
 # Get a list of all the packs in the "smithed_libraries/packs" directory
-for pack in Path("smithed_libraries/packs").glob("*"):
+for pack in Path("src/smithed_libraries/packs").glob("*"):
     # Gather beet yaml path and parse it
     beet_yaml_path = pack / "beet.yaml"
     beet_yaml = yaml.safe_load(beet_yaml_path.read_text())
 
     # Parse the "beet.yaml" file for the previous commit
-    old_beet_yaml = yaml.safe_load(
-        subprocess.check_output(
-            ["git", "show", f"{last_commit}:" + str(beet_yaml_path)]
-        ).decode()
-    )
+    try:
+        old_beet_yaml_data = subprocess.check_output(
+            ["git", "show", f"{last_commit}:" + str(beet_yaml_path)],
+            stderr=subprocess.DEVNULL,
+        )
+    except subprocess.CalledProcessError:
+        old_beet_yaml_data = subprocess.check_output(
+            ["git", "show", f"{last_commit}:" + str(beet_yaml_path.relative_to("src"))]
+        )
+    old_beet_yaml = yaml.safe_load(old_beet_yaml_data.decode())
 
     # Check if the pack's version number has changed and add pack to list of builds
     if beet_yaml["version"] != old_beet_yaml["version"]:
@@ -34,15 +39,20 @@ for pack in Path("smithed_libraries/packs").glob("*"):
 if packs:
     subprocess.run(
         [
-            "poetry",
+            "uv",
             "run",
+            "--locked",
+            "--no-default-groups",
+            "--group",
+            "github-workflows",
             "beet",
             "--log",
             "INFO",
             "-p",
             "beet-release.yaml",
             *[f"-s pipeline[0].broadcast[] = {pack}" for pack, _ in packs],
-        ]
+        ],
+        check=True,
     )
 
 build_changes = str(bool(packs)).lower()
