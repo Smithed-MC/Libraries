@@ -1,4 +1,4 @@
-from beet import Context
+from beet import Context, ContextIntProvider, ContextIntProviderTag, Predicate, PredicateTag
 from beet.contrib.find_replace import find_replace
 from beet.contrib.rename_files import rename_files
 
@@ -21,6 +21,72 @@ def inject_version(ctx: Context):
     ctx.require(rename_files(data_pack={"match": opts.refactor.match} | substitution))
 
 
+def pack_enabled_tags(ctx: Context):
+    opts = ctx.inject(Versioning).opts
+    for name, part in opts.version.named_parts():
+        ctx.data[f"{opts.namespace}:impl/internal/{name}"] = ContextIntProvider(str(part))
+    ctx.data[f"{opts.namespace}:impl/major"] = ContextIntProvider({
+        "type": "minecraft:max",
+        "inputs": f"{opts.namespace}:impl/internal/major"
+    })
+    ctx.data[f"{opts.namespace}:impl/minor"] = ContextIntProvider({
+        "type": "minecraft:conditional",
+        "condition": {
+            "type": "minecraft:int_value_check",
+            "value": {
+                "type": "minecraft:max",
+                "inputs": f"#{opts.namespace}:major"
+            },
+            "test": f"{opts.namespace}:impl/internal/major"
+        },
+        "on_true": f"{opts.namespace}:impl/internal/minor",
+        "on_false": -1
+    })
+    ctx.data[f"{opts.namespace}:impl/patch"] = ContextIntProvider({
+        "type": "minecraft:conditional",
+        "condition": {
+            "type": "minecraft:int_value_check",
+            "value": {
+                "type": "minecraft:max",
+                "inputs": f"#{opts.namespace}:major"
+            },
+            "test": f"{opts.namespace}:impl/internal/major"
+        },
+        "on_true": {
+            "type": "minecraft:conditional",
+            "condition": {
+                "type": "minecraft:int_value_check",
+                "value": {
+                    "type": "minecraft:max",
+                    "inputs": f"#{opts.namespace}:minor"
+                },
+                "test": f"{opts.namespace}:impl/internal/minor"
+            },
+            "on_true": f"{opts.namespace}:impl/internal/patch",
+            "on_false": -1
+        },
+        "on_false": -1
+    })
+
+    for name, part in opts.version.named_parts():
+        ctx.data[f"{opts.namespace}:{name}"] = ContextIntProviderTag({
+            "values": [
+                f"{opts.namespace}:impl/{name}"
+            ]
+        })
+
+    ctx.data[f"{opts.namespace}:installed"] = Predicate({
+        "type": "minecraft:random_chance",
+        "chance": 1,
+    })
+    ctx.data[f"{opts.namespace}:installed"] = PredicateTag({
+        "values": [
+            f"{opts.namespace}:installed"
+        ]
+    })
+
+
+
 def beet_default(ctx: Context):
     """This plugins generates all the versioning requirements that LL needs
 
@@ -35,6 +101,9 @@ def beet_default(ctx: Context):
 
     # all things for lantern load impl
     ctx.require(generate_load)
+
+    # generate Pack Enabled Tags convention
+    ctx.require(pack_enabled_tags)
 
     # refactors file names and paths to inject version
     ctx.require(inject_version)
