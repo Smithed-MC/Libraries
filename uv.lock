@@ -1,5 +1,5 @@
 version = 1
-revision = 5
+revision = 3
 requires-python = ">=3.14, <4"
 
 [[package]]
@@ -830,9 +830,8 @@ wheels = [
 
 [[package]]
 name = "smithed-libraries"
-version = "0.18.1"
+version = "0.19.0"
 source = { editable = "." }
-default-groups = "all"
 dependencies = [
     { name = "beet" },
     { name = "bolt" },
