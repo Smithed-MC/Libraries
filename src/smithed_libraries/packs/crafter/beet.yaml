@@ -10,13 +10,11 @@ data_pack:
   name: Smithed Crafter
   load: .
   zipped: true
-  pack_format: 101
 
 resource_pack:
   name: Smithed Crafter RP
   load: .
   zipped: true
-  pack_format: 84
 
 require:
   - smithed_libraries.plugins.companion_mod
